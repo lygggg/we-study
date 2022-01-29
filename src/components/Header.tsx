@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import styled from "styled-components";
+
+import Menu from "./Menu";
 
 const Header = () => {
   return (
@@ -18,6 +19,7 @@ const Header = () => {
           </HeadContainer>
         </Head>
       </Container>
+      <Menu />
     </>
   );
 };
@@ -32,7 +34,7 @@ const HeadContainer = styled.div`
 
 const LoginText = styled.div`
   color: #fff;
-  font-size: 22px;
+  font-size: 20px;
 `;
 const NameText = styled.div`
   font-size: 40px;

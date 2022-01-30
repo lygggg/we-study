@@ -13,7 +13,7 @@ const Header = () => {
             <StyledLink to={`/`}>
               <NameText>We Study</NameText>
             </StyledLink>
-            <StyledLink to={`/basket`}>
+            <StyledLink to={`/login`}>
               <LoginText>로그인</LoginText>
             </StyledLink>
           </HeadContainer>

@@ -1,7 +1,7 @@
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 
-const Modal = () => {
+const AddModal = () => {
   return (
     <Popup
       modal={true}
@@ -13,7 +13,7 @@ const Modal = () => {
           <Container>
             <Title>
               <OnButton onClick={close}>X</OnButton>
-              <Inner>질문 추가</Inner>
+              <Inner>네트워크 질문 추가</Inner>
             </Title>
             <PaddingContainer>
               <TableContainer>
@@ -43,6 +43,15 @@ const Modal = () => {
                 </table>
               </TableContainer>
             </PaddingContainer>
+            <ButtonContainer>
+              <OkButton
+                onClick={() => {
+                  close();
+                }}
+              >
+                확인
+              </OkButton>
+            </ButtonContainer>
           </Container>
         </>
       )}
@@ -50,6 +59,12 @@ const Modal = () => {
   );
 };
 
+const OkButton = styled.button`
+  font-size: 17px;
+`;
+const ButtonContainer = styled.div`
+  text-align: center;
+`;
 const PaddingContainer = styled.div`
   padding: 14px;
 `;
@@ -89,7 +104,7 @@ const Title = styled.div`
 const Inner = styled.div`
   padding: 14px;
   display: flex;
-  font-size: 17px;
+  font-size: 25px;
   height: 70px;
   align-items: center;
 `;
@@ -107,4 +122,4 @@ const Qth = styled.th`
   border-right: 1px solid #ddd;
   padding: 10px;
 `;
-export default Modal;
+export default AddModal;

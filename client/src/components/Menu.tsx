@@ -9,6 +9,7 @@ const Menu = () => {
         <Text>자바스크립트</Text>
         <Text>React</Text>
         <Text>자료구조</Text>
+        <Text>프론트엔드 질문</Text>
       </Container>
     </>
   );

@@ -75,7 +75,7 @@ const OkButton = styled.button`
   margin-top: 60px;
   height: 60px;
   width: 216px;
-  background: #0073e9;
+  background: #0c151c;
   color: #fff;
   border: 2px solid #0073e9;
   border-radius: 4px;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const LoginPage = () => {
@@ -23,7 +24,12 @@ const LoginPage = () => {
         </Form>
         <div>
           <InnerButton>
-            <Button>회원가입</Button>
+            <Button>
+              <Link style={{ textDecoration: "none" }} to="/signup">
+                {" "}
+                회원가입
+              </Link>
+            </Button>
           </InnerButton>
         </div>
         <SearchDiv>

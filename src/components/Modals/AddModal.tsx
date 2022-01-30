@@ -84,9 +84,8 @@ const Container = styled.div`
 `;
 
 const AddButton = styled.button`
-  color: #0073e9;
-  border: 1px solid #0073e9;
-  background: #ffffff;
+  color: #fff;
+  background: #0c151c;
   alignself: center;
   height: 50px;
   align-self: center;

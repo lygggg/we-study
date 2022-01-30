@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import QuestionStore from "../stores/QuestionStore";
+import Question from "./Question";
+import Modal from "./Modals/AddModal";
 
 const QuestionList = () => {
-  const [questionList, setQuestionList] = useState();
+  const [questionList, setQuestionList] = useState([]);
+
+  const fetchQuestions = async () => {
+    const data = await QuestionStore.getQuestions();
+    setQuestionList(data);
+  };
 
   useEffect(() => {
-    setQuestionList(QuestionStore.getQuestions());
-  });
+    fetchQuestions();
+  }, []);
   return (
     <>
+      <Modal />
       <Container>
         {questionList.map((question) => (
-          <div key={question.id}>{question.description}</div>
+          <Inner key={question.id}>
+            <div>
+              <Question question={question}></Question>
+            </div>
+          </Inner>
         ))}
       </Container>
     </>
@@ -21,6 +33,17 @@ const QuestionList = () => {
 
 const Container = styled.div`
   margin-top: 60px;
+  text-align: center;
+`;
+
+const Inner = styled.div`
+  height: 100px;
+  margin-top: 20px;
+  border-top: 0.1px solid #d7e2eb;
+  border-bottom: 0.1px solid #d7e2eb;
+  display: flex;
+  align-items: center;
+  place-content: center;
 `;
 
 export default QuestionList;

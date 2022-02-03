@@ -1,25 +1,44 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { loginEmail, loginGoogle } from "../firebase/Firebase.js";
 import styled from "styled-components";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onGoggleClick = async (event) => {
+    loginGoogle().then((result) => {
+      console.log(result);
+    });
+  };
+
+  const onLoginClick = async (event) => {
+    loginEmail();
+  };
+
   return (
     <MainDiv>
       <InnerDiv>
         <Title>로그인</Title>
         <Form>
           <Input
+            value={email}
+            onChange={({ target: { value } }) => setEmail(value)}
             placeholder="아이디를 입력해주세요"
             type="email"
             autoComplete="on"
           />
           <Input
+            value={password}
+            onChange={({ target: { value } }) => setPassword(value)}
             placeholder="패스워드를 입력해주세요"
             autoComplete="on"
             maxLength="30"
           />
 
           <InnerButton type="button">
-            <LoginButton>로그인</LoginButton>
+            <LoginButton onClick={onLoginClick}>로그인</LoginButton>
           </InnerButton>
         </Form>
         <div>
@@ -30,6 +49,9 @@ const LoginPage = () => {
                 회원가입
               </Link>
             </Button>
+          </InnerButton>
+          <InnerButton type="button">
+            <Button onClick={onGoggleClick}>구글 로그인</Button>
           </InnerButton>
         </div>
         <SearchDiv>

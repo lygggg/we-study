@@ -16,6 +16,10 @@ function App() {
             <Route path="/" element={<QuestionPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route
+              path="/categories/:categoryId/page/:pageNum"
+              element={<QuestionPage />}
+            />
           </Routes>
         </Container>
       </BrowserRouter>

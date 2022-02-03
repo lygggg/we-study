@@ -1,9 +1,8 @@
 const Quiz = require("../models/quiz");
 
 module.exports = {
-  async getQuizAll() {
-    const quizs = await Quiz.find({});
-    console.log(quizs);
+  async getQuizAll(category) {
+    const quizs = await Quiz.find({ category: category });
     return quizs;
   },
 };

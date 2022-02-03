@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { signupEmail } from "../firebase/Firebase.js";
 import styled from "styled-components";
 
 const SignUpPage = () => {
@@ -6,6 +7,10 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [name, setName] = useState("");
+
+  const onSignUpEmail = async () => {
+    signupEmail(email, password);
+  };
   return (
     <Container>
       <Inner>
@@ -58,7 +63,9 @@ const SignUpPage = () => {
           </div>
 
           <div>
-            <SignButton type="primary">동의하고 가입하기</SignButton>
+            <SignButton onClick={onSignUpEmail} type="button">
+              가입하기
+            </SignButton>
           </div>
         </form>
       </Inner>

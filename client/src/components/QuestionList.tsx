@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getQuestion } from "../services/Question";
+import MenuStore from "../stores/MenuStore";
 import Question from "./Question";
 import Modal from "./Modals/AddModal";
 
 const QuestionList = () => {
+  const { categoryId } = useParams();
   const [questionList, setQuestionList] = useState([]);
 
   const fetchQuestions = async () => {
-    const data = await getQuestion();
+    const data = await getQuestion({
+      category: categoryId,
+    });
     setQuestionList(data.quizs);
   };
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [categoryId]);
+
   return (
     <>
       <Modal />

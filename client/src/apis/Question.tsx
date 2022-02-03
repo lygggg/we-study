@@ -1,14 +1,13 @@
 import axios from "axios";
-import QuestionStore from "../stores/QuestionStore";
 
 export const getQuestion = async (): Promise<any> => {
   try {
-    const { data } = await QuestionStore.getQuestions;
+    const { data } = await axios.get(`${import.meta.env.VITE_APP_API}/quiz`);
     return data;
   } catch (e) {
-    if (confirm("retry ")) {
-      return getQuestion();
-    }
-    throw e;
+    // if (confirm("retry ")) {
+    //   return getQuestion();
+    // }
+    // throw e;
   }
 };

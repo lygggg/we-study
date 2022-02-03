@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import QuestionStore from "../stores/QuestionStore";
+import { getQuestion } from "../services/Question";
 import Question from "./Question";
 import Modal from "./Modals/AddModal";
 
@@ -9,6 +10,8 @@ const QuestionList = () => {
 
   const fetchQuestions = async () => {
     const data = await QuestionStore.getQuestions();
+    const data1 = await getQuestion();
+    console.log(data1);
     setQuestionList(data);
   };
 

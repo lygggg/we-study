@@ -6,6 +6,8 @@ import {
   GoogleAuthProvider, //google login 기능
   signInWithEmailAndPassword, // email 로그인
   createUserWithEmailAndPassword, //email 회원가입
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -21,6 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
 export const signupEmail = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -51,4 +54,16 @@ export const loginGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
     });
+};
+
+export const setLoginState = () => {
+  return setPersistence(auth, browserSessionPersistence);
+};
+
+export const checkLogin = () => {
+  return auth.currentUser;
+};
+
+export const userLogOut = () => {
+  return auth.signOut();
 };

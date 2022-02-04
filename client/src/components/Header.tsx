@@ -1,10 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { checkLogin, userLogOut } from "../firebase/Firebase.js";
 import Menu from "./Menu";
 
 const Header = () => {
+  const navigateTo = useNavigate();
+
+  const onLogOutClick = () => {
+    userLogOut();
+    window.location.href = "/";
+  };
+
   return (
     <>
       <Container>
@@ -13,9 +23,15 @@ const Header = () => {
             <StyledLink to={`/`}>
               <NameText>We Study</NameText>
             </StyledLink>
-            <StyledLink to={`/login`}>
-              <LoginText>로그인</LoginText>
-            </StyledLink>
+            {checkLogin() ? (
+              <div>
+                <LoginText onClick={onLogOutClick}>로그아웃</LoginText>
+              </div>
+            ) : (
+              <StyledLink to={`/login`}>
+                <LoginText>로그인</LoginText>
+              </StyledLink>
+            )}
           </HeadContainer>
         </Head>
       </Container>

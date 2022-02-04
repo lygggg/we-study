@@ -12,8 +12,8 @@ const SolveModal = ({ question }) => {
       }}
       trigger={
         <Description>
-          <Item>Q.{question.description}</Item>
-          <Item>제출자:{question.user}</Item>
+          <Item>Q.{question.quizText}</Item>
+          <Item>제출자:{question.userEmail}</Item>
         </Description>
       }
     >
@@ -22,7 +22,7 @@ const SolveModal = ({ question }) => {
           <Container>
             <Title>
               <OnButton onClick={close}>X</OnButton>
-              <Inner>Q.{question.description}</Inner>
+              <Inner>Q.{question.answerText}</Inner>
             </Title>
             <PaddingContainer>
               <TableContainer>

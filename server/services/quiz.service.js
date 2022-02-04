@@ -7,4 +7,10 @@ module.exports = {
 
     res.status(200).json({ quizs });
   },
+
+  async getQuizCount(req, res) {
+    const quizs = await quizRepo.getQuizAllCount();
+
+    res.status(200).json({ quizs });
+  },
 };

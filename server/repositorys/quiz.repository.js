@@ -5,4 +5,9 @@ module.exports = {
     const quizs = await Quiz.find({ category: category });
     return quizs;
   },
+
+  async getQuizAllCount() {
+    const quizs = await Quiz.find();
+    return quizs.length;
+  },
 };

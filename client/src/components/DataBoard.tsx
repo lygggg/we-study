@@ -7,6 +7,17 @@ const DataBoard = () => {
   const [quizCount, setQuizCount] = useState();
   const [userName, setUserName] = useState("로그인 해주세요");
 
+  const fetchQuestions = async () => {
+    const data = await getQuestionCount();
+    setQuizCount(data.quizs);
+  };
+
+  useEffect(() => {
+    if (checkLogin()) {
+      setUserName(checkLogin().email);
+    }
+    fetchQuestions();
+  }, []);
   return (
     <>
       <DataContainer>

@@ -23,7 +23,10 @@ const QuestionList = () => {
 
   return (
     <>
-      <Modal />
+      <Modal
+        category={MenuStore.categories[categoryId]}
+        categoryId={categoryId}
+      />
       <Container>
         {questionList.map((question) => (
           <Inner key={question.id}>

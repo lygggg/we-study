@@ -1,7 +1,28 @@
+import { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
+import { checkLogin } from "../../firebase/Firebase.js";
+import { CreateQuestion } from "../../services/Question";
 
-const AddModal = () => {
+const AddModal = ({ category, categoryId }) => {
+  const [userEmail, setUserEmail] = useState("");
+  const [quizText, setQuizText] = useState("");
+  const [answerText, setAnswerText] = useState("");
+
+  const onClickAddQuiz = async () => {
+    await CreateQuestion({
+      quizText,
+      answerText,
+      category: categoryId,
+      userEmail,
+    });
+  };
+
+  useEffect(() => {
+    if (checkLogin()) {
+      setUserEmail(checkLogin().email);
+    }
+  }, []);
   return (
     <Popup
       modal={true}
@@ -13,7 +34,7 @@ const AddModal = () => {
           <Container>
             <Title>
               <OnButton onClick={close}>X</OnButton>
-              <Inner>네트워크 질문 추가</Inner>
+              <Inner>{category} 질문 추가</Inner>
             </Title>
             <PaddingContainer>
               <TableContainer>
@@ -23,9 +44,9 @@ const AddModal = () => {
                       <Qth>문제</Qth>
                       <Qtd>
                         <Textarea
-                          // value={questionText}
+                          value={quizText}
                           maxLength="200"
-                          // onChange={(v) => setQuestionText(v.target.value)}
+                          onChange={(v) => setQuizText(v.target.value)}
                         ></Textarea>
                       </Qtd>
                     </Qtr>
@@ -33,9 +54,9 @@ const AddModal = () => {
                       <Qth>정답</Qth>
                       <Qtd>
                         <Textarea
-                          // value={questionText}
+                          value={answerText}
                           maxLength="200"
-                          // onChange={(v) => setQuestionText(v.target.value)}
+                          onChange={(v) => setAnswerText(v.target.value)}
                         ></Textarea>
                       </Qtd>
                     </Qtr>
@@ -46,6 +67,7 @@ const AddModal = () => {
             <ButtonContainer>
               <OkButton
                 onClick={() => {
+                  onClickAddQuiz();
                   close();
                 }}
               >

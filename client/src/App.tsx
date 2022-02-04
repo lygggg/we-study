@@ -1,5 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
+import HomePage from "./pages/HomePage";
 import QuestionPage from "./pages/QuestionPage";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
@@ -13,7 +14,7 @@ function App() {
         <Container>
           <Header />
           <Routes>
-            <Route path="/" element={<QuestionPage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route

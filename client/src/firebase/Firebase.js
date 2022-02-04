@@ -21,7 +21,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
@@ -33,7 +32,6 @@ export const loginEmail = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-const provider = new GoogleAuthProvider();
 export const loginGoogle = () => {
   return signInWithPopup(auth, provider)
     .then((result) => {

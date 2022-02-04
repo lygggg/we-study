@@ -1,9 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import { checkLogin, userLogOut } from "../firebase/Firebase.js";
 import Menu from "./Menu";
 

@@ -5,7 +5,8 @@ const router = express.Router();
 const errorCatcher = require("../middlewares/errorCatcher.js");
 const quizService = require("../services/quiz.service.js");
 
-router.post("/", errorCatcher(quizService.getQuizs));
-router.get("/", errorCatcher(quizService.getQuizCount));
+router.get("/", errorCatcher(quizService.getQuizs));
+router.get("/count", errorCatcher(quizService.getQuizCount));
+router.post("/", errorCatcher(quizService.createQuiz));
 
 module.exports = router;

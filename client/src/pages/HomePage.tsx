@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DataBoard from "../components/DataBoard";
 
 const HomePage = () => {
   return (
@@ -8,34 +9,16 @@ const HomePage = () => {
           <TopText>문제를 추가하고 공유하자</TopText>
           <MiddleText>
             당신의 지식을 공유하고 함께 학습해보세요. 파이팅입니다 당신의 지식을
-            공유하고 함께 학습해보세요. 파이팅입니다당신의 지식을 공유하고 함께
+            공유하고 함께 학습해보세요. 파이팅입니다 당신의 지식을 공유하고 함께
             학습해보세요. 파이팅입니다당신의 지식을 공유하고 함께 학습해보세요.
             파이팅입니다
           </MiddleText>
-          <DataContainer>
-            <DataText>문제 개수:</DataText>
-            <DataText>유저닉네임:</DataText>
-            <DataText>추가 문제 개수:</DataText>
-            <DataText>해결 문제 개수:</DataText>
-          </DataContainer>
+          <DataBoard />
         </InnerContainer>
       </Container>
     </>
   );
 };
-
-const DataText = styled.div`
-  color: #fff;
-  font-size: 25px;
-`;
-const DataContainer = styled.div`
-  margin-top: 120px;
-  height: 200px;
-  background-color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
 
 const TopText = styled.div`
   font-size: 25px;

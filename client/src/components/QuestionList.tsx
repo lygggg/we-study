@@ -29,7 +29,7 @@ const QuestionList = () => {
       />
       <Container>
         {questionList.map((question) => (
-          <Inner key={question.id}>
+          <Inner key={question._id}>
             <div>
               <Question question={question}></Question>
             </div>

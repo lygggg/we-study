@@ -1,21 +1,17 @@
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 
-const SolveModal = ({ question }) => {
+const SolveModal = ({ open, question, onClose }) => {
   return (
     <Popup
       modal={true}
+      open={open}
       contentStyle={{
         width: "840px",
         height: "660px",
         backgroundColor: "#eeeeee",
       }}
-      trigger={
-        <Description>
-          <Item>Q.{question.quizText}</Item>
-          <Item>제출자:{question.userEmail}</Item>
-        </Description>
-      }
+      onClose={onClose}
     >
       {(close) => (
         <>
@@ -61,14 +57,6 @@ const SolveModal = ({ question }) => {
     </Popup>
   );
 };
-
-const Description = styled.div`
-  font-size: 25px;
-`;
-
-const Item = styled.div`
-  margin-top: 12px;
-`;
 
 const OkButton = styled.button`
   font-size: 17px;

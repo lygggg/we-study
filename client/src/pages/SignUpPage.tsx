@@ -1,31 +1,53 @@
 import React, { useState } from "react";
-import { signupEmail } from "../firebase/Firebase.js";
 import styled from "styled-components";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { signupEmail } from "../firebase/Firebase.js";
+import { signUpUser } from "../services/SignUp";
+import { SignUpType } from "../models/signUp";
+import { signUpValidation } from "../validations/yup";
+import FormErrorMessage from "../message/FormErrorMessage";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
-  const [name, setName] = useState("");
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<SignUpType>({
+    resolver: yupResolver(signUpValidation),
+    mode: "onBlur",
+  });
 
-  const onSignUpEmail = async () => {
-    signupEmail(email, password);
+  const onClickSignUp = async ({ email, password, name }) => {
+    signupEmail(email, password)
+      .then(async (result) => {
+        const _id = result.user.uid;
+        await signUpUser({ _id, name, email });
+      })
+      .catch((error) => {
+        console.log("실패");
+      });
   };
   return (
     <Container>
       <Inner>
         <Title>회원가입</Title>
-        <form>
+        <form onSubmit={handleSubmit(onClickSignUp)}>
           <div>
             <span>
               <Label>아이디*</Label>
             </span>
             <Input
               placeholder="이메일 형식으로 입력해주세요."
-              value={email}
               type="email"
-              onChange={(v) => setEmail(v.target.value)}
+              {...register("email")}
             />
+            <div>
+              {errors.email && (
+                <FormErrorMessage errorMessage={errors.email.message} />
+              )}
+            </div>
           </div>
           <div>
             <span>
@@ -33,11 +55,15 @@ const SignUpPage = () => {
             </span>
             <Input
               type="password"
-              value={password}
               placeholder="비밀번호
                 (영문 숫자 특수문자 2가지 이상 6~15자 이내)"
-              onChange={(v) => setPassword(v.target.value)}
+              {...register("password")}
             />
+            <div>
+              {errors.password && (
+                <FormErrorMessage errorMessage={errors.password.message} />
+              )}
+            </div>
           </div>
           <div>
             <span>
@@ -45,27 +71,32 @@ const SignUpPage = () => {
             </span>
             <Input
               type="password"
-              value={checkPassword}
               placeholder="비밀번호 확인"
-              onChange={(v) => setCheckPassword(v.target.value)}
+              {...register("checkPassword")}
             />
+            <div>
+              <div>
+                {errors.checkPassword && (
+                  <FormErrorMessage
+                    errorMessage={errors.checkPassword.message}
+                  />
+                )}
+              </div>
+            </div>
           </div>
           <div>
             <span>
               <Label>이름*</Label>
             </span>
-            <Input
-              type="name"
-              value={name}
-              placeholder="이름"
-              onChange={(v) => setName(v.target.value)}
-            />
+            <Input type="name" placeholder="이름" {...register("name")} />
+            <div>
+              {errors.name && (
+                <FormErrorMessage errorMessage={errors.name.message} />
+              )}
+            </div>
           </div>
-
           <div>
-            <SignButton onClick={onSignUpEmail} type="button">
-              가입하기
-            </SignButton>
+            <SignButton type="submit">가입하기</SignButton>
           </div>
         </form>
       </Inner>
@@ -109,7 +140,7 @@ const Input = styled.input`
 
 const Label = styled.span`
   display: inline-block;
-  width: 120px;
+  width: 75px;
   margin-top: 30px;
   font-size: 13px;
   font-weight: bold;

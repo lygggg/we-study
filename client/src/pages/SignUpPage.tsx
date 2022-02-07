@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { signupEmail } from "../firebase/Firebase.js";
 import { signUpUser } from "../services/SignUp";
 import { SignUpType } from "../models/signUp";
-import { signUpValidation } from "../validations/yup";
+import { signUpValidation } from "../validations/signUpYup";
 import FormErrorMessage from "../message/FormErrorMessage";
 
 const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<SignUpType>({
     resolver: yupResolver(signUpValidation),
-    mode: "onBlur",
+    mode: "onBlur", //포커스가 멈췄을때 유효성 트리거
   });
 
   const onClickSignUp = async ({ email, password, name }) => {

@@ -7,12 +7,12 @@ import {
   loginGoogle,
   setLoginState,
 } from "../firebase/Firebase.js";
-import Login from "../models/login";
+import { LoginType } from "../models/login";
 import axios from "axios";
 
 const LoginPage = () => {
   const navigateTo = useNavigate();
-  const { register, handleSubmit } = useForm<Login>();
+  const { register, handleSubmit } = useForm<LoginType>();
   const onGoggleClick = async () => {
     loginGoogle()
       .then((result) => {

@@ -1,56 +1,73 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { loginEmail, loginGoogle } from "../firebase/Firebase.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import {
+  loginEmail,
+  loginGoogle,
+  setLoginState,
+} from "../firebase/Firebase.js";
+import Login from "../models/login";
+import axios from "axios";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onGoggleClick = async (event) => {
-    loginGoogle().then((result) => {
-      console.log(result);
-    });
+  const navigateTo = useNavigate();
+  const { register, handleSubmit } = useForm<Login>();
+  const onGoggleClick = async () => {
+    loginGoogle()
+      .then((result) => {
+        console.log("성공");
+        setLoginState();
+        navigateTo("/");
+      })
+      .catch((error) => {
+        console.log("실패");
+      });
   };
 
-  const onLoginClick = async (event) => {
-    loginEmail();
+  const onLoginClick = async ({ email, password }) => {
+    loginEmail(email, password)
+      .then(async (result) => {
+        console.log("성공");
+        setLoginState();
+
+        navigateTo("/");
+      })
+      .catch((error) => {
+        console.log("실패");
+      });
   };
 
   return (
     <MainDiv>
       <InnerDiv>
         <Title>로그인</Title>
-        <Form>
+        <Form onSubmit={handleSubmit(onLoginClick)}>
           <Input
-            value={email}
-            onChange={({ target: { value } }) => setEmail(value)}
             placeholder="아이디를 입력해주세요"
             type="email"
             autoComplete="on"
+            {...register("email")}
           />
           <Input
-            value={password}
-            onChange={({ target: { value } }) => setPassword(value)}
             placeholder="패스워드를 입력해주세요"
+            type="password"
             autoComplete="on"
-            maxLength="30"
+            maxlength="25"
+            {...register("password")}
           />
 
-          <InnerButton type="button">
-            <LoginButton onClick={onLoginClick}>로그인</LoginButton>
+          <InnerButton>
+            <LoginButton type="submit">로그인</LoginButton>
           </InnerButton>
         </Form>
         <div>
           <InnerButton>
-            <Button>
-              <Link style={{ textDecoration: "none" }} to="/signup">
-                {" "}
-                회원가입
-              </Link>
+            <Button role="button" onClick={() => navigateTo("/signup")}>
+              회원가입
             </Button>
           </InnerButton>
-          <InnerButton type="button">
+          <InnerButton role="button">
             <Button onClick={onGoggleClick}>구글 로그인</Button>
           </InnerButton>
         </div>

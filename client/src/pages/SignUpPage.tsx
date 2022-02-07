@@ -56,7 +56,7 @@ const SignUpPage = () => {
             <Input
               type="password"
               placeholder="비밀번호
-                (영문 숫자 특수문자 2가지 이상 6~15자 이내)"
+                (영문 숫자 최소 4자리 최대 15자리)"
               {...register("password")}
             />
             <div>

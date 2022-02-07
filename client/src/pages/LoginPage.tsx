@@ -1,18 +1,28 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
+import { loginValidation } from "../validations/loginYup";
 import {
   loginEmail,
   loginGoogle,
   setLoginState,
 } from "../firebase/Firebase.js";
 import { LoginType } from "../models/login";
-import axios from "axios";
+import FormErrorMessage from "../message/FormErrorMessage";
 
 const LoginPage = () => {
   const navigateTo = useNavigate();
-  const { register, handleSubmit } = useForm<LoginType>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginType>({
+    resolver: yupResolver(loginValidation),
+    mode: "onBlur", //포커스가 멈췄을때 유효성 트리거
+  });
+
   const onGoggleClick = async () => {
     loginGoogle()
       .then((result) => {
@@ -49,6 +59,9 @@ const LoginPage = () => {
             autoComplete="on"
             {...register("email")}
           />
+          {errors.email && (
+            <FormErrorMessage errorMessage={errors.email.message} />
+          )}
           <Input
             placeholder="패스워드를 입력해주세요"
             type="password"
@@ -56,7 +69,9 @@ const LoginPage = () => {
             maxlength="25"
             {...register("password")}
           />
-
+          {errors.password && (
+            <FormErrorMessage errorMessage={errors.password.message} />
+          )}
           <InnerButton>
             <LoginButton type="submit">로그인</LoginButton>
           </InnerButton>

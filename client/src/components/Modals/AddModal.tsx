@@ -14,7 +14,6 @@ const AddModal = ({ category, categoryId }) => {
       quizText,
       answerText,
       category: categoryId,
-      userEmail,
     });
   };
 
@@ -23,6 +22,7 @@ const AddModal = ({ category, categoryId }) => {
       setUserEmail(checkLogin().email);
     }
   }, []);
+
   return (
     <Popup
       modal={true}

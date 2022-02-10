@@ -13,16 +13,11 @@ module.exports = {
   },
 
   async createQuiz(req, res) {
-    const token = req.header("Authorization").split(" ")[1];
-    const email = jwt.decode(token).email;
+    // const token = req.header("Authorization").split(" ")[1];
+    // const email = jwt.decode(token).email;
 
-    const { quizText, answerText, category } = req.body;
-    const quizs = await quizRepo.createQuiz(
-      quizText,
-      answerText,
-      category,
-      email,
-    );
+    const { quizText, answerText, category, id } = req.body;
+    const quizs = await quizRepo.createQuiz(quizText, answerText, category, id);
     res.status(200).json({ quizs, message: " success add new quiz" });
   },
 };

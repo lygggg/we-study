@@ -21,8 +21,7 @@ const SignUpPage = () => {
   const onClickSignUp = async ({ email, password, name }) => {
     signupEmail(email, password)
       .then(async (result) => {
-        const _id = result.user.uid;
-        await signUpUser({ _id, name, email });
+        await signUpUser({ name, email });
       })
       .catch((error) => {
         console.log("실패");

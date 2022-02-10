@@ -2,7 +2,7 @@ const Quiz = require("../models/quiz");
 
 module.exports = {
   async getQuizAll(category) {
-    const quizs = await Quiz.find({ category: category });
+    const quizs = await Quiz.find({ category: category }).populate("user");
     return quizs;
   },
 
@@ -11,11 +11,11 @@ module.exports = {
     return quizs.length;
   },
 
-  async createQuiz(quizText, answerText, category, userEmail) {
+  async createQuiz(quizText, answerText, category, id) {
     const quiz = await Quiz.create({
       category,
       quizText,
-      userEmail,
+      user: id,
       answerText,
     });
     return quiz;

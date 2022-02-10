@@ -8,7 +8,7 @@ const Question = ({ question }) => {
     <>
       <Description onClick={() => setShowModal(true)}>
         <Item>Q.{question.quizText}</Item>
-        <Item>제출자:{question.userEmail}</Item>
+        <Item>제출자:{question.user[0].name}</Item>
       </Description>
       <SolveModal
         open={showModal}

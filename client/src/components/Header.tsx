@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { userState } from "../atom/user";
 import { checkLogin, userLogOut } from "../firebase/Firebase.js";
 import Menu from "./Menu";
 
 const Header = () => {
-  const navigateTo = useNavigate();
-
+  const user = useRecoilValue(userState);
   const onLogOutClick = () => {
     userLogOut();
     window.location.href = "/";

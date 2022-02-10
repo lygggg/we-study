@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
+import { userState } from "../atom/user";
 import { loginValidation } from "../validations/loginYup";
 import {
   loginEmail,
@@ -11,8 +13,10 @@ import {
 } from "../firebase/Firebase.js";
 import { LoginType } from "../models/login";
 import FormErrorMessage from "../message/FormErrorMessage";
+import { getUser } from "../services/Login";
 
 const LoginPage = () => {
+  const [user, setUser] = useRecoilState(userState);
   const navigateTo = useNavigate();
   const {
     register,
@@ -22,6 +26,11 @@ const LoginPage = () => {
     resolver: yupResolver(loginValidation),
     mode: "onBlur", //포커스가 멈췄을때 유효성 트리거
   });
+
+  const saveUserData = async (userData) => {
+    const data = await getUser(userData.user.email);
+    setUser(data.user);
+  };
 
   const onGoggleClick = async () => {
     loginGoogle()
@@ -38,9 +47,8 @@ const LoginPage = () => {
   const onLoginClick = async ({ email, password }) => {
     loginEmail(email, password)
       .then(async (result) => {
-        console.log("성공");
+        saveUserData(result);
         setLoginState();
-
         navigateTo("/");
       })
       .catch((error) => {

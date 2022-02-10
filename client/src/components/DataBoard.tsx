@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { userState } from "../atom/user";
 import { checkLogin } from "../firebase/Firebase.js";
 import { getQuestionCount } from "../services/Question";
 
 const DataBoard = () => {
+  const user = useRecoilValue(userState);
   const [quizCount, setQuizCount] = useState();
-  const [userName, setUserName] = useState("로그인 해주세요");
 
   const fetchQuestions = async () => {
     const data = await getQuestionCount();
@@ -13,16 +15,17 @@ const DataBoard = () => {
   };
 
   useEffect(() => {
-    if (checkLogin()) {
-      setUserName(checkLogin().email);
-    }
     fetchQuestions();
   }, []);
   return (
     <>
       <DataContainer>
         <DataText>문제 개수:{quizCount}</DataText>
-        <DataText>유저아이디:{userName}</DataText>
+        {Object.keys(user).length > 0 ? (
+          <DataText>이름:{user.name}</DataText>
+        ) : (
+          <DataText>로그인이 필요합니다</DataText>
+        )}
         <DataText>추가 문제 개수:15</DataText>
         <DataText>해결 문제 개수:20</DataText>
       </DataContainer>

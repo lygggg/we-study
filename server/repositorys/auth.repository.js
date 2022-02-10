@@ -9,4 +9,9 @@ module.exports = {
     });
     return user;
   },
+
+  async findUser(email) {
+    const user = await User.findOne({ email: email });
+    return user;
+  },
 };

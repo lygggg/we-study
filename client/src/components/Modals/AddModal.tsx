@@ -1,27 +1,30 @@
 import { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { checkLogin } from "../../firebase/Firebase.js";
+import { userState } from "../../atom/user";
+import { questionState } from "../../atom/question";
+
 import { CreateQuestion } from "../../services/Question";
 
 const AddModal = ({ category, categoryId }) => {
-  const [userEmail, setUserEmail] = useState("");
+  const user = useRecoilValue(userState);
+  const setQuestion = useSetRecoilState(questionState);
   const [quizText, setQuizText] = useState("");
   const [answerText, setAnswerText] = useState("");
 
   const onClickAddQuiz = async () => {
+    const id = user._id;
     await CreateQuestion({
       quizText,
       answerText,
       category: categoryId,
+      id,
     });
+    setQuizText("");
+    setAnswerText("");
+    setQuestion(quizText);
   };
-
-  useEffect(() => {
-    if (checkLogin()) {
-      setUserEmail(checkLogin().email);
-    }
-  }, []);
 
   return (
     <Popup

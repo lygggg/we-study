@@ -1,11 +1,13 @@
 import React from "react";
-import { getSearch } from "../services/Search";
-import SearcResult from "../components/SearcResult";
+import { useRecoilValue } from "recoil";
+import { searchState } from "../atom/search";
+import QuestionLayout from "../components/layouts/QuestionLayout";
 
 const SearchPage = () => {
+  const questionList = useRecoilValue(searchState);
   return (
     <div>
-      <SearcResult />
+      <QuestionLayout questionList={questionList} />
     </div>
   );
 };

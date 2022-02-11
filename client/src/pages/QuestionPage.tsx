@@ -1,11 +1,41 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import QuestionList from "../components/QuestionList";
+import { useRecoilValue } from "recoil";
+import { questionState } from "../atom/question";
+import { getQuestion } from "../services/Question";
+import MenuStore from "../stores/MenuStore";
+import QuestionLayout from "../components/layouts/QuestionLayout";
+import Modal from "../components/modals/AddModal";
 
 const QuestionPage = () => {
+  const value = useRecoilValue(questionState);
+  const { categoryId } = useParams();
+  const [questionList, setQuestionList] = useState([]);
+
+  const fetchQuestions = async () => {
+    const data = await getQuestion({
+      category: categoryId,
+    });
+    setQuestionList(data.quizs);
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+  }, [categoryId]);
+
+  useEffect(() => {
+    fetchQuestions();
+  }, [value]);
+
   return (
     <>
       <Container>
-        <QuestionList />
+        <Modal
+          category={MenuStore.categories[categoryId]}
+          categoryId={categoryId}
+        />
+        <QuestionLayout questionList={questionList} />
       </Container>
     </>
   );

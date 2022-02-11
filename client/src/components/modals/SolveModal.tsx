@@ -9,7 +9,7 @@ const SolveModal = ({ open, question, onClose }) => {
       contentStyle={{
         width: "840px",
         height: "660px",
-        backgroundColor: "#eeeeee",
+        backgroundColor: "#FFFFFF",
       }}
       onClose={onClose}
     >
@@ -17,7 +17,7 @@ const SolveModal = ({ open, question, onClose }) => {
         <>
           <Container>
             <Title>
-              <OnButton onClick={close}>X</OnButton>
+              <CloseButton onClick={close}>X</CloseButton>
               <Inner>Q.{question.answerText}</Inner>
             </Title>
             <PaddingContainer>
@@ -36,20 +36,20 @@ const SolveModal = ({ open, question, onClose }) => {
                     </Qtr>
                     <Qtr>
                       <Qth>정답 확인 클릭</Qth>
-                      <Qtd>생각나는대로 모두 적어주세요</Qtd>
+                      <Qtd>{question.answerText}</Qtd>
                     </Qtr>
                   </tbody>
                 </table>
               </TableContainer>
             </PaddingContainer>
             <ButtonContainer>
-              <OkButton
+              <SendButton
                 onClick={() => {
                   close();
                 }}
               >
                 제출하기
-              </OkButton>
+              </SendButton>
             </ButtonContainer>
           </Container>
         </>
@@ -58,21 +58,28 @@ const SolveModal = ({ open, question, onClose }) => {
   );
 };
 
-const OkButton = styled.button`
+const SendButton = styled.button`
   font-size: 17px;
-  margin-top: 60px;
+  margin-top: 90px;
   height: 60px;
   width: 216px;
   background: #0c151c;
   color: #fff;
-  border: 2px solid #0073e9;
   border-radius: 4px;
+  margin-bottom: 40px;
 `;
+
 const ButtonContainer = styled.div`
   text-align: center;
+  border-left: 2px solid #eaeaea;
+  border-right: 2px solid #eaeaea;
+  border-bottom: 2px solid #eaeaea;
 `;
+
 const PaddingContainer = styled.div`
   padding: 14px;
+  border-left: 2px solid #eaeaea;
+  border-right: 2px solid #eaeaea;
 `;
 
 const TableContainer = styled.div`
@@ -85,26 +92,31 @@ const Textarea = styled.textarea`
   height: 240px;
   width: 650px;
 `;
+
 const Container = styled.div`
-  background-color: #eeeeee;
+  background-color: #ffffff;
 `;
 
-const OnButton = styled.button`
+const CloseButton = styled.button`
+  background: #ffe400;
+  border: 0;
   float: right;
 `;
 
 const Title = styled.div`
-  height: 65px;
-  background: #eee;
+  height: 120px;
+  background: #ffe400;
 `;
 
 const Inner = styled.div`
+  background: #ffe400;
   padding: 14px;
   display: flex;
   font-size: 25px;
   height: 70px;
   align-items: center;
 `;
+
 const Qtd = styled.td`
   width: 500px;
   padding: 20px;
@@ -116,8 +128,7 @@ const Qtr = styled.tr`
 `;
 
 const Qth = styled.th`
-  border-right: 1px solid #ddd;
   padding: 10px;
-  font-size: 20px;
 `;
+
 export default SolveModal;

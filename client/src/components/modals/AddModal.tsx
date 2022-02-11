@@ -29,14 +29,18 @@ const AddModal = ({ category, categoryId }) => {
   return (
     <Popup
       modal={true}
-      contentStyle={{ width: "640px", height: "460px" }}
+      contentStyle={{
+        width: "840px",
+        height: "660px",
+        backgroundColor: "#FFFFFF",
+      }}
       trigger={<AddButton>질문 추가</AddButton>}
     >
       {(close) => (
         <>
           <Container>
             <Title>
-              <OnButton onClick={close}>X</OnButton>
+              <CloseButton onClick={close}>X</CloseButton>
               <Inner>{category} 질문 추가</Inner>
             </Title>
             <PaddingContainer>
@@ -68,14 +72,14 @@ const AddModal = ({ category, categoryId }) => {
               </TableContainer>
             </PaddingContainer>
             <ButtonContainer>
-              <OkButton
+              <SendButton
                 onClick={() => {
                   onClickAddQuiz();
                   close();
                 }}
               >
                 확인
-              </OkButton>
+              </SendButton>
             </ButtonContainer>
           </Container>
         </>
@@ -84,8 +88,15 @@ const AddModal = ({ category, categoryId }) => {
   );
 };
 
-const OkButton = styled.button`
+const SendButton = styled.button`
   font-size: 17px;
+  margin-top: 90px;
+  height: 60px;
+  width: 216px;
+  background: #0c151c;
+  color: #fff;
+  border-radius: 4px;
+  margin-bottom: 40px;
 `;
 const ButtonContainer = styled.div`
   text-align: center;
@@ -101,31 +112,34 @@ const TableContainer = styled.div`
 `;
 
 const Textarea = styled.textarea`
-  height: 140px;
-  width: 460px;
+  height: 190px;
+  width: 650px;
 `;
 const Container = styled.div`
-  background-color: #eeeeee;
+  background-color: #ffffff;
 `;
 
 const AddButton = styled.button`
-  color: #fff;
-  background: #0c151c;
-  alignself: center;
+  color: #007bff;
+  background: #ffffff;
   height: 50px;
-  align-self: center;
+  font-size: 19px;
+  width: 150px;
 `;
 
-const OnButton = styled.button`
+const CloseButton = styled.button`
+  background: #ffe400;
+  border: 0;
   float: right;
 `;
 
 const Title = styled.div`
-  height: 65px;
-  background: #eee;
+  height: 120px;
+  background: #ffe400;
 `;
 
 const Inner = styled.div`
+  background: #ffe400;
   padding: 14px;
   display: flex;
   font-size: 25px;

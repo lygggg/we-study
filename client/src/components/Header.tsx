@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { userState } from "../atom/user";
 import { checkLogin, userLogOut } from "../firebase/Firebase.js";
 import Menu from "./Menu";
+import SearchForm from "./SearchForm";
 
 const Header = () => {
   const user = useRecoilValue(userState);
@@ -34,6 +35,7 @@ const Header = () => {
         </Head>
       </Container>
       <Menu />
+      <SearchForm />
     </>
   );
 };

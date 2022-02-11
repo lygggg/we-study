@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Question from "../items/QuestionItem";
+import SolveModal from "../modals/SolveModal";
 
 function QuestionLayout({ questionList }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const onClickModal = () => {
+    setShowModal(true);
+  };
   return (
     <>
       <Container>
         {questionList.map((question) => (
-          <Inner key={question._id}>
+          <Inner key={question._id} onClick={onClickModal}>
             <QuestionCotainer>
               <Question question={question}></Question>
             </QuestionCotainer>
+
+            <SolveModal
+              open={showModal}
+              question={question}
+              onClose={() => setShowModal(false)}
+            />
           </Inner>
         ))}
       </Container>

@@ -1,21 +1,13 @@
-import { useState } from "react";
 import styled from "styled-components";
-import SolveModal from "../modals/SolveModal";
 
 function QuestionItem({ question }) {
-  const [showModal, setShowModal] = useState(false);
   return (
     <>
       <Img src={"https://cdn-icons-png.flaticon.com/512/5968/5968292.png"} />
-      <Description onClick={() => setShowModal(true)}>
+      <Description>
         <Item>{question.quizText}</Item>
         <ItemName>{question.user[0].name}</ItemName>
       </Description>
-      <SolveModal
-        open={showModal}
-        question={question}
-        onClose={() => setShowModal(false)}
-      />
     </>
   );
 }

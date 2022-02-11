@@ -10,6 +10,7 @@ import QuestionPage from "./pages/QuestionPage";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
 import SignUpPage from "./pages/SignUpPage";
+import SearchPage from "./pages/SearchPage";
 import { getUser } from "./services/Login";
 import "./App.css";
 
@@ -43,6 +44,7 @@ function App() {
             path="/categories/:categoryId/page/:pageNum"
             element={<QuestionPage />}
           />
+          <Route path="/search/query=:text" element={<SearchPage />} />
         </Routes>
       </Container>
     </BrowserRouter>

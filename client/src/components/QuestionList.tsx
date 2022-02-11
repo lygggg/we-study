@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { questionState } from "../atom/question";
 import { getQuestion } from "../services/Question";
 import MenuStore from "../stores/MenuStore";
-import Question from "./Question";
-import Modal from "./Modals/AddModal";
+import QuestionLayout from "../components/layouts/QuestionLayout";
+import Modal from "./modals/AddModal";
 
 const QuestionList = () => {
   const value = useRecoilValue(questionState);
@@ -34,32 +33,9 @@ const QuestionList = () => {
         category={MenuStore.categories[categoryId]}
         categoryId={categoryId}
       />
-      <Container>
-        {questionList.map((question) => (
-          <Inner key={question._id}>
-            <div>
-              <Question question={question}></Question>
-            </div>
-          </Inner>
-        ))}
-      </Container>
+      <QuestionLayout questionList={questionList} />
     </>
   );
 };
-
-const Container = styled.div`
-  margin-top: 60px;
-  text-align: center;
-`;
-
-const Inner = styled.div`
-  height: 100px;
-  margin-top: 20px;
-  border-top: 0.1px solid #d7e2eb;
-  border-bottom: 0.1px solid #d7e2eb;
-  display: flex;
-  align-items: center;
-  place-content: center;
-`;
 
 export default QuestionList;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import DataBoard from "../components/DataBoard";
 
 const HomePage = () => {
   return (
@@ -13,7 +12,6 @@ const HomePage = () => {
             학습해보세요. 파이팅입니다당신의 지식을 공유하고 함께 학습해보세요.
             파이팅입니다
           </MiddleText>
-          <DataBoard />
         </InnerContainer>
       </Container>
     </>

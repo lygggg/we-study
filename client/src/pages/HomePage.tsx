@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import GuideSheet from "../components/GuideSheet";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = () => {
             파이팅입니다
           </MiddleText>
         </InnerContainer>
+        <GuideSheet />
       </Container>
     </>
   );

@@ -57,7 +57,7 @@ const Container = styled.div`
   margin: 0 auto;
 
   @media only screen and (min-width: 1200px) {
-    max-width: 1200px;
+    max-width: 1300px;
   }
 `;
 export default App;

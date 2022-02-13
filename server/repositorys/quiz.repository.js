@@ -11,7 +11,6 @@ const index = client.initIndex(ALGOLIA_INDEX_NAME);
 module.exports = {
   async getQuizAll(category) {
     const quizs = await Quiz.find({ category: category }).populate("user");
-    // console.log(quizs);
     return quizs;
   },
 

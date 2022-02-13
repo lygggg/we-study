@@ -71,7 +71,6 @@ const LoginPage = () => {
             placeholder="패스워드를 입력해주세요"
             type="password"
             autoComplete="on"
-            maxlength="25"
             {...register("password")}
           />
           {errors.password && (

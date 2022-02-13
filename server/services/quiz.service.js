@@ -1,5 +1,5 @@
 const quizRepo = require("../repositorys/quiz.repository.js");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 module.exports = {
   async getQuizs(req, res) {

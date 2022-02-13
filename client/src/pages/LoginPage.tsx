@@ -32,10 +32,11 @@ const LoginPage = () => {
     setUser(data.user);
   };
 
-  const onGoggleClick = async () => {
-    loginGoogle()
+  const tryLogin = async (loginMethod, args) => {
+    loginMethod(...args)
       .then((result) => {
         console.log("성공");
+        saveUserData(result);
         setLoginState();
         navigateTo("/");
       })
@@ -44,16 +45,12 @@ const LoginPage = () => {
       });
   };
 
+  const onGoggleClick = async () => {
+    tryLogin(loginGoogle, []);
+  };
+
   const onLoginClick = async ({ email, password }) => {
-    loginEmail(email, password)
-      .then(async (result) => {
-        saveUserData(result);
-        setLoginState();
-        navigateTo("/");
-      })
-      .catch((error) => {
-        console.log("실패");
-      });
+    tryLogin(loginEmail, [email, password]);
   };
 
   return (

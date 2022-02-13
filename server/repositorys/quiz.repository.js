@@ -11,6 +11,7 @@ const index = client.initIndex(ALGOLIA_INDEX_NAME);
 module.exports = {
   async getQuizAll(category) {
     const quizs = await Quiz.find({ category: category }).populate("user");
+    // console.log(quizs);
     return quizs;
   },
 
@@ -28,8 +29,18 @@ module.exports = {
     };
 
     const quiz = await Quiz.create(data);
-    await index.saveObjects([data], { autoGenerateObjectIDIfNotExist: true });
-    console.log(quiz); // 이거 데이터 가져와서 populate해야하나..?
+    const searchQuiz = await Quiz.find({ _id: quiz._id }).populate("user");
+    await index.saveObjects(
+      [
+        {
+          ...searchQuiz[0]._doc,
+          user: searchQuiz[0].user[0].name,
+        },
+      ],
+      {
+        autoGenerateObjectIDIfNotExist: true,
+      },
+    );
     return quiz;
   },
 };

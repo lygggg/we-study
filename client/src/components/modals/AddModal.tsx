@@ -7,7 +7,11 @@ import { questionState } from "../../atom/question";
 
 import { CreateQuestion } from "../../services/Question";
 
-const AddModal = ({ category, categoryId }) => {
+interface AddModalProps {
+  category: String;
+  categoryId: String;
+}
+const AddModal = ({ category, categoryId }: AddModalProps) => {
   const user = useRecoilValue(userState);
   const setQuestion = useSetRecoilState(questionState);
   const [quizText, setQuizText] = useState("");
@@ -52,7 +56,7 @@ const AddModal = ({ category, categoryId }) => {
                       <Qtd>
                         <Textarea
                           value={quizText}
-                          maxLength="200"
+                          maxLength={200}
                           onChange={(v) => setQuizText(v.target.value)}
                         ></Textarea>
                       </Qtd>
@@ -62,7 +66,7 @@ const AddModal = ({ category, categoryId }) => {
                       <Qtd>
                         <Textarea
                           value={answerText}
-                          maxLength="200"
+                          maxLength={200}
                           onChange={(v) => setAnswerText(v.target.value)}
                         ></Textarea>
                       </Qtd>

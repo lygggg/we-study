@@ -1,7 +1,14 @@
 import Popup from "reactjs-popup";
 import styled from "styled-components";
+import { Quiz } from "../../models/quiz";
 
-const SolveModal = ({ open, question, onClose }) => {
+interface SolveModalProps {
+  open: boolean;
+  onClose: any;
+  question: Quiz;
+}
+
+const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
   return (
     <Popup
       modal={true}
@@ -27,11 +34,7 @@ const SolveModal = ({ open, question, onClose }) => {
                     <Qtr>
                       <Qth>정답 입력</Qth>
                       <Qtd>
-                        <Textarea
-                          // value={questionText}
-                          maxLength="200"
-                          // onChange={(v) => setQuestionText(v.target.value)}
-                        ></Textarea>
+                        <Textarea maxLength={200}></Textarea>
                       </Qtd>
                     </Qtr>
                     <Qtr>

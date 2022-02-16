@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -6,9 +6,11 @@ import { signupEmail } from "../firebase/Firebase.js";
 import { signUpUser } from "../services/SignUp";
 import { SignUpType } from "../models/signUp";
 import { signUpValidation } from "../validations/signUpYup";
-import FormErrorMessage from "../message/FormErrorMessage";
+import FormErrorMessage from "../errorComponent/FormErrorMessage";
+import FailSignError from "../errorComponent/FailSignError.jsx";
 
 const SignUpPage = () => {
+  const [error, setError] = useState();
   const {
     register,
     handleSubmit,
@@ -22,14 +24,15 @@ const SignUpPage = () => {
     signupEmail(email, password)
       .then(async (result) => {
         await signUpUser({ name, email });
+        setError(null);
       })
-      .catch((error) => {
-        console.log("실패");
+      .catch((e) => {
+        setError(e);
       });
   };
   return (
     <Container>
-      <Inner>
+      <InnerContainer>
         <Title>회원가입</Title>
         <form onSubmit={handleSubmit(onClickSignUp)}>
           <div>
@@ -93,14 +96,28 @@ const SignUpPage = () => {
               )}
             </div>
           </div>
-          <div>
+          <ButtonContainer>
+            {!!error && (
+              <ErrorContainer>
+                <FailSignError />
+              </ErrorContainer>
+            )}
             <SignButton type="submit">가입하기</SignButton>
-          </div>
+          </ButtonContainer>
         </form>
-      </Inner>
+      </InnerContainer>
     </Container>
   );
 };
+
+const ErrorContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const ButtonContainer = styled.div`
+  text-align: -webkit-center;
+  margin-top: 30px;
+`;
 
 const Title = styled.div`
   font-size: 30px;
@@ -108,7 +125,7 @@ const Title = styled.div`
   margin-bottom: 50px;
 `;
 
-const Inner = styled.div`
+const InnerContainer = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -146,16 +163,14 @@ const Label = styled.span`
 
 const SignButton = styled.button`
   display: block;
-  width: 340px;
+  width: 380px;
   height: 54px;
-  margin: 45px auto 0;
   border: 0 none;
   border-radius: 3px;
   background-color: #0c151c;
   font-size: 16px;
   color: #fff;
   line-height: 44px;
-  letter-spacing: -0.3px;
 `;
 
 export default SignUpPage;

@@ -1,5 +1,4 @@
-import React from "react";
-import styled from "styled-components";
+import { StyledFormErrorMessage } from "./ErrorStyle";
 
 type FormErrorMessage = {
   errorMessage: string;
@@ -7,11 +6,5 @@ type FormErrorMessage = {
 const FormErrorMessage = ({ errorMessage }: FormErrorMessage) => {
   return <StyledFormErrorMessage>{errorMessage}</StyledFormErrorMessage>;
 };
-
-const StyledFormErrorMessage = styled.div`
-  color: #ff4848;
-  text-align-last: center;
-  font-size: 17px;
-`;
 
 export default FormErrorMessage;

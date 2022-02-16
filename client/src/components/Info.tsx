@@ -1,21 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { userState } from "../atom/user";
-import { getQuestionCount } from "../services/Question";
+import { useMe } from "../hook/useMe";
+import { useQuestionCount } from "../hook/useQuestionCount";
 
 const Info = () => {
-  const user = useRecoilValue(userState);
-  const [quizCount, setQuizCount] = useState();
-
-  const fetchQuestions = async () => {
-    const data = await getQuestionCount();
-    setQuizCount(data.quizs);
-  };
-
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+  const user = useMe();
+  const quizCount = useQuestionCount();
 
   return (
     <>
@@ -26,8 +16,16 @@ const Info = () => {
           </Header>
           <IdContainer>
             <IdText>
-              <H5>{user.name}</H5>
-              <Email>{user.email}</Email>
+              {Object.keys(user).length ? (
+                <>
+                  <H5>{user.name}</H5>
+                  <Email>{user.email}</Email>
+                </>
+              ) : (
+                <>
+                  <H5>로그인이 필요합니다</H5>
+                </>
+              )}
             </IdText>
             <IdText>총 문제: {quizCount}</IdText>
             <IdText>추가한 문제: </IdText>

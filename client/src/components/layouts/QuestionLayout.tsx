@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useMe } from "../../hook/useMe";
 import Question from "../items/QuestionItem";
 import SolveModal from "../modals/SolveModal";
 import Info from "../../components/Info";
 
 function QuestionLayout({ questionList }) {
+  const user = useMe();
+  const navigateTo = useNavigate();
   const [activeQuestion, setActiveQuestion] = useState();
   const onClickModal = (question: any) => {
+    if (!Object.keys(user).length) {
+      navigateTo("/login");
+    }
     setActiveQuestion(question);
   };
+
   return (
     <>
       <Container>

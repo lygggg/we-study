@@ -1,26 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { getSearch } from "../services/Search";
-import { Search } from "../models/search";
 import { searchState } from "../atom/search";
 import { searchValidation } from "../validations/searchYup";
 
+interface SearchFormState {
+  text: string;
+}
+
 const SearchForm = () => {
   const navigateTo = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const setSearch = useSetRecoilState(searchState);
-  const { register, handleSubmit } = useForm<Search>({
+  const { register, handleSubmit } = useForm<SearchFormState>({
     resolver: yupResolver(searchValidation),
   });
 
-  const onSeachClick = async ({ text }) => {
-    const data = await getSearch(text);
+  const onSearch = async (query: string) => {
+    const data = await getSearch(query);
     setSearch(data.quizs.hits);
-    navigateTo("/search/query=" + text);
   };
+
+  const onSeachClick = async ({ text }) => {
+    navigateTo("/search/?query=" + text);
+  };
+
+  useEffect(() => {
+    const query = searchParams.get("query");
+    onSearch(query);
+  }, [searchParams.get("query")]);
 
   return (
     <Container>

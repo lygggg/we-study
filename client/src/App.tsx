@@ -44,7 +44,7 @@ function App() {
             path="/categories/:categoryId/page/:pageNum"
             element={<QuestionPage />}
           />
-          <Route path="/search/query=:text" element={<SearchPage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </Container>
     </BrowserRouter>

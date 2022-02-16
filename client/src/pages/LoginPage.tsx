@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
@@ -12,10 +12,12 @@ import {
   setLoginState,
 } from "../firebase/Firebase.js";
 import { LoginType } from "../models/login";
-import FormErrorMessage from "../message/FormErrorMessage";
+import FormErrorMessage from "../errorComponent/FormErrorMessage";
 import { getUser } from "../services/Login";
+import FailLoginError from "../errorComponent/FailLoginError";
 
 const LoginPage = () => {
+  const [error, setError] = useState();
   const [user, setUser] = useRecoilState(userState);
   const navigateTo = useNavigate();
   const {
@@ -39,9 +41,10 @@ const LoginPage = () => {
         saveUserData(result);
         setLoginState();
         navigateTo("/");
+        setError(null);
       })
-      .catch((error) => {
-        console.log("실패");
+      .catch((e) => {
+        setError(e);
       });
   };
 
@@ -63,6 +66,7 @@ const LoginPage = () => {
             type="email"
             autoComplete="on"
             {...register("email")}
+            onChange={() => setError(null)}
           />
           {errors.email && (
             <FormErrorMessage errorMessage={errors.email.message} />
@@ -71,11 +75,14 @@ const LoginPage = () => {
             placeholder="패스워드를 입력해주세요"
             type="password"
             autoComplete="on"
+            maxLength={25}
             {...register("password")}
+            onChange={() => setError(null)}
           />
           {errors.password && (
             <FormErrorMessage errorMessage={errors.password.message} />
           )}
+          {!!error && <FailLoginError />}
           <InnerButton>
             <LoginButton type="submit">로그인</LoginButton>
           </InnerButton>

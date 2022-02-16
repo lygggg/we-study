@@ -5,9 +5,9 @@ import SolveModal from "../modals/SolveModal";
 import Info from "../../components/Info";
 
 function QuestionLayout({ questionList }) {
-  const [showModal, setShowModal] = useState(false);
-  const onClickModal = () => {
-    setShowModal(true);
+  const [activeQuestion, setActiveQuestion] = useState();
+  const onClickModal = (question: any) => {
+    setActiveQuestion(question);
   };
   return (
     <>
@@ -16,16 +16,13 @@ function QuestionLayout({ questionList }) {
           {questionList.length > 0 ? (
             <>
               {questionList.map((question) => (
-                <Inner key={question._id} onClick={onClickModal}>
+                <Inner
+                  key={question._id}
+                  onClick={() => onClickModal(question)}
+                >
                   <QuestionCotainer>
                     <Question question={question}></Question>
                   </QuestionCotainer>
-
-                  <SolveModal
-                    open={showModal}
-                    question={question}
-                    onClose={() => setShowModal(false)}
-                  />
                 </Inner>
               ))}
             </>
@@ -35,6 +32,14 @@ function QuestionLayout({ questionList }) {
         </QuestionContainer>
         <Info />
       </Container>
+
+      {activeQuestion && (
+        <SolveModal
+          open
+          question={activeQuestion}
+          onClose={() => setActiveQuestion(null)}
+        />
+      )}
     </>
   );
 }

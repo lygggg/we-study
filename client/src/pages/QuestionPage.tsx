@@ -7,17 +7,24 @@ import { getQuestion } from "../services/Question";
 import MenuStore from "../stores/MenuStore";
 import QuestionLayout from "../components/layouts/QuestionLayout";
 import Modal from "../components/modals/AddModal";
+import GetError from "../errorComponent/GetError";
 
 const QuestionPage = () => {
+  const [error, setError] = useState();
   const value = useRecoilValue(questionState);
   const { categoryId } = useParams();
   const [questionList, setQuestionList] = useState([]);
 
   const fetchQuestions = async () => {
-    const data = await getQuestion({
-      category: categoryId,
-    });
-    setQuestionList(data.quizs);
+    try {
+      const data = await getQuestion({
+        category: categoryId,
+      });
+      setQuestionList(data.quizs);
+      setError(null);
+    } catch (e) {
+      setError(e);
+    }
   };
 
   useEffect(() => {
@@ -31,11 +38,17 @@ const QuestionPage = () => {
   return (
     <>
       <Container>
-        <Modal
-          category={MenuStore.categories[categoryId]}
-          categoryId={categoryId}
-        />
-        <QuestionLayout questionList={questionList} />
+        {!!error ? (
+          <GetError fetchQuestions={fetchQuestions} />
+        ) : (
+          <>
+            <Modal
+              category={MenuStore.categories[categoryId]}
+              categoryId={categoryId}
+            />
+            <QuestionLayout questionList={questionList} />
+          </>
+        )}
       </Container>
     </>
   );

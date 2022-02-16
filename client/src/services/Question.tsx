@@ -3,11 +3,7 @@ import { getQuestionCount as apiGetQuestionCount } from "../apis/Question";
 import { CreateQuestion as apiCreateQuestion } from "../apis/Question";
 
 export const getQuestion = async ({ category }) => {
-  try {
-    return await apiGetQuestion({ category });
-  } catch (e) {
-    alert(e);
-  }
+  return await apiGetQuestion({ category });
 };
 
 export const getQuestionCount = async () => {

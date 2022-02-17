@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,11 +16,12 @@ import FormErrorMessage from "../errorComponent/FormErrorMessage";
 import { getUser } from "../services/Login";
 import FailLoginError from "../errorComponent/FailLoginError";
 import Spinner from "../components/modals/Spinner";
+import { User } from "../models/user";
 
 const LoginPage = () => {
   const [loding, setLoding] = useState(false);
   const [error, setError] = useState();
-  const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState<User>(userState);
   const navigateTo = useNavigate();
   const {
     register,
@@ -39,7 +40,6 @@ const LoginPage = () => {
   const tryLogin = async (loginMethod, args) => {
     loginMethod(...args)
       .then((result) => {
-        console.log("성공");
         saveUserData(result);
         setLoginState();
         navigateTo("/");
@@ -63,52 +63,58 @@ const LoginPage = () => {
 
   return (
     <MainDiv>
-      <InnerDiv>
-        <Title>로그인</Title>
-        <Form onSubmit={handleSubmit(onLoginClick)}>
-          <Input
-            placeholder="아이디를 입력해주세요"
-            type="email"
-            autoComplete="on"
-            {...register("email")}
-            onChange={() => setError(null)}
-          />
-          {errors.email && (
-            <FormErrorMessage errorMessage={errors.email.message} />
-          )}
-          <Input
-            placeholder="패스워드를 입력해주세요"
-            type="password"
-            autoComplete="on"
-            maxLength={25}
-            {...register("password")}
-            onChange={() => setError(null)}
-          />
-          {errors.password && (
-            <FormErrorMessage errorMessage={errors.password.message} />
-          )}
-          {!!error && <FailLoginError />}
-          <InnerButton>
-            <LoginButton type="submit">로그인</LoginButton>
-          </InnerButton>
-        </Form>
-        <div>
-          <InnerButton>
-            <Button role="button" onClick={() => navigateTo("/signup")}>
-              회원가입
-            </Button>
-          </InnerButton>
-          <InnerButton role="button">
-            <Button onClick={onGoggleClick}>구글 로그인</Button>
-          </InnerButton>
-        </div>
-        <SearchDiv>
-          <A>아이디</A>
-          <A>/</A>
-          <A> 비밀번호 찾기 </A>
-        </SearchDiv>
-      </InnerDiv>
+      {Object.keys(user).length === 0 ? (
+        <InnerDiv>
+          <Title>로그인</Title>
+          <Form onSubmit={handleSubmit(onLoginClick)}>
+            <label>
+              <Input
+                placeholder="아이디를 입력해주세요"
+                type="email"
+                {...register("email")}
+                onInput={() => setError(null)}
+              />
+              {errors.email && (
+                <FormErrorMessage errorMessage={errors.email.message} />
+              )}
+            </label>
+            <label>
+              <Input
+                placeholder="패스워드를 입력해주세요"
+                type="password"
+                maxLength={25}
+                {...register("password")}
+                onInput={() => setError(null)}
+              />
+            </label>
+            {errors.password && (
+              <FormErrorMessage errorMessage={errors.password.message} />
+            )}
+            {!!error && <FailLoginError />}
+            <InnerButton>
+              <LoginButton type="submit">로그인</LoginButton>
+            </InnerButton>
+          </Form>
+          <div>
+            <InnerButton>
+              <Button role="button" onClick={() => navigateTo("/signup")}>
+                회원가입
+              </Button>
+            </InnerButton>
+            <InnerButton role="button">
+              <Button onClick={onGoggleClick}>구글 로그인</Button>
+            </InnerButton>
+          </div>
           {loding && <Spinner />}
+          <SearchDiv>
+            <A>아이디</A>
+            <A>/</A>
+            <A> 비밀번호 찾기 </A>
+          </SearchDiv>
+        </InnerDiv>
+      ) : (
+        <Navigate to="/" />
+      )}
     </MainDiv>
   );
 };

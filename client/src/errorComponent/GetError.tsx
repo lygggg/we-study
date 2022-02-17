@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const GetError = (fetchQuestions) => {
   return (
@@ -10,7 +11,9 @@ const GetError = (fetchQuestions) => {
           <RestartButton onClick={fetchQuestions}>
             재시도 하시겠습니까?
           </RestartButton>
-          <HomeButton>메인 페이지로 이동</HomeButton>
+          <Link to="/">
+            <HomeButton>메인 페이지로 이동</HomeButton>
+          </Link>
         </ButtonContainer>
       </InnerContainer>
     </Container>
@@ -25,6 +28,7 @@ const Container = styled.div`
   display: flex;
   place-content: center;
   text-align: center;
+  margin-top: 10rem;
 `;
 
 const RestartButton = styled.button`

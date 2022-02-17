@@ -15,8 +15,10 @@ import { LoginType } from "../models/login";
 import FormErrorMessage from "../errorComponent/FormErrorMessage";
 import { getUser } from "../services/Login";
 import FailLoginError from "../errorComponent/FailLoginError";
+import Spinner from "../components/modals/Spinner";
 
 const LoginPage = () => {
+  const [loding, setLoding] = useState(false);
   const [error, setError] = useState();
   const [user, setUser] = useRecoilState(userState);
   const navigateTo = useNavigate();
@@ -42,8 +44,10 @@ const LoginPage = () => {
         setLoginState();
         navigateTo("/");
         setError(null);
+        setLoding(false);
       })
       .catch((e) => {
+        setLoding(false);
         setError(e);
       });
   };
@@ -53,6 +57,7 @@ const LoginPage = () => {
   };
 
   const onLoginClick = async ({ email, password }) => {
+    setLoding(true);
     tryLogin(loginEmail, [email, password]);
   };
 
@@ -103,6 +108,7 @@ const LoginPage = () => {
           <A> 비밀번호 찾기 </A>
         </SearchDiv>
       </InnerDiv>
+          {loding && <Spinner />}
     </MainDiv>
   );
 };

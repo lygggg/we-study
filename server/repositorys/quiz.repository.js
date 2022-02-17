@@ -19,12 +19,13 @@ module.exports = {
     return quizs.length;
   },
 
-  async createQuiz(quizText, answerText, category, id) {
+  async createQuiz(quizText, answerText, category, id, img) {
     const data = {
       category: category,
       quizText: quizText,
       user: id,
       answerText: answerText,
+      img,
     };
 
     const quiz = await Quiz.create(data);

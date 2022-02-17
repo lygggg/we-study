@@ -16,8 +16,14 @@ module.exports = {
     // const token = req.header("Authorization").split(" ")[1];
     // const email = jwt.decode(token).email;
 
-    const { quizText, answerText, category, id } = req.body;
-    const quizs = await quizRepo.createQuiz(quizText, answerText, category, id);
+    const { quizText, answerText, category, id, img } = req.body;
+    const quizs = await quizRepo.createQuiz(
+      quizText,
+      answerText,
+      category,
+      id,
+      img,
+    );
     res.status(200).json({ quizs, message: " success add new quiz" });
   },
 };

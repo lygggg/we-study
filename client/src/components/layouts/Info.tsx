@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useMe } from "../hook/useMe";
-import { useQuestionCount } from "../hook/useQuestionCount";
+import { useMe } from "../../hook/useMe";
+import { useQuestionCount } from "../../hook/useQuestionCount";
 
 const Info = () => {
   const user = useMe();
@@ -16,7 +16,7 @@ const Info = () => {
           </Header>
           <IdContainer>
             <IdText>
-              {Object.keys(user).length ? (
+              {!!Object.keys(user).length ? (
                 <>
                   <H5>{user.name}</H5>
                   <Email>{user.email}</Email>
@@ -49,7 +49,7 @@ const ButtonContainer = styled.div`
 const AddButton = styled.button`
   font-size: 14px;
   width: 180px;
-  height: 40px;
+  height: 50px;
   background-color: #ffe400;
   border: 0;
   border-radius: 6px;
@@ -60,7 +60,7 @@ const AddButton = styled.button`
 const SendButton = styled.button`
   font-size: 14px;
   width: 180px;
-  height: 40px;
+  height: 50px;
   background-color: #e9ecf3;
   border: 0;
   border-radius: 6px;
@@ -100,6 +100,7 @@ const Header = styled.div`
 const Container = styled.div`
   width: 20.625rem;
   box-sizing: border-box;
+  padding-left: 1.5rem;
 `;
 
 const Section = styled.section`

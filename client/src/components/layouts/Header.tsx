@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { userState } from "../atom/user";
-import { checkLogin, userLogOut } from "../firebase/Firebase.js";
-import Menu from "./Menu";
+import { userState } from "../../atom/user";
+import { userLogOut } from "../../firebase/Firebase.js";
+import Menu from "../items/Menu";
 import SearchForm from "./SearchForm";
 
 const Header = () => {
@@ -22,7 +22,7 @@ const Header = () => {
             <StyledLink to={`/`}>
               <NameText>We Study</NameText>
             </StyledLink>
-            {checkLogin() ? (
+            {!!Object.keys(user).length ? (
               <div>
                 <LoginText onClick={onLogOutClick}>로그아웃</LoginText>
               </div>

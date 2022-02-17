@@ -4,9 +4,9 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getSearch } from "../services/Search";
-import { searchState } from "../atom/search";
-import { searchValidation } from "../validations/searchYup";
+import { getSearch } from "../../services/Search";
+import { searchState } from "../../atom/search";
+import { searchValidation } from "../../validations/searchYup";
 
 interface SearchFormState {
   text: string;

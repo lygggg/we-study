@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useMe } from "../../hook/useMe";
 import Question from "../items/QuestionItem";
 import SolveModal from "../modals/SolveModal";
-import Info from "../../components/Info";
+import Info from "./Info";
 
 function QuestionLayout({ questionList }) {
   const user = useMe();
@@ -38,7 +38,7 @@ function QuestionLayout({ questionList }) {
             <Empty>아무런 값도 찾지 못했습니다.</Empty>
           )}
         </QuestionContainer>
-        <Info />
+        {!!Object.keys(user).length && <Info />}
       </Container>
 
       {activeQuestion && (
@@ -52,7 +52,9 @@ function QuestionLayout({ questionList }) {
   );
 }
 
-const QuestionContainer = styled.div``;
+const QuestionContainer = styled.div`
+  padding-right: 1.5rem;
+`;
 const Empty = styled.div`
   height: 400px;
   width: 800px;
@@ -71,8 +73,8 @@ const QuestionCotainer = styled.div`
 const Container = styled.div`
   margin-top: 60px;
   box-sizing: border-box;
-  justify-content: space-between;
   display: flex;
+  place-content: center;
 `;
 
 const Inner = styled.div`
@@ -80,8 +82,6 @@ const Inner = styled.div`
   margin-top: 20px;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
-  display: flex;
-  align-items: center;
 `;
 
 export default QuestionLayout;

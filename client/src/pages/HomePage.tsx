@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GuideSheet from "../components/GuideSheet";
+import GuideSheet from "../components/layouts/GuideSheet";
 
 const HomePage = () => {
   return (

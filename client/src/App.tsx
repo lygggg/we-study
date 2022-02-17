@@ -7,7 +7,7 @@ import { userState } from "./atom/user";
 import HomePage from "./pages/HomePage";
 import QuestionPage from "./pages/QuestionPage";
 import LoginPage from "./pages/LoginPage";
-import Header from "./components/Header";
+import Header from "./components/layouts/Header";
 import SignUpPage from "./pages/SignUpPage";
 import SearchPage from "./pages/SearchPage";
 import { getUser } from "./services/Login";

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import MenuStore from "../stores/MenuStore";
-import Category from "./Category";
+import MenuStore from "../../stores/MenuStore";
+import Category from "../layouts/Category";
 
 const Menu = () => {
   const categories = MenuStore.getCategories();

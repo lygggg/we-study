@@ -8,9 +8,11 @@ import { SignUpType } from "../models/signUp";
 import { signUpValidation } from "../validations/signUpYup";
 import FormErrorMessage from "../errorComponent/FormErrorMessage";
 import FailSignError from "../errorComponent/FailSignError.jsx";
+import Spinner from "../components/modals/Spinner.jsx";
 
 const SignUpPage = () => {
   const [error, setError] = useState();
+  const [loding, setLoding] = useState(false);
   const {
     register,
     handleSubmit,
@@ -21,12 +23,15 @@ const SignUpPage = () => {
   });
 
   const onClickSignUp = async ({ email, password, name }) => {
+    setLoding(true);
     signupEmail(email, password)
       .then(async (result) => {
         await signUpUser({ name, email });
+        setLoding(false);
         setError(null);
       })
       .catch((e) => {
+        setLoding(false);
         setError(e);
       });
   };
@@ -105,6 +110,7 @@ const SignUpPage = () => {
             <SignButton type="submit">가입하기</SignButton>
           </ButtonContainer>
         </form>
+        {loding && <Spinner />}
       </InnerContainer>
     </Container>
   );

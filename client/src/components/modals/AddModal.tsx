@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Popup from "reactjs-popup";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import { questionState } from "../../atom/question";
 
 import { CreateQuestion } from "../../services/Question";
 import Editor from "./Editor";
+import MenuStore from "../../stores/MenuStore";
 
 interface AddModalProps {
   category: String;
@@ -20,11 +21,13 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
 
   const onClickAddQuiz = async () => {
     const id = user._id;
+    const img = MenuStore.findCategories(categoryId);
     await CreateQuestion({
       quizText,
       answerText,
       category: categoryId,
       id,
+      img,
     });
     setQuizText("");
     setAnswerText("");

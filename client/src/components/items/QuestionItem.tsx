@@ -3,7 +3,7 @@ import styled from "styled-components";
 function QuestionItem({ question }) {
   return (
     <>
-      <Img src={"https://cdn-icons-png.flaticon.com/512/5968/5968292.png"} />
+      <Img src={question.img} />
       <Description>
         <Item dangerouslySetInnerHTML={{ __html: question.quizText }}></Item>
         {question.user[0].name ? (

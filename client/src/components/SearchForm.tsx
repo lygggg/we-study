@@ -31,7 +31,9 @@ const SearchForm = () => {
 
   useEffect(() => {
     const query = searchParams.get("query");
-    onSearch(query);
+    if (query) {
+      onSearch(query);
+    }
   }, [searchParams.get("query")]);
 
   return (

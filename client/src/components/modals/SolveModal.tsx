@@ -28,6 +28,9 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
           <Container>
             <Title>
               <CloseButton onClick={close}>X</CloseButton>
+              <Inner
+                dangerouslySetInnerHTML={{ __html: question.quizText }}
+              ></Inner>
             </Title>
             <PaddingContainer>
               <TableContainer>
@@ -41,6 +44,11 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
                     </Qtr>
                     <Qtr>
                       <Qth>정답 확인 클릭</Qth>
+                      <Qtd
+                        dangerouslySetInnerHTML={{
+                          __html: question.answerText,
+                        }}
+                      ></Qtd>
                     </Qtr>
                   </tbody>
                 </table>

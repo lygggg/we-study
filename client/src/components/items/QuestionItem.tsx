@@ -5,8 +5,12 @@ function QuestionItem({ question }) {
     <>
       <Img src={"https://cdn-icons-png.flaticon.com/512/5968/5968292.png"} />
       <Description>
-        <Item>{question.quizText}</Item>
-        <ItemName>{question.user[0].name}</ItemName>
+        <Item dangerouslySetInnerHTML={{ __html: question.quizText }}></Item>
+        {question.user[0].name ? (
+          <ItemName>{question.user[0].name}</ItemName>
+        ) : (
+          <ItemName>{question.user}</ItemName>
+        )}
       </Description>
     </>
   );

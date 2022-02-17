@@ -63,7 +63,7 @@ const LoginPage = () => {
 
   return (
     <MainDiv>
-      {Object.keys(user).length === 0 ? (
+      {!Object.keys(user).length ? (
         <InnerDiv>
           <Title>로그인</Title>
           <Form onSubmit={handleSubmit(onLoginClick)}>

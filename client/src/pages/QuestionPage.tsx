@@ -44,7 +44,7 @@ const QuestionPage = () => {
           <GetError fetchQuestions={fetchQuestions} />
         ) : (
           <>
-            {Object.keys(user).length ? (
+            {!!Object.keys(user).length ? (
               <Modal
                 category={MenuStore.categories[categoryId]}
                 categoryId={categoryId}

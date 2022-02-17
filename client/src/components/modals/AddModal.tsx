@@ -6,6 +6,7 @@ import { userState } from "../../atom/user";
 import { questionState } from "../../atom/question";
 
 import { CreateQuestion } from "../../services/Question";
+import Editor from "./Editor";
 
 interface AddModalProps {
   category: String;
@@ -35,7 +36,7 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
       modal={true}
       contentStyle={{
         width: "840px",
-        height: "660px",
+        height: "760px",
         backgroundColor: "#FFFFFF",
       }}
       trigger={<AddButton>질문 추가</AddButton>}
@@ -51,26 +52,18 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
               <TableContainer>
                 <table>
                   <tbody>
-                    <Qtr>
+                    <tr>
                       <Qth>문제</Qth>
                       <Qtd>
-                        <Textarea
-                          value={quizText}
-                          maxLength={200}
-                          onChange={(v) => setQuizText(v.target.value)}
-                        ></Textarea>
+                        <Editor value={quizText} onChange={setQuizText} />
                       </Qtd>
-                    </Qtr>
-                    <Qtr>
+                    </tr>
+                    <tr>
                       <Qth>정답</Qth>
                       <Qtd>
-                        <Textarea
-                          value={answerText}
-                          maxLength={200}
-                          onChange={(v) => setAnswerText(v.target.value)}
-                        ></Textarea>
+                        <Editor value={answerText} onChange={setAnswerText} />
                       </Qtd>
-                    </Qtr>
+                    </tr>
                   </tbody>
                 </table>
               </TableContainer>
@@ -104,6 +97,7 @@ const SendButton = styled.button`
 `;
 const ButtonContainer = styled.div`
   text-align: center;
+  margin-top: 4rem;
 `;
 const PaddingContainer = styled.div`
   padding: 14px;
@@ -115,10 +109,6 @@ const TableContainer = styled.div`
   padding: 8px;
 `;
 
-const Textarea = styled.textarea`
-  height: 190px;
-  width: 650px;
-`;
 const Container = styled.div`
   background-color: #ffffff;
 `;
@@ -152,16 +142,10 @@ const Inner = styled.div`
 `;
 const Qtd = styled.td`
   width: 500px;
-  padding: 20px;
-`;
-
-const Qtr = styled.tr`
-  border-bottom: 1px solid #ddd;
-  height: 160px;
+  height: 40px;
 `;
 
 const Qth = styled.th`
-  border-right: 1px solid #ddd;
-  padding: 10px;
+  padding: 13px;
 `;
 export default AddModal;

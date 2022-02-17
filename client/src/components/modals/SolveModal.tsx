@@ -1,6 +1,8 @@
+import { useState } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
+import Editor from "./Editor";
 
 interface SolveModalProps {
   open: boolean;
@@ -9,6 +11,7 @@ interface SolveModalProps {
 }
 
 const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
+  const [text, setText] = useState("");
   return (
     <Popup
       modal={true}
@@ -25,7 +28,6 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
           <Container>
             <Title>
               <CloseButton onClick={close}>X</CloseButton>
-              <Inner>Q.{question.answerText}</Inner>
             </Title>
             <PaddingContainer>
               <TableContainer>
@@ -34,12 +36,11 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
                     <Qtr>
                       <Qth>정답 입력</Qth>
                       <Qtd>
-                        <Textarea maxLength={200}></Textarea>
+                        <Editor value={text} onChange={setText} />
                       </Qtd>
                     </Qtr>
                     <Qtr>
                       <Qth>정답 확인 클릭</Qth>
-                      <Qtd>{question.answerText}</Qtd>
                     </Qtr>
                   </tbody>
                 </table>

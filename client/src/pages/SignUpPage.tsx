@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -13,6 +14,7 @@ import Spinner from "../components/modals/Spinner.jsx";
 const SignUpPage = () => {
   const [error, setError] = useState();
   const [loding, setLoding] = useState(false);
+  const navigateTo = useNavigate();
   const {
     register,
     handleSubmit,
@@ -27,6 +29,7 @@ const SignUpPage = () => {
     signupEmail(email, password)
       .then(async (result) => {
         await signUpUser({ name, email });
+        navigateTo("/signup/success");
         setLoding(false);
         setError(null);
       })
@@ -35,6 +38,7 @@ const SignUpPage = () => {
         setError(e);
       });
   };
+
   return (
     <Container>
       <InnerContainer>

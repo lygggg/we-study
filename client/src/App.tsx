@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import { getAuth } from "firebase/auth";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
@@ -13,6 +12,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SearchPage from "./pages/SearchPage";
 import { getUser } from "./services/Login";
 import "./App.css";
+import SignSuccessPage from "./pages/SignSuccessPage";
 
 function App() {
   const setUser = useSetRecoilState(userState);
@@ -40,6 +40,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/signup/success" element={<SignSuccessPage />} />
           <Route
             path="/categories/:categoryId/page/:pageNum"
             element={<QuestionPage />}

@@ -13,7 +13,7 @@ import Spinner from "../components/modals/Spinner.jsx";
 
 const SignUpPage = () => {
   const [error, setError] = useState();
-  const [loding, setLoding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigateTo = useNavigate();
   const {
     register,
@@ -25,16 +25,16 @@ const SignUpPage = () => {
   });
 
   const onClickSignUp = async ({ email, password, name }) => {
-    setLoding(true);
+    setLoading(true);
     signupEmail(email, password)
       .then(async (result) => {
         await signUpUser({ name, email });
         navigateTo("/signup/success");
-        setLoding(false);
+        setLoading(false);
         setError(null);
       })
       .catch((e) => {
-        setLoding(false);
+        setLoading(false);
         setError(e);
       });
   };
@@ -114,7 +114,7 @@ const SignUpPage = () => {
             <SignButton type="submit">가입하기</SignButton>
           </ButtonContainer>
         </form>
-        {loding && <Spinner />}
+        {loading && <Spinner />}
       </InnerContainer>
     </Container>
   );

@@ -19,7 +19,7 @@ import Spinner from "../components/modals/Spinner";
 import { User } from "../models/user";
 
 const LoginPage = () => {
-  const [loding, setLoding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [user, setUser] = useRecoilState<User>(userState);
   const navigateTo = useNavigate();
@@ -44,10 +44,10 @@ const LoginPage = () => {
         setLoginState();
         navigateTo("/");
         setError(null);
-        setLoding(false);
+        setLoading(false);
       })
       .catch((e) => {
-        setLoding(false);
+        setLoading(false);
         setError(e);
       });
   };
@@ -57,7 +57,7 @@ const LoginPage = () => {
   };
 
   const onLoginClick = async ({ email, password }) => {
-    setLoding(true);
+    setLoading(true);
     tryLogin(loginEmail, [email, password]);
   };
 
@@ -105,7 +105,7 @@ const LoginPage = () => {
               <Button onClick={onGoggleClick}>구글 로그인</Button>
             </InnerButton>
           </div>
-          {loding && <Spinner />}
+          {loading && <Spinner />}
           <SearchDiv>
             <A>아이디</A>
             <A>/</A>

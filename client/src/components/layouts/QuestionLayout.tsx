@@ -1,24 +1,41 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useMe } from "../../hook/useMe";
 import Question from "../items/QuestionItem";
+import MenuStore from "../../stores/MenuStore";
+import Modal from "../../components/modals/AddModal";
 import SolveModal from "../modals/SolveModal";
 import Info from "./Info";
 
-function QuestionLayout({ questionList }) {
+interface QuestionLayout {
+  questionList: any;
+}
+
+function QuestionLayout({ questionList }: QuestionLayout) {
   const user = useMe();
+  const { categoryId } = useParams();
   const navigateTo = useNavigate();
   const [activeQuestion, setActiveQuestion] = useState();
+
   const onClickModal = (question: any) => {
-    if (!Object.keys(user).length) {
+    if (!user) {
       navigateTo("/login");
+      localStorage.removeItem("isLoggedIn");
     }
     setActiveQuestion(question);
   };
 
   return (
     <>
+      {user ? (
+        <Modal
+          category={MenuStore.categories[categoryId]}
+          categoryId={categoryId}
+        />
+      ) : (
+        <></>
+      )}
       <Container>
         <QuestionContainer>
           {questionList.length > 0 ? (
@@ -38,7 +55,7 @@ function QuestionLayout({ questionList }) {
             <Empty>아무런 값도 찾지 못했습니다.</Empty>
           )}
         </QuestionContainer>
-        {!!Object.keys(user).length && <Info />}
+        <Info />
       </Container>
 
       {activeQuestion && (
@@ -73,12 +90,16 @@ const QuestionCotainer = styled.div`
 const Container = styled.div`
   margin-top: 60px;
   box-sizing: border-box;
-  display: flex;
+  display: grid;
   place-content: center;
+  max-width: 1350px;
+  padding-left: 100px;
+  padding-right: 100px;
+  grid-template-columns: 1fr 300px;
 `;
 
 const Inner = styled.div`
-  width: 800px;
+  flex: 1;
   margin-top: 20px;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;

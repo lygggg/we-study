@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { signupEmail } from "../firebase/Firebase.js";
-import { signUpUser } from "../services/SignUp";
-import { SignUpType } from "../models/signUp";
 import { signUpValidation } from "../validations/signUpYup";
 import FormErrorMessage from "../errorComponent/FormErrorMessage";
 import FailSignError from "../errorComponent/FailSignError.jsx";
 import Spinner from "../components/modals/Spinner.jsx";
+import { useSignUp } from "../hook/useSignUp.jsx";
+
+export interface SignUpType {
+  email: string;
+  name: string;
+  password: string;
+  checkPassword: string;
+}
 
 const SignUpPage = () => {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const navigateTo = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,20 +24,10 @@ const SignUpPage = () => {
     resolver: yupResolver(signUpValidation),
     mode: "onBlur", //포커스가 멈췄을때 유효성 트리거
   });
+  const { signUp, loading, error } = useSignUp();
 
-  const onClickSignUp = async ({ email, password, name }) => {
-    setLoading(true);
-    signupEmail(email, password)
-      .then(async (result) => {
-        await signUpUser({ name, email });
-        navigateTo("/signup/success");
-        setLoading(false);
-        setError(null);
-      })
-      .catch((e) => {
-        setLoading(false);
-        setError(e);
-      });
+  const onClickSignUp = async (form: SignUpType) => {
+    signUp(form);
   };
 
   return (
@@ -181,6 +172,12 @@ const SignButton = styled.button`
   font-size: 16px;
   color: #fff;
   line-height: 44px;
+
+  transition: all 0.5s ease;
+
+  &:hover {
+    filter: opacity(0.5);
+  }
 `;
 
 export default SignUpPage;

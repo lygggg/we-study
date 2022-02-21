@@ -1,14 +1,20 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const GetError = (fetchQuestions) => {
+const GetError = () => {
+  const navigateTo = useNavigate();
+  const location = useLocation();
+  const handlRestart = () => {
+    navigateTo(location.pathname);
+  };
+
   return (
     <Container>
       <InnerContainer>
         <H1>404 ERROR</H1>
         <h2>죄송합니다 페이지를 찾을 수 없습니다.</h2>
         <ButtonContainer>
-          <RestartButton onClick={fetchQuestions}>
+          <RestartButton onClick={handlRestart}>
             재시도 하시겠습니까?
           </RestartButton>
           <Link to="/">
@@ -22,6 +28,7 @@ const GetError = (fetchQuestions) => {
 
 const H1 = styled.h1`
   font-size: 60px;
+  margin-bottom: 40px;
 `;
 
 const Container = styled.div`
@@ -56,6 +63,7 @@ const InnerContainer = styled.section``;
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
+  margin-top: 40px;
 `;
 
 export default GetError;

@@ -1,8 +1,8 @@
 import { getUser as apiGetUser } from "../apis/Login";
 
-export const getUser = async (email) => {
+export const getUser = async () => {
   try {
-    return await apiGetUser(email);
+    return await apiGetUser();
   } catch (e) {
     alert(e);
   }

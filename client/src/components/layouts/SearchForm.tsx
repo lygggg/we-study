@@ -1,44 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getSearch } from "../../services/Search";
-import { searchState } from "../../atom/search";
 import { searchValidation } from "../../validations/searchYup";
+import { useSearch } from "../../hook/useSearch";
 
-interface SearchFormState {
+export interface SearchFormState {
   text: string;
 }
 
 const SearchForm = () => {
-  const navigateTo = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const setSearch = useSetRecoilState(searchState);
   const { register, handleSubmit } = useForm<SearchFormState>({
     resolver: yupResolver(searchValidation),
   });
 
-  const onSearch = async (query: string) => {
-    const data = await getSearch(query);
-    setSearch(data.quizs.hits);
-  };
-
-  const onSeachClick = async ({ text }) => {
-    navigateTo("/search/?query=" + text);
-  };
-
-  useEffect(() => {
-    const query = searchParams.get("query");
-    if (query) {
-      onSearch(query);
-    }
-  }, [searchParams.get("query")]);
-
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSeachClick)}>
+      <Form onSubmit={handleSubmit(useSearch())}>
         <FormContainer>
           <Img
             alt="검색"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
@@ -6,22 +6,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 import { userState } from "../atom/user";
 import { loginValidation } from "../validations/loginYup";
-import {
-  loginEmail,
-  loginGoogle,
-  setLoginState,
-} from "../firebase/Firebase.js";
-import { LoginType } from "../models/login";
+import { loginEmail, loginGoogle } from "../firebase/Firebase.js";
 import FormErrorMessage from "../errorComponent/FormErrorMessage";
-import { getUser } from "../services/Login";
 import FailLoginError from "../errorComponent/FailLoginError";
 import Spinner from "../components/modals/Spinner";
-import { User } from "../models/user";
+
+import { useMe } from "../hook/useMe";
+import { useLogin } from "../hook/useLogin";
+
+export interface LoginType {
+  email: string;
+  password: string;
+}
 
 const LoginPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
-  const [user, setUser] = useRecoilState<User>(userState);
+  const user = useMe();
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [error, setError] = useState<Object>();
   const navigateTo = useNavigate();
   const {
     register,
@@ -32,27 +33,10 @@ const LoginPage = () => {
     mode: "onBlur", //포커스가 멈췄을때 유효성 트리거
   });
 
-  const saveUserData = async (userData) => {
-    const data = await getUser(userData.user.email);
-    setUser(data.user);
-  };
-
-  const tryLogin = async (loginMethod, args) => {
-    loginMethod(...args)
-      .then((result) => {
-        saveUserData(result);
-        setLoginState();
-        navigateTo("/");
-        setError(null);
-        setLoading(false);
-      })
-      .catch((e) => {
-        setLoading(false);
-        setError(e);
-      });
-  };
+  const tryLogin = useLogin({ setLoading, setError });
 
   const onGoggleClick = async () => {
+    setLoading(true);
     tryLogin(loginGoogle, []);
   };
 
@@ -63,7 +47,7 @@ const LoginPage = () => {
 
   return (
     <MainDiv>
-      {!Object.keys(user).length ? (
+      {!user ? (
         <InnerDiv>
           <Title>로그인</Title>
           <Form onSubmit={handleSubmit(onLoginClick)}>

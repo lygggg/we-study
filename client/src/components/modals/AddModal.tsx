@@ -1,38 +1,26 @@
 import { useState } from "react";
 import Popup from "reactjs-popup";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { userState } from "../../atom/user";
-import { questionState } from "../../atom/question";
 
-import { CreateQuestion } from "../../services/Question";
 import Editor from "./Editor";
-import MenuStore from "../../stores/MenuStore";
+import { useAddQuiz } from "../../hook/useAddQuiz";
 
 interface AddModalProps {
   category: String;
-  categoryId: String;
+  categoryId: String | Number;
 }
-const AddModal = ({ category, categoryId }: AddModalProps) => {
-  const user = useRecoilValue(userState);
-  const setQuestion = useSetRecoilState(questionState);
-  const [quizText, setQuizText] = useState("");
-  const [answerText, setAnswerText] = useState("");
 
-  const onClickAddQuiz = async () => {
-    const id = user._id;
-    const img = MenuStore.findCategories(categoryId);
-    await CreateQuestion({
-      quizText,
-      answerText,
-      category: categoryId,
-      id,
-      img,
-    });
-    setQuizText("");
-    setAnswerText("");
-    setQuestion(quizText);
-  };
+const AddModal = ({ category, categoryId }: AddModalProps) => {
+  const [quizText, setQuizText] = useState<String>("");
+  const [answerText, setAnswerText] = useState<String>("");
+
+  const onClickAddQuiz = useAddQuiz({
+    categoryId,
+    quizText,
+    answerText,
+    setQuizText,
+    setAnswerText,
+  });
 
   return (
     <Popup

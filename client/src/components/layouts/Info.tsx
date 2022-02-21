@@ -7,6 +7,10 @@ const Info = () => {
   const user = useMe();
   const quizCount = useQuestionCount();
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <>
       <Container>
@@ -16,16 +20,8 @@ const Info = () => {
           </Header>
           <IdContainer>
             <IdText>
-              {!!Object.keys(user).length ? (
-                <>
-                  <H5>{user.name}</H5>
-                  <Email>{user.email}</Email>
-                </>
-              ) : (
-                <>
-                  <H5>로그인이 필요합니다</H5>
-                </>
-              )}
+              <H5>{user.name}</H5>
+              <Email>{user.email}</Email>
             </IdText>
             <IdText>총 문제: {quizCount}</IdText>
             <IdText>추가한 문제: </IdText>
@@ -47,7 +43,7 @@ const ButtonContainer = styled.div`
 `;
 
 const AddButton = styled.button`
-  font-size: 14px;
+  font-size: 13px;
   width: 180px;
   height: 50px;
   background-color: #ffe400;
@@ -58,7 +54,7 @@ const AddButton = styled.button`
 `;
 
 const SendButton = styled.button`
-  font-size: 14px;
+  font-size: 13px;
   width: 180px;
   height: 50px;
   background-color: #e9ecf3;

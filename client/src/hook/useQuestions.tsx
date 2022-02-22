@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { questionState } from "../atom/question";
+import { questionState } from "../recoilState/question";
 import { getQuestion } from "../services/Question";
 
 interface UseQuestionsOptions {

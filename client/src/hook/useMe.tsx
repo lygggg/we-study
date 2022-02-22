@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getUser } from "../apis/Login";
-import { isLoggedInState, userState } from "../atom/user";
+import { isLoggedInState, userState } from "../recoilState/user";
 import { User } from "../models/user";
 
 export const useMe = () => {

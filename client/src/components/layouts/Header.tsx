@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { userLogOut } from "../../firebase/Firebase.js";
+import { userLogOut } from "../../firebase/Firebase";
 import { useIsLoggedIn, useMe } from "../../hook/useMe";
 import DarkModeToggle from "../items/DarkModeToggle.jsx";
 import Menu from "../items/Menu";

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { getSearch } from "../services/Search";
-import { searchState } from "../atom/search";
+import { searchState } from "../recoilState/search";
 
 export const useSearch = () => {
   const navigateTo = useNavigate();

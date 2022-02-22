@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { searchState } from "../atom/search";
+import { searchState } from "../recoilState/search";
 import QuestionLayout from "../components/layouts/QuestionLayout";
 
 const SearchPage = () => {

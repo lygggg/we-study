@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
-import { userState } from "../atom/user";
 import { loginValidation } from "../validations/loginYup";
-import { loginEmail, loginGoogle } from "../firebase/Firebase.js";
+import { loginEmail, loginGoogle } from "../firebase/Firebase";
 import FormErrorMessage from "../errorComponent/FormErrorMessage";
 import FailLoginError from "../errorComponent/FailLoginError";
 import Spinner from "../components/modals/Spinner";
 
 import { useMe } from "../hook/useMe";
 import { useLogin } from "../hook/useLogin";
+import { login } from "../models/login";
 
 export interface LoginType {
   email: string;
@@ -22,7 +21,7 @@ export interface LoginType {
 const LoginPage = () => {
   const user = useMe();
   const [loading, setLoading] = useState<Boolean>(false);
-  const [error, setError] = useState<Object>();
+  const [error, setError] = useState<any>();
   const navigateTo = useNavigate();
   const {
     register,
@@ -37,10 +36,10 @@ const LoginPage = () => {
 
   const onGoggleClick = async () => {
     setLoading(true);
-    tryLogin(loginGoogle, []);
+    tryLogin(loginGoogle, ["", ""]);
   };
 
-  const onLoginClick = async ({ email, password }) => {
+  const onLoginClick = async ({ email, password }: login) => {
     setLoading(true);
     tryLogin(loginEmail, [email, password]);
   };

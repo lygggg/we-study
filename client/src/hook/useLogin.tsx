@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { setLoginState } from "../firebase/Firebase.js";
+import { setLoginState } from "../firebase/Firebase";
 
 interface useAddQuiz {
   setLoading: (x: boolean) => void;
@@ -9,7 +9,10 @@ interface useAddQuiz {
 export const useLogin = ({ setLoading, setError }: useAddQuiz) => {
   const navigateTo = useNavigate();
 
-  const tryLogin = async (loginMethod, args) => {
+  const tryLogin = async (
+    loginMethod: (email: string, password: string) => void,
+    args: [string, string],
+  ) => {
     try {
       await loginMethod(...args);
       setLoginState();

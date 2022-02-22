@@ -3,15 +3,20 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
-function Category({ categoryName, categoryId }) {
+interface CategoryProps {
+  categoryName: String;
+  categoryId: String | Number;
+}
+
+const Category = ({ categoryName, categoryId }: CategoryProps) => {
   return (
     <>
       <StyledLink to={`/categories/${categoryId}/page/1`}>
-        <div>{categoryName}</div>
+        {categoryName}
       </StyledLink>
     </>
   );
-}
+};
 
 const StyledLink = styled(Link)`
   text-decoration-line: none;

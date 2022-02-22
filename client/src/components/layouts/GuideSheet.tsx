@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function GuideSheet() {
+const GuideSheet = () => {
   const guideObject = [
     {
       title: "친구들과 간편하게 면접공부",
@@ -37,7 +37,7 @@ function GuideSheet() {
       </Ol>
     </>
   );
-}
+};
 
 const Title = styled.div`
   font-size: 27px;

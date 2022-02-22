@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Quiz } from "../../models/quiz";
 
-function QuestionItem({ question }) {
+const QuestionItem = ({ question }: { question: Quiz }) => {
   return (
     <>
       <Img src={question.img} />
@@ -14,7 +15,7 @@ function QuestionItem({ question }) {
       </Description>
     </>
   );
-}
+};
 
 const Img = styled.img`
   width: 100px;

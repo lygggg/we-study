@@ -7,21 +7,21 @@ import MenuStore from "../../stores/MenuStore";
 import Modal from "../../components/modals/AddModal";
 import SolveModal from "../modals/SolveModal";
 import Info from "./Info";
+import { Quiz } from "../../models/quiz";
 
-interface QuestionLayout {
-  questionList: any;
+export interface QuestionLayout {
+  questionList: Array<Quiz>;
 }
 
-function QuestionLayout({ questionList }: QuestionLayout) {
+const QuestionLayout = ({ questionList }: QuestionLayout) => {
   const user = useMe();
-  const { categoryId } = useParams();
+  const { categoryId } = useParams<{ categoryId: string }>();
   const navigateTo = useNavigate();
-  const [activeQuestion, setActiveQuestion] = useState();
+  const [activeQuestion, setActiveQuestion] = useState<Quiz | null>();
 
-  const onClickModal = (question: any) => {
+  const onClickModal = (question: Quiz) => {
     if (!user) {
       navigateTo("/login");
-      localStorage.removeItem("isLoggedIn");
     }
     setActiveQuestion(question);
   };
@@ -30,8 +30,8 @@ function QuestionLayout({ questionList }: QuestionLayout) {
     <>
       {user ? (
         <Modal
-          category={MenuStore.categories[categoryId]}
-          categoryId={categoryId}
+          category={MenuStore.findCategories(Number(categoryId) as number)}
+          categoryId={String(categoryId)}
         />
       ) : (
         <></>
@@ -40,7 +40,7 @@ function QuestionLayout({ questionList }: QuestionLayout) {
         <QuestionContainer>
           {questionList.length > 0 ? (
             <>
-              {questionList.map((question) => (
+              {questionList.map((question: Quiz) => (
                 <Inner
                   key={question._id}
                   onClick={() => onClickModal(question)}
@@ -67,7 +67,7 @@ function QuestionLayout({ questionList }: QuestionLayout) {
       )}
     </>
   );
-}
+};
 
 const QuestionContainer = styled.div`
   padding-right: 1.5rem;

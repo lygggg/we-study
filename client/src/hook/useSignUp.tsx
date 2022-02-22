@@ -1,10 +1,7 @@
-import { signupEmail } from "../firebase/Firebase.js";
+import { signupEmail } from "../firebase/Firebase";
 import { signUpUser } from "../services/SignUp";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
-import { getUser } from "../apis/Login.jsx";
-import { userState } from "../atom/user.jsx";
 import { useRefreshMe } from "./useMe";
 
 interface useSignUp {
@@ -13,17 +10,17 @@ interface useSignUp {
 }
 
 interface sigUp {
-  email: String;
-  password: String | Number;
-  name: String;
+  email: string;
+  password: string;
+  name: string;
 }
 
 export const useSignUp = () => {
   const navigateTo = useNavigate();
   const refreshMe = useRefreshMe();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
 
   const signUp = async ({ email, password, name }: sigUp) => {
     setLoading(true);

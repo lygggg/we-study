@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
@@ -18,13 +18,11 @@ import { useRefreshMe } from "./hook/useMe";
 
 export const ThemeContext = createContext({
   theme: darkTheme,
-  toggleTheme: () => {
-    return null;
-  },
+  setToggleTheme: () => {},
 });
 
-function App() {
-  const [theme, toggleTheme] = useDarkMode();
+const App = () => {
+  const [theme, setToggleTheme] = useDarkMode();
   const refreshMe = useRefreshMe();
 
   useEffect(() => {
@@ -40,7 +38,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setToggleTheme }}>
       <BrowserRouter>
         <React.Fragment>
           <GlobalStyle theme={theme === lightTheme ? lightTheme : darkTheme} />
@@ -62,7 +60,7 @@ function App() {
       </BrowserRouter>
     </ThemeContext.Provider>
   );
-}
+};
 
 const Container = styled.div`
   width: 100%;

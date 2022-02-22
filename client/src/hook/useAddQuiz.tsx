@@ -1,6 +1,6 @@
 import { useMe } from "./useMe";
 import { useSetRecoilState } from "recoil";
-import { questionState } from "../atom/question";
+import { questionState } from "../recoilState/question";
 import MenuStore from "../stores/MenuStore";
 import { CreateQuestion } from "../services/Question";
 
@@ -23,8 +23,8 @@ export const useAddQuiz = ({
   const setQuestion = useSetRecoilState<string>(questionState);
 
   const AddQuiz = async () => {
-    const id = user._id;
-    const img = MenuStore.findCategories(categoryId);
+    const id = user?._id;
+    const img = MenuStore.findCategoriesUri(Number(categoryId));
     await CreateQuestion({
       quizText,
       answerText,

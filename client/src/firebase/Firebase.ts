@@ -10,7 +10,7 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 
-const firebaseConfig = {
+const firebaseConfig: any = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_APIKEY,
   authDomain: import.meta.env.VITE_APP_FIREBASE_AUTHDOMAIN,
   projectId: import.meta.env.VITE_APP_FIREBASE_PROJECTID,
@@ -24,11 +24,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-export const signupEmail = (email, password) => {
+export const signupEmail = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const loginEmail = (email, password) => {
+export const loginEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
@@ -37,7 +37,7 @@ export const loginGoogle = () => {
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
+      const token = credential?.accessToken;
       // The signed-in user info.
       const user = result.user;
       // ...

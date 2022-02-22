@@ -16,7 +16,7 @@ export const signUpValidation = yup.object({
     .string()
     .required("비밀번호를 입력해주세요")
     .max(15, "비밀번호는 최대 15자리 입니다.")
-    .min(4, "비밀번호는 최소 4자리 입니다."),
+    .min(6, "비밀번호는 최소 6자리 입니다."),
   checkPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다.")

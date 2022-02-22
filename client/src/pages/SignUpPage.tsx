@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -57,7 +56,7 @@ const SignUpPage = () => {
             <Input
               type="password"
               placeholder="비밀번호
-                (영문 숫자 최소 4자리 최대 15자리)"
+                (영문 숫자 최소 6자리 최대 15자리)"
               {...register("password")}
             />
             <div>

@@ -1,13 +1,11 @@
 import axios from "axios";
 
-export const signUpUser = async (params): Promise<any> => {
+export const signUpUser = async (params): Promise<boolean> => {
   try {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_APP_API}/auth/signup`,
-      params,
-    );
-    return data;
+    await axios.post(`${import.meta.env.VITE_APP_API}/auth/signup`, params);
+    return true;
   } catch (e) {
     alert(e);
   }
+  return false;
 };

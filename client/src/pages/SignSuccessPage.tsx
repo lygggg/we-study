@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function SignSuccessPage() {
+const SignSuccessPage = () => {
   return (
     <Container>
       <InnerContainer>
         <H1>환영합니다!</H1>
-        <h2>회원가입을 축하합니다. 입니다.</h2>
+        <h2>회원가입을 축하합니다.</h2>
         <ButtonContainer>
           <Link to="/">
             <HomeButton>메인 페이지로 이동</HomeButton>
@@ -16,10 +16,11 @@ function SignSuccessPage() {
       </InnerContainer>
     </Container>
   );
-}
+};
 
 const H1 = styled.h1`
   font-size: 60px;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.div`
@@ -45,6 +46,7 @@ const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-top: 30px;
 `;
 
 export default SignSuccessPage;

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
 import * as ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 
-const Editor = ({ value, onChange }) => {
+interface Editor {
+  value: string;
+  onChange: (x: string) => void;
+}
+
+const Editor = ({ value, onChange }: Editor) => {
   return (
     <>
       <Container>

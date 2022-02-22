@@ -11,7 +11,7 @@ interface SolveModalProps {
 }
 
 const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
   return (
     <Popup
       modal={true}
@@ -23,7 +23,7 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
       }}
       onClose={onClose}
     >
-      {(close) => (
+      {(close: () => void) => (
         <>
           <Container>
             <Title>
@@ -132,6 +132,7 @@ const Inner = styled.div`
 const Qtd = styled.td`
   width: 500px;
   padding: 20px;
+  vertical-align: top;
 `;
 
 const Qtr = styled.tr`

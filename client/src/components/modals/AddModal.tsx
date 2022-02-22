@@ -6,13 +6,13 @@ import Editor from "./Editor";
 import { useAddQuiz } from "../../hook/useAddQuiz";
 
 interface AddModalProps {
-  category: String;
-  categoryId: String | Number;
+  category: string;
+  categoryId: string;
 }
 
 const AddModal = ({ category, categoryId }: AddModalProps) => {
-  const [quizText, setQuizText] = useState<String>("");
-  const [answerText, setAnswerText] = useState<String>("");
+  const [quizText, setQuizText] = useState<string>("");
+  const [answerText, setAnswerText] = useState<string>("");
 
   const onClickAddQuiz = useAddQuiz({
     categoryId,
@@ -32,7 +32,7 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
       }}
       trigger={<AddButton>질문 추가</AddButton>}
     >
-      {(close) => (
+      {(close: () => void) => (
         <>
           <Container>
             <Title>
@@ -96,12 +96,11 @@ const PaddingContainer = styled.div`
 
 const TableContainer = styled.div`
   height: 380px;
-  border-top: 2px solid;
   padding: 8px;
 `;
 
 const Container = styled.div`
-  background-color: #ffffff;
+  background-color: #3a3a3a;
 `;
 
 const AddButton = styled.button`

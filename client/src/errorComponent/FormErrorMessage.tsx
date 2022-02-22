@@ -1,7 +1,7 @@
 import { StyledFormErrorMessage } from "./ErrorStyle";
 
 type FormErrorMessage = {
-  errorMessage: string;
+  errorMessage: string | undefined;
 };
 const FormErrorMessage = ({ errorMessage }: FormErrorMessage) => {
   return <StyledFormErrorMessage>{errorMessage}</StyledFormErrorMessage>;

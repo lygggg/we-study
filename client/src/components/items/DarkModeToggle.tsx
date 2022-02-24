@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../../App";
 import { lightTheme, Theme } from "../../theme";
@@ -15,19 +15,19 @@ const DarkModeToggle = () => {
         <>
           <Emoji>
             <span role="img" aria-label="darkMoon">
-              🌚
+              🕶️
             </span>
           </Emoji>
-          <ModeContent>다크 모드</ModeContent>
+          <ModeContent>다크 모드로 보기</ModeContent>
         </>
       ) : (
         <>
           <Emoji>
             <span role="img" aria-label="lightSun">
-              🌞
+              💡
             </span>
           </Emoji>
-          <ModeContent>라이트 모드</ModeContent>
+          <ModeContent>라이트 모드로 보기</ModeContent>
         </>
       )}
     </ToggleButton>
@@ -36,7 +36,7 @@ const DarkModeToggle = () => {
 
 const ToggleButton = styled("button")<ToggleProps>`
   position: fixed;
-  width: 115px;
+  width: 140px;
   height: 45px;
   right: 1.5rem;
   bottom: 1.5rem;
@@ -69,8 +69,8 @@ const Emoji = styled.figure`
 `;
 
 const ModeContent = styled.p`
-  font-size: 0.8rem;
-  margin-left: 5px;
+  font-size: 0.7rem;
+  margin-left: 2px;
 `;
 
 export default DarkModeToggle;

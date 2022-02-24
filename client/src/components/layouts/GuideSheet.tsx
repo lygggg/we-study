@@ -42,7 +42,6 @@ const GuideSheet = () => {
 const Title = styled.div`
   font-size: 27px;
   font-weight: 700;
-  color: #1c1c1c;
   line-height: 32px;
   letter-spacing: -0.6px;
   transform: scaleX(0.95);
@@ -52,7 +51,6 @@ const Title = styled.div`
 const Text = styled.div`
   font-size: 24px;
   font-weight: 600;
-  color: #1c1c1c;
   line-height: 32px;
   letter-spacing: -1.5px;
   transform: scaleX(0.95);
@@ -73,7 +71,6 @@ const Li = styled.li`
   border-radius: 10px;
   box-shadow: 15px 15px 15px rgb(0 0 0 / 15%);
   box-sizing: border-box;
-  background: #fff;
   border: 1px solid #eaeaea;
 `;
 

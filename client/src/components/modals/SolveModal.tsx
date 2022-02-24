@@ -34,24 +34,20 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
             </Title>
             <PaddingContainer>
               <TableContainer>
-                <table>
-                  <tbody>
-                    <Qtr>
-                      <Qth>정답 입력</Qth>
-                      <Qtd>
-                        <Editor value={text} onChange={setText} />
-                      </Qtd>
-                    </Qtr>
-                    <Qtr>
-                      <Qth>정답 확인 클릭</Qth>
-                      <Qtd
-                        dangerouslySetInnerHTML={{
-                          __html: question.answerText,
-                        }}
-                      ></Qtd>
-                    </Qtr>
-                  </tbody>
-                </table>
+                <div>
+                  <H4>정답 입력</H4>
+                  <div>
+                    <Editor value={text} onChange={setText} />
+                  </div>
+                </div>
+                <div>
+                  <H4>정답 확인 클릭</H4>
+                  <AnswerText
+                    dangerouslySetInnerHTML={{
+                      __html: question.answerText,
+                    }}
+                  ></AnswerText>
+                </div>
               </TableContainer>
             </PaddingContainer>
             <ButtonContainer>
@@ -83,15 +79,10 @@ const SendButton = styled.button`
 
 const ButtonContainer = styled.div`
   text-align: center;
-  border-left: 2px solid #eaeaea;
-  border-right: 2px solid #eaeaea;
-  border-bottom: 2px solid #eaeaea;
 `;
 
 const PaddingContainer = styled.div`
   padding: 14px;
-  border-left: 2px solid #eaeaea;
-  border-right: 2px solid #eaeaea;
 `;
 
 const TableContainer = styled.div`
@@ -100,13 +91,8 @@ const TableContainer = styled.div`
   padding: 8px;
 `;
 
-const Textarea = styled.textarea`
-  height: 240px;
-  width: 650px;
-`;
-
 const Container = styled.div`
-  background-color: #ffffff;
+  background: #353535;
 `;
 
 const CloseButton = styled.button`
@@ -122,6 +108,7 @@ const Title = styled.div`
 
 const Inner = styled.div`
   background: #ffe400;
+  color: #000000;
   padding: 14px;
   display: flex;
   font-size: 25px;
@@ -129,19 +116,14 @@ const Inner = styled.div`
   align-items: center;
 `;
 
-const Qtd = styled.td`
-  width: 500px;
-  padding: 20px;
-  vertical-align: top;
+const H4 = styled.h4`
+  font-size: 25px;
+  margin-bottom: 10px;
+  color: #ffffff;
 `;
 
-const Qtr = styled.tr`
-  border-bottom: 1px solid #ddd;
-  height: 160px;
-`;
-
-const Qth = styled.th`
-  padding: 10px;
+const AnswerText = styled.div`
+  color: #ffffff;
 `;
 
 export default SolveModal;

@@ -7,17 +7,9 @@ export const getQuestion = async ({ category }) => {
 };
 
 export const getQuestionCount = async () => {
-  try {
-    return await apiGetQuestionCount();
-  } catch (e) {
-    alert(e);
-  }
+  return await apiGetQuestionCount();
 };
 
 export const CreateQuestion = async (params) => {
-  try {
-    return await apiCreateQuestion(params);
-  } catch (e) {
-    alert(e);
-  }
+  return await apiCreateQuestion(params);
 };

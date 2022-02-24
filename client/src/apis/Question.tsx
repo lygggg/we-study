@@ -8,30 +8,18 @@ export const getQuestion = async ({ category }): Promise<any> => {
 };
 
 export const getQuestionCount = async (): Promise<any> => {
-  try {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_APP_API}/quiz/count`,
-    );
-    return data;
-  } catch (e) {
-    // if (confirm("retry ")) {
-    //   return getQuestion();
-    // }
-    // throw e;
-  }
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_API}/quiz/count`,
+  );
+  return data;
 };
 
 export const CreateQuestion = async (params): Promise<any> => {
   try {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_APP_API}/quiz`,
-      params,
-    );
-    return data;
+    await axios.post(`${import.meta.env.VITE_APP_API}/quiz`, params);
+    return true;
   } catch (e) {
-    // if (confirm("retry ")) {
-    //   return getQuestion();
-    // }
-    // throw e;
+    alert(e);
   }
+  return false;
 };

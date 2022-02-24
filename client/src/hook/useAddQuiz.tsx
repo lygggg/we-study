@@ -25,16 +25,21 @@ export const useAddQuiz = ({
   const AddQuiz = async () => {
     const id = user?._id;
     const img = MenuStore.findCategoriesUri(Number(categoryId));
-    await CreateQuestion({
-      quizText,
-      answerText,
-      category: categoryId,
-      id,
-      img,
-    });
-    setQuestion(quizText);
-    setQuizText("");
-    setAnswerText("");
+    try {
+      await CreateQuestion({
+        quizText,
+        answerText,
+        category: categoryId,
+        id,
+        img,
+      });
+      setQuestion(quizText);
+    } catch (e) {
+      alert("퀴즈 생성에 실패하셨습니다.");
+    } finally {
+      setQuizText("");
+      setAnswerText("");
+    }
   };
 
   return AddQuiz;

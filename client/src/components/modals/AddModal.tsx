@@ -41,22 +41,18 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
             </Title>
             <PaddingContainer>
               <TableContainer>
-                <table>
-                  <tbody>
-                    <tr>
-                      <Qth>문제</Qth>
-                      <Qtd>
-                        <Editor value={quizText} onChange={setQuizText} />
-                      </Qtd>
-                    </tr>
-                    <tr>
-                      <Qth>정답</Qth>
-                      <Qtd>
-                        <Editor value={answerText} onChange={setAnswerText} />
-                      </Qtd>
-                    </tr>
-                  </tbody>
-                </table>
+                <div>
+                  <H4>문제</H4>
+                  <div>
+                    <Editor value={quizText} onChange={setQuizText} />
+                  </div>
+                </div>
+                <div>
+                  <H4>정답</H4>
+                  <div>
+                    <Editor value={answerText} onChange={setAnswerText} />
+                  </div>
+                </div>
               </TableContainer>
             </PaddingContainer>
             <ButtonContainer>
@@ -76,19 +72,24 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
   );
 };
 
+const H4 = styled.h4`
+  font-size: 25px;
+  margin-bottom: 10px;
+  color: #ffffff;
+`;
+
 const SendButton = styled.button`
   font-size: 17px;
-  margin-top: 90px;
-  height: 60px;
+  height: 50px;
   width: 216px;
   background: #0c151c;
   color: #fff;
   border-radius: 4px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 const ButtonContainer = styled.div`
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 13rem;
 `;
 const PaddingContainer = styled.div`
   padding: 14px;
@@ -96,11 +97,12 @@ const PaddingContainer = styled.div`
 
 const TableContainer = styled.div`
   height: 380px;
+  border-top: 2px solid;
   padding: 8px;
 `;
 
 const Container = styled.div`
-  background-color: #3a3a3a;
+  background: #353535;
 `;
 
 const AddButton = styled.button`
@@ -124,18 +126,12 @@ const Title = styled.div`
 
 const Inner = styled.div`
   background: #ffe400;
+  color: #000000;
   padding: 14px;
   display: flex;
   font-size: 25px;
   height: 70px;
   align-items: center;
 `;
-const Qtd = styled.td`
-  width: 500px;
-  height: 40px;
-`;
 
-const Qth = styled.th`
-  padding: 13px;
-`;
 export default AddModal;

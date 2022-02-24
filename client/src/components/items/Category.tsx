@@ -20,7 +20,6 @@ const Category = ({ categoryName, categoryId }: CategoryProps) => {
 
 const StyledLink = styled(Link)`
   text-decoration-line: none;
-  color: #000000;
 `;
 
 export default Category;

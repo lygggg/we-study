@@ -22,26 +22,19 @@ ${reset}
         color: ${({ theme }) => theme.text};
         transition: all 0.5s ease-in-out;
     }
-
-    header {
-        color: ${({ theme }) => theme.text};
-        background: ${({ theme }) => theme.header};
-    }
     button { 
         cursor: pointer;
         border: none;
         outline: none;
     }
+    input{
+        background: ${({ theme }) => theme.toggleBackground};
+    }
     ol, ul, li {
         list-style: none;
     }
     a {
-        text-decoration: none;
         cursor: pointer;
         color: ${({ theme }) => theme.text};
-    }
-    img {
-        width: 100%;
-        height: 100%;
     }
 `;

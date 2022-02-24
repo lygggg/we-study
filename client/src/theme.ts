@@ -1,5 +1,5 @@
 export const lightTheme = {
-  body: "#EAEAEA",
+  body: "#FFFFFF",
   text: "#353535",
   mainColor: "#7038d4",
   toggleBackground: "#F6F6F6",
@@ -7,11 +7,11 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  body: "#3A3A3A",
-  text: "#fafafa",
+  body: "#282c35",
+  text: "#eee",
   mainColor: "#7038d4",
   toggleBackground: "#333333",
-  header: "#EAEAEA",
+  header: "#3A3A3A",
 };
 
 export type Theme = typeof lightTheme;

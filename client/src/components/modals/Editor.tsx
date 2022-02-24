@@ -12,7 +12,7 @@ const Editor = ({ value, onChange }: Editor) => {
     <>
       <Container>
         <ReactQuill
-          style={{ height: 200, width: 740 }}
+          style={{ height: 200, width: 800, color: "#FFFFFF" }}
           theme="snow"
           value={value}
           onChange={onChange}

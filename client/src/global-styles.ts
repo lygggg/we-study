@@ -26,7 +26,11 @@ ${reset}
         cursor: pointer;
         border: none;
         outline: none;
-    }
+        transition: all 0.5s ease;
+          &:hover {
+              filter: opacity(0.5);
+            }
+        }
     input{
         background: ${({ theme }) => theme.toggleBackground};
     }
@@ -36,5 +40,9 @@ ${reset}
     a {
         cursor: pointer;
         color: ${({ theme }) => theme.text};
+        transition: all 0.5s ease;
+          &:hover {
+              filter: opacity(0.3);
+            }
     }
 `;

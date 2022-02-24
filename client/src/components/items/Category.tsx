@@ -20,6 +20,7 @@ const Category = ({ categoryName, categoryId }: CategoryProps) => {
 
 const StyledLink = styled(Link)`
   text-decoration-line: none;
+  transition: all 0.5s ease;
 `;
 
 export default Category;

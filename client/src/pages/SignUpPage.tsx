@@ -155,7 +155,7 @@ const Input = styled.input`
 
 const Label = styled.span`
   display: inline-block;
-  width: 75px;
+  width: 80px;
   margin-top: 30px;
   font-size: 13px;
   font-weight: bold;
@@ -171,12 +171,6 @@ const SignButton = styled.button`
   font-size: 16px;
   color: #fff;
   line-height: 44px;
-
-  transition: all 0.5s ease;
-
-  &:hover {
-    filter: opacity(0.5);
-  }
 `;
 
 export default SignUpPage;

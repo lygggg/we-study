@@ -12,6 +12,7 @@ interface SolveModalProps {
 
 const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
   const [text, setText] = useState<string>("");
+  const [hide, setHide] = useState<boolean>(false);
   return (
     <Popup
       modal={true}
@@ -41,12 +42,14 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
                   </div>
                 </div>
                 <div>
-                  <H4>정답 확인 클릭</H4>
-                  <AnswerText
-                    dangerouslySetInnerHTML={{
-                      __html: question.answerText,
-                    }}
-                  ></AnswerText>
+                  <H4 onClick={() => setHide(true)}>정답 확인 클릭</H4>
+                  {hide && (
+                    <AnswerText
+                      dangerouslySetInnerHTML={{
+                        __html: question.answerText,
+                      }}
+                    ></AnswerText>
+                  )}
                 </div>
               </TableContainer>
             </PaddingContainer>

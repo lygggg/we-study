@@ -10,8 +10,12 @@ export const useSearch = () => {
   const setSearch = useSetRecoilState(searchState);
 
   const onSearch = async (query: string) => {
-    const data = await getSearch(query);
-    setSearch(data.quizs.hits);
+    try {
+      const data = await getSearch(query);
+      setSearch(data.quizs.hits);
+    } catch (e) {
+      setSearch([]);
+    }
   };
 
   const onSeachClick = async ({ text }) => {

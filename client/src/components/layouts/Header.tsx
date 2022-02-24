@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { userLogOut } from "../../firebase/Firebase";
 import { useIsLoggedIn, useMe } from "../../hook/useMe";
 import DarkModeToggle from "../items/DarkModeToggle.jsx";
-import Menu from "../items/Menu";
+import Menu from "./Menu";
 import SearchForm from "./SearchForm";
 
 const Header = () => {
@@ -91,7 +91,6 @@ const Head = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #000000;
 `;
 
 export default Header;

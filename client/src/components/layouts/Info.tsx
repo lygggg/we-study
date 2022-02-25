@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMe } from "../../hook/useMe";
 import { useQuestionCount } from "../../hook/useQuestionCount";
@@ -29,6 +30,9 @@ const Info = () => {
             <ButtonContainer>
               <AddButton>추가한 문제 가져오기</AddButton>
               <SendButton>제출한 문제 가져오기</SendButton>
+              <StyledLink to={`/addlist`}>
+                <AddButton>추가한 문제 가져오기</AddButton>
+              </StyledLink>
             </ButtonContainer>
           </IdContainer>
         </Section>
@@ -37,6 +41,10 @@ const Info = () => {
   );
 };
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -44,7 +52,7 @@ const ButtonContainer = styled.div`
 
 const AddButton = styled.button`
   font-size: 13px;
-  width: 180px;
+  width: 130px;
   height: 50px;
   background-color: #ffe400;
   border: 0;
@@ -55,7 +63,7 @@ const AddButton = styled.button`
 
 const SendButton = styled.button`
   font-size: 13px;
-  width: 180px;
+  width: 130px;
   height: 50px;
   background-color: #e9ecf3;
   border: 0;

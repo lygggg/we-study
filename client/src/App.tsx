@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import Header from "./components/layouts/Header";
 import SignUpPage from "./pages/SignUpPage";
 import SearchPage from "./pages/SearchPage";
+import AddQuizListPage from "./pages/AddQuizListPage";
 import "./App.css";
 import SignSuccessPage from "./pages/SignSuccessPage";
 import { lightTheme, darkTheme } from "./theme";
@@ -54,6 +55,7 @@ const App = () => {
                 element={<QuestionPage />}
               />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="/addlist" element={<AddQuizListPage />} />
             </Routes>
           </Container>
         </React.Fragment>

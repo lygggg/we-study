@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const GetError = () => {
-  const navigateTo = useNavigate();
   const location = useLocation();
+
   const handlRestart = () => {
-    navigateTo(location.pathname);
+    window.location.replace(location.pathname);
   };
 
   return (

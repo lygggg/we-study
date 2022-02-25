@@ -44,7 +44,11 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
                 <div>
                   <H4>문제</H4>
                   <div>
-                    <Editor value={quizText} onChange={setQuizText} />
+                    <Textarea
+                      maxLength={20}
+                      value={quizText}
+                      onChange={(v) => setQuizText(v.target.value)}
+                    />
                   </div>
                 </div>
                 <div>
@@ -72,6 +76,12 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
   );
 };
 
+const Textarea = styled.textarea`
+  width: 100%;
+  margin-bottom: 100px;
+  font-size: 15px;
+`;
+
 const H4 = styled.h4`
   font-size: 25px;
   margin-bottom: 10px;
@@ -87,10 +97,12 @@ const SendButton = styled.button`
   border-radius: 4px;
   margin-bottom: 20px;
 `;
+
 const ButtonContainer = styled.div`
   text-align: center;
   margin-top: 13rem;
 `;
+
 const PaddingContainer = styled.div`
   padding: 14px;
 `;

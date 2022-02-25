@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import QuestionLayout from "../components/layouts/QuestionLayout";
+import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
-import { useQuestions } from "../hook/useQuestions";
+import { useQuizs } from "../hook/useQuizs";
 
-const QuestionPage = () => {
+const QuizPage = () => {
   const [error, setError] = useState();
-  const questionList = useQuestions({
+  const quizList = useQuizs({
     onError: setError,
   });
 
@@ -17,7 +17,7 @@ const QuestionPage = () => {
           <GetError />
         ) : (
           <>
-            <QuestionLayout questionList={questionList} />
+            <QuizLayout quizList={quizList} />
           </>
         )}
       </Container>
@@ -29,4 +29,4 @@ const Container = styled.div`
   margin-top: 60px;
 `;
 
-export default QuestionPage;
+export default QuizPage;

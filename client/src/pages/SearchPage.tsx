@@ -1,13 +1,13 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { searchState } from "../recoilState/search";
-import QuestionLayout from "../components/layouts/QuestionLayout";
+import QuizLayout from "../components/layouts/QuizLayout";
 
 const SearchPage = () => {
-  const questionList = useRecoilValue(searchState);
+  const quizList = useRecoilValue(searchState);
   return (
     <div>
-      <QuestionLayout questionList={questionList} />
+      <QuizLayout quizList={quizList} />
     </div>
   );
 };

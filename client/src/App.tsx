@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
 import HomePage from "./pages/HomePage";
-import QuestionPage from "./pages/QuestionPage";
+import QuizPage from "./pages/QuizPage";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/layouts/Header";
 import SignUpPage from "./pages/SignUpPage";
@@ -53,7 +53,7 @@ const App = () => {
               <Route path="/signup/success" element={<SignSuccessPage />} />
               <Route
                 path="/categories/:categoryId/page/:pageNum"
-                element={<QuestionPage />}
+                element={<QuizPage />}
               />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/addlist" element={<AddQuizListPage />} />

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { getQuestionCount } from "../apis/Question";
+import { getQuizCount } from "../apis/Quiz";
 
-export const useQuestionCount = () => {
+export const useQuizCount = () => {
   const [quizCount, setQuizCount] = useState<Number>();
 
-  const fetchQuestions = async () => {
+  const fetchQuizs = async () => {
     try {
-      const data = await getQuestionCount();
+      const data = await getQuizCount();
       setQuizCount(data.quizs);
     } catch (e) {
       setQuizCount(0);
@@ -15,7 +15,7 @@ export const useQuestionCount = () => {
   };
 
   useEffect(() => {
-    fetchQuestions();
+    fetchQuizs();
   }, []);
 
   return quizCount;

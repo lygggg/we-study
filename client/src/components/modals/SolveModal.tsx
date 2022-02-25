@@ -8,16 +8,16 @@ import { createQuizCart } from "../../services/QuizCart";
 interface SolveModalProps {
   open: boolean;
   onClose: any;
-  question: Quiz;
+  quiz: Quiz;
 }
 
-const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
+const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
   const [text, setText] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
 
   const onClickCartQuiz = async () => {
     try {
-      await createQuizCart({ quizId: question._id });
+      await createQuizCart({ quizId: quiz._id });
     } catch (e) {
       alert("이미 소장한 퀴즈입니다.");
     }
@@ -40,7 +40,7 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
             <Title>
               <CloseButton onClick={close}>X</CloseButton>
               <Inner
-                dangerouslySetInnerHTML={{ __html: question.quizText }}
+                dangerouslySetInnerHTML={{ __html: quiz.quizText }}
               ></Inner>
             </Title>
             <PaddingContainer>
@@ -56,7 +56,7 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
                   {hide && (
                     <AnswerText
                       dangerouslySetInnerHTML={{
-                        __html: question.answerText,
+                        __html: quiz.answerText,
                       }}
                     ></AnswerText>
                   )}

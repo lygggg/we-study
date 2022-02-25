@@ -1,8 +1,8 @@
 import { useMe } from "./useMe";
 import { useSetRecoilState } from "recoil";
-import { questionState } from "../recoilState/question";
+import { quizState } from "../recoilState/quiz";
 import MenuStore from "../stores/MenuStore";
-import { createQuestion } from "../services/Question";
+import { createQuiz } from "../services/Quiz";
 
 interface useAddQuiz {
   categoryId: string | number;
@@ -20,20 +20,20 @@ export const useAddQuiz = ({
   setAnswerText,
 }: useAddQuiz) => {
   const user = useMe();
-  const setQuestion = useSetRecoilState<string>(questionState);
+  const setQuiz = useSetRecoilState<string>(quizState);
 
   const AddQuiz = async () => {
     const id = user?._id;
     const img = MenuStore.findCategoriesUri(Number(categoryId));
     try {
-      await createQuestion({
+      await createQuiz({
         quizText,
         answerText,
         category: categoryId,
         id,
         img,
       });
-      setQuestion(quizText);
+      setQuiz(quizText);
     } catch (e) {
       alert("퀴즈 생성에 실패하셨습니다.");
     } finally {

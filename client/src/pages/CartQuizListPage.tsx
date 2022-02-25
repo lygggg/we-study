@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import QuestionLayout from "../components/layouts/QuestionLayout";
+import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
 import { useCartQuizList } from "../hook/useCartQuizList";
 
 const CartQuizListPage = () => {
   const [error, setError] = useState();
-  const questionList = useCartQuizList({
+  const quizList = useCartQuizList({
     onError: setError,
   });
 
@@ -17,7 +17,7 @@ const CartQuizListPage = () => {
           <GetError />
         ) : (
           <>
-            <QuestionLayout questionList={questionList} />
+            <QuizLayout quizList={quizList} />
           </>
         )}
       </Container>

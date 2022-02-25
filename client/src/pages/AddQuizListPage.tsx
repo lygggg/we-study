@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import QuestionLayout from "../components/layouts/QuestionLayout";
+import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
 import { useGetAddQuizList } from "../hook/useGetAddQuizList";
 
 const AddQuizListPage = () => {
   const [error, setError] = useState();
-  const questionList = useGetAddQuizList({
+  const quizList = useGetAddQuizList({
     onError: setError,
   });
 
@@ -17,7 +17,7 @@ const AddQuizListPage = () => {
           <GetError />
         ) : (
           <>
-            <QuestionLayout questionList={questionList} />
+            <QuizLayout quizList={quizList} />
           </>
         )}
       </Container>

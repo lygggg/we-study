@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-import { getUserAddQuestion } from "../apis/Question";
+import { getUserAddQuiz } from "../apis/Quiz";
 
-interface UseQuestionsOptions {
+interface UseQuizsOptions {
   onError: (error: any) => void;
 }
 
-export const useGetAddQuizList = ({ onError }: UseQuestionsOptions) => {
+export const useGetAddQuizList = ({ onError }: UseQuizsOptions) => {
   const [quizList, setQuizList] = useState([]);
 
-  const fetchQuestions = async () => {
+  const fetchQuizs = async () => {
     try {
-      const data = await getUserAddQuestion();
+      const data = await getUserAddQuiz();
       setQuizList(data.quizs);
       onError(null);
     } catch (e) {
@@ -20,7 +20,7 @@ export const useGetAddQuizList = ({ onError }: UseQuestionsOptions) => {
   };
 
   useEffect(() => {
-    fetchQuestions();
+    fetchQuizs();
   }, []);
 
   return quizList;

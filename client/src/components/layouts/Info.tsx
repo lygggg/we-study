@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMe } from "../../hook/useMe";
-import { useQuestionCount } from "../../hook/useQuestionCount";
+import { useQuizCount } from "../../hook/useQuizCount";
 
 const Info = () => {
   const user = useMe();
-  const quizCount = useQuestionCount();
+  const quizCount = useQuizCount();
 
   if (!user) {
     return null;

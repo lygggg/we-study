@@ -2,28 +2,28 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useMe } from "../../hook/useMe";
-import Question from "../items/QuestionItem";
+import QuizItem from "../items/QuizItem";
 import MenuStore from "../../stores/MenuStore";
-import Modal from "../../components/modals/AddModal";
+import Modal from "../modals/AddModal";
 import SolveModal from "../modals/SolveModal";
 import Info from "./Info";
 import { Quiz } from "../../models/quiz";
 
-export interface QuestionLayout {
-  questionList: Array<Quiz>;
+export interface QuizLayout {
+  quizList: Array<Quiz>;
 }
 
-const QuestionLayout = ({ questionList }: QuestionLayout) => {
+const QuizLayout = ({ quizList }: QuizLayout) => {
   const user = useMe();
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigateTo = useNavigate();
-  const [activeQuestion, setActiveQuestion] = useState<Quiz | null>();
+  const [activeQuiz, setActiveQuiz] = useState<Quiz | null>();
 
-  const onClickModal = (question: Quiz) => {
+  const onClickModal = (quiz: Quiz) => {
     if (!user) {
       navigateTo("/login");
     }
-    setActiveQuestion(question);
+    setActiveQuiz(quiz);
   };
 
   return (
@@ -37,39 +37,36 @@ const QuestionLayout = ({ questionList }: QuestionLayout) => {
         <></>
       )}
       <Container>
-        <QuestionContainer>
-          {questionList.length > 0 ? (
+        <QuizContainer>
+          {quizList.length > 0 ? (
             <>
-              {questionList.map((question: Quiz) => (
-                <Inner
-                  key={question._id}
-                  onClick={() => onClickModal(question)}
-                >
-                  <QuestionCotainer>
-                    <Question question={question}></Question>
-                  </QuestionCotainer>
+              {quizList.map((quiz: Quiz) => (
+                <Inner key={quiz._id} onClick={() => onClickModal(quiz)}>
+                  <QuizCotainer>
+                    <QuizItem quiz={quiz}></QuizItem>
+                  </QuizCotainer>
                 </Inner>
               ))}
             </>
           ) : (
             <Empty>아무런 값도 찾지 못했습니다.</Empty>
           )}
-        </QuestionContainer>
+        </QuizContainer>
         <Info />
       </Container>
 
-      {activeQuestion && (
+      {activeQuiz && (
         <SolveModal
           open
-          question={activeQuestion}
-          onClose={() => setActiveQuestion(null)}
+          quiz={activeQuiz}
+          onClose={() => setActiveQuiz(null)}
         />
       )}
     </>
   );
 };
 
-const QuestionContainer = styled.div`
+const QuizContainer = styled.div`
   padding-right: 1.5rem;
 `;
 const Empty = styled.div`
@@ -84,7 +81,7 @@ const Empty = styled.div`
   font-size: 25px;
 `;
 
-const QuestionCotainer = styled.div`
+const QuizCotainer = styled.div`
   display: flex;
 `;
 const Container = styled.div`
@@ -105,4 +102,4 @@ const Inner = styled.div`
   padding: 1rem;
 `;
 
-export default QuestionLayout;
+export default QuizLayout;

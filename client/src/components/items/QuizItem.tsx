@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
 
-const QuestionItem = ({ question }: { question: Quiz }) => {
+const QuizItem = ({ quiz }: { quiz: Quiz }) => {
   return (
     <>
-      <Img src={question.img} />
+      <Img src={quiz.img} />
       <Description>
-        <Item dangerouslySetInnerHTML={{ __html: question.quizText }}></Item>
-        {question.user[0].name ? (
-          <ItemName>{question.user[0].name}</ItemName>
+        <Item dangerouslySetInnerHTML={{ __html: quiz.quizText }}></Item>
+        {quiz.user[0].name ? (
+          <ItemName>{quiz.user[0].name}</ItemName>
         ) : (
-          <ItemName>{question.user}</ItemName>
+          <ItemName>{quiz.user}</ItemName>
         )}
       </Description>
     </>
@@ -37,4 +37,4 @@ const Item = styled.h5`
   margin-bottom: 0.5rem;
 `;
 
-export default QuestionItem;
+export default QuizItem;

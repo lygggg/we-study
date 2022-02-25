@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 
 import { getQuizCart } from "../apis/QuizCart";
 
-interface UseQuestionsOptions {
+interface UseQuizsOptions {
   onError: (error: any) => void;
 }
 
-export const useCartQuizList = ({ onError }: UseQuestionsOptions) => {
+export const useCartQuizList = ({ onError }: UseQuizsOptions) => {
   const [quizList, setQuizList] = useState([]);
 
-  const fetchQuestions = async () => {
+  const fetchQuizs = async () => {
     try {
       const data = await getQuizCart();
       setQuizList(data.quizCart.map((e) => e.quiz));
@@ -20,7 +20,7 @@ export const useCartQuizList = ({ onError }: UseQuestionsOptions) => {
   };
 
   useEffect(() => {
-    fetchQuestions();
+    fetchQuizs();
   }, []);
 
   return quizList;

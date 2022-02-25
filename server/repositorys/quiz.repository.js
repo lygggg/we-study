@@ -19,6 +19,11 @@ module.exports = {
     return quizs.length;
   },
 
+  async getUserAddQuizAll(userId) {
+    const quizs = await Quiz.find({ user: userId }).populate("user");
+    return quizs;
+  },
+
   async createQuiz(quizText, answerText, category, userId, img) {
     const data = {
       category: category,

@@ -12,6 +12,13 @@ module.exports = {
     res.status(200).json({ quizs });
   },
 
+  async getUserAddQuiz(req, res) {
+    const token = req.header("Authorization").split(" ")[1];
+    const userId = jwt.decode(token).user_id;
+    const quizs = await quizRepo.getUserAddQuizAll(userId);
+    res.status(200).json({ quizs });
+  },
+
   async createQuiz(req, res) {
     const token = req.header("Authorization").split(" ")[1];
     const userId = jwt.decode(token).user_id;

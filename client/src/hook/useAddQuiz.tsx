@@ -2,7 +2,7 @@ import { useMe } from "./useMe";
 import { useSetRecoilState } from "recoil";
 import { questionState } from "../recoilState/question";
 import MenuStore from "../stores/MenuStore";
-import { CreateQuestion } from "../services/Question";
+import { createQuestion } from "../services/Question";
 
 interface useAddQuiz {
   categoryId: string | number;
@@ -26,7 +26,7 @@ export const useAddQuiz = ({
     const id = user?._id;
     const img = MenuStore.findCategoriesUri(Number(categoryId));
     try {
-      await CreateQuestion({
+      await createQuestion({
         quizText,
         answerText,
         category: categoryId,

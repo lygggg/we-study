@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
 import Editor from "./Editor";
+import { createQuizCart } from "../../services/QuizCart";
 
 interface SolveModalProps {
   open: boolean;
@@ -13,6 +14,15 @@ interface SolveModalProps {
 const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
   const [text, setText] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
+
+  const onClickCartQuiz = async () => {
+    try {
+      await createQuizCart({ quizId: question._id });
+    } catch (e) {
+      alert("이미 소장한 퀴즈입니다.");
+    }
+  };
+
   return (
     <Popup
       modal={true}
@@ -61,6 +71,8 @@ const SolveModal = ({ open, question, onClose }: SolveModalProps) => {
               >
                 제출하기
               </SendButton>
+
+              <SaveButton onClick={onClickCartQuiz}>소장하기</SaveButton>
             </ButtonContainer>
           </Container>
         </>
@@ -80,8 +92,21 @@ const SendButton = styled.button`
   margin-bottom: 40px;
 `;
 
+const SaveButton = styled.button`
+  font-size: 17px;
+  margin-top: 90px;
+  height: 60px;
+  width: 216px;
+  background: #8c8c8c;
+  color: #fff;
+  border-radius: 4px;
+  margin-bottom: 40px;
+`;
+
 const ButtonContainer = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 `;
 
 const PaddingContainer = styled.div`

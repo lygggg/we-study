@@ -26,12 +26,13 @@ const Info = () => {
             </IdText>
             <IdText>총 문제: {quizCount}</IdText>
             <IdText>추가한 문제: </IdText>
-            <IdText>제출한 문제: </IdText>
+            <IdText>소장한 문제: </IdText>
             <ButtonContainer>
-              <AddButton>추가한 문제 가져오기</AddButton>
-              <SendButton>제출한 문제 가져오기</SendButton>
               <StyledLink to={`/addlist`}>
                 <AddButton>추가한 문제 가져오기</AddButton>
+              </StyledLink>
+              <StyledLink to={`/cartlist`}>
+                <SendButton>소장한 문제 가져오기</SendButton>
               </StyledLink>
             </ButtonContainer>
           </IdContainer>

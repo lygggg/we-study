@@ -8,13 +8,18 @@ import Modal from "../modals/AddModal";
 import SolveModal from "../modals/SolveModal";
 import Info from "./Info";
 import { Quiz } from "../../models/quiz";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../../recoilState/user";
+import ButtonSkeleton from "../skeleton/ButtonSkeleton";
+import QuizSkeleton from "../skeleton/QuizSkeleton";
 
 export interface QuizLayout {
-  quizList: Array<Quiz>;
+  quizList: Quiz[] | undefined;
 }
 
 const QuizLayout = ({ quizList }: QuizLayout) => {
   const user = useMe();
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigateTo = useNavigate();
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>();
@@ -33,23 +38,29 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
           category={MenuStore.findCategories(Number(categoryId) as number)}
           categoryId={String(categoryId)}
         />
-      ) : (
+      ) : !isLoggedIn ? (
         <></>
+      ) : (
+        <ButtonSkeleton />
       )}
       <Container>
-        <QuizContainer>
-          {quizList.length > 0 ? (
-            <>
-              {quizList.map((quiz: Quiz) => (
-                <Inner key={quiz._id} onClick={() => onClickModal(quiz)}>
-                  <QuizCotainer>
-                    <QuizItem quiz={quiz}></QuizItem>
-                  </QuizCotainer>
-                </Inner>
-              ))}
-            </>
+        <QuizContainer className="quiz-container">
+          {quizList ? (
+            quizList.length > 0 ? (
+              <>
+                {quizList.map((quiz: Quiz) => (
+                  <Inner key={quiz._id} onClick={() => onClickModal(quiz)}>
+                    <QuizCotainer>
+                      <QuizItem quiz={quiz}></QuizItem>
+                    </QuizCotainer>
+                  </Inner>
+                ))}
+              </>
+            ) : (
+              <Empty>아무런 값도 찾지 못했습니다.</Empty>
+            )
           ) : (
-            <Empty>아무런 값도 찾지 못했습니다.</Empty>
+            <QuizSkeleton />
           )}
         </QuizContainer>
         <Info />
@@ -67,7 +78,8 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
 };
 
 const QuizContainer = styled.div`
-  padding-right: 1.5rem;
+  max-width: 1000px;
+  flex: 1;
 `;
 const Empty = styled.div`
   height: 400px;
@@ -87,12 +99,13 @@ const QuizCotainer = styled.div`
 const Container = styled.div`
   margin-top: 60px;
   box-sizing: border-box;
-  display: grid;
+  display: flex;
   place-content: center;
+  min-width: 1000px;
   max-width: 1350px;
   padding-left: 100px;
   padding-right: 100px;
-  grid-template-columns: 1fr 300px;
+  gap: 50px;
 `;
 
 const Inner = styled.div`

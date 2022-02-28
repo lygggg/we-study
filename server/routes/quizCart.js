@@ -8,5 +8,10 @@ const quizCartService = require("../services/quizCart.service.js");
 
 router.post("/", authChecker, errorCatcher(quizCartService.putQuizCart));
 router.get("/", authChecker, errorCatcher(quizCartService.getQuizCart));
+router.delete(
+  "/:quizId",
+  authChecker,
+  errorCatcher(quizCartService.removeQuizCart),
+);
 
 module.exports = router;

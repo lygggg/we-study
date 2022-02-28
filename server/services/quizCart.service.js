@@ -12,4 +12,11 @@ module.exports = {
     const quizCart = await quizCartRepo.getCart(userId);
     res.status(200).json({ quizCart });
   },
+
+  async removeQuizCart(req, res) {
+    const { userId } = req.body;
+    const { quizId } = req.params;
+    await quizCartRepo.removeCart(quizId, userId);
+    res.status(200).json({ message: "success remove quiz" });
+  },
 };

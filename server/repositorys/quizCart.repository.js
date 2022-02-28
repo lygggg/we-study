@@ -18,6 +18,10 @@ module.exports = {
         path: "user",
       },
     });
-    return carts;
+    return carts.map((x) => x.quiz);
+  },
+
+  async removeCart(quizId, userId) {
+    await QuizCart.deleteOne({ quiz: quizId, user: userId });
   },
 };

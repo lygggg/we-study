@@ -49,10 +49,11 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
             quizList.length > 0 ? (
               <>
                 {quizList.map((quiz: Quiz) => (
-                  <Inner key={quiz._id} onClick={() => onClickModal(quiz)}>
-                    <QuizCotainer>
-                      <QuizItem quiz={quiz}></QuizItem>
-                    </QuizCotainer>
+                  <Inner key={quiz._id}>
+                    <QuizItem
+                      quiz={quiz}
+                      onClickModal={onClickModal}
+                    ></QuizItem>
                   </Inner>
                 ))}
               </>
@@ -77,7 +78,7 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
   );
 };
 
-const QuizContainer = styled.div`
+const QuizContainer = styled.ul`
   max-width: 1000px;
   flex: 1;
   display: flex;
@@ -96,9 +97,6 @@ const Empty = styled.div`
   font-size: 25px;
 `;
 
-const QuizCotainer = styled.div`
-  display: flex;
-`;
 const Container = styled.div`
   margin-top: 60px;
   box-sizing: border-box;
@@ -111,10 +109,11 @@ const Container = styled.div`
   gap: 50px;
 `;
 
-const Inner = styled.div`
-  flex: 1;
+const Inner = styled.li`
+  flex: 0.3;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
+  height: 15px;
 `;
 
 export default QuizLayout;

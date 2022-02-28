@@ -10,29 +10,46 @@ interface QuizItemProps {
 const QuizItem = ({ quiz, onClickModal }: QuizItemProps) => {
   const onClickRemoveQuiz = useRemoveCartQuiz(quiz._id);
 
-const QuizItem = ({ quiz }: { quiz: Quiz }) => {
   return (
-    <>
-      <Img src={quiz.img} />
-      <Description>
-        <Item dangerouslySetInnerHTML={{ __html: quiz.quizText }}></Item>
-        {quiz.user[0].name ? (
-          <ItemName>{quiz.user[0].name}</ItemName>
-        ) : (
-          <ItemName>{quiz.user}</ItemName>
-        )}
-      </Description>
-    </>
+    <Container>
+      <FlexContainer className="quiz-item">
+        <Img src={quiz.img} />
+        <Description>
+          <Item
+            onClick={() => onClickModal(quiz)}
+            dangerouslySetInnerHTML={{ __html: quiz.quizText }}
+          ></Item>
+          {quiz.user[0].name ? (
+            <ItemName>{quiz.user[0].name}</ItemName>
+          ) : (
+            <ItemName>{quiz.user}</ItemName>
+          )}
+        </Description>
+      </FlexContainer>
+      <div>
         <a onClick={() => onClickRemoveQuiz()}>X</a>
+      </div>
+    </Container>
   );
 };
+
+const FlexContainer = styled.div`
+  display: flex;
+`;
 
 const Img = styled.img`
   width: 100px;
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Description = styled.div`
   padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ItemName = styled.h6`
@@ -41,7 +58,8 @@ const ItemName = styled.h6`
   font-size: 17px;
   margin-bottom: 0.5rem;
 `;
-const Item = styled.h5`
+const Item = styled.a`
+  font-weight: bold;
   margin-top: 0;
   font-size: 20px;
   margin-bottom: 0.5rem;

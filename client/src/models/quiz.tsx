@@ -1,11 +1,12 @@
+import { string } from "yup/lib/locale";
 import { User } from "./user";
 
 export interface Quiz {
-  answerText: String;
-  category: Number;
-  img: String;
-  quizText: String;
-  user: Array<User>;
-  __v: Number;
-  _id: String;
+  answerText: string;
+  category: number;
+  img: string;
+  quizText: string;
+  user: User[];
+  __v: number;
+  _id: string;
 }

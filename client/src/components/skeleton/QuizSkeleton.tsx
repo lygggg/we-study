@@ -11,10 +11,10 @@ const QuizSkeleton = () => {
           width: "736px",
         }}
       >
-        <Skeleton height={188} />
-        <Skeleton height={188} />
-        <Skeleton height={188} />
-        <Skeleton height={188} />
+        <Skeleton height={124} />
+        <Skeleton height={124} />
+        <Skeleton height={124} />
+        <Skeleton height={124} />
       </p>
     </>
   );

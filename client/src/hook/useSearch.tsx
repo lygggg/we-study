@@ -12,6 +12,7 @@ export const useSearch = () => {
   const onSearch = async (query: string) => {
     try {
       const data = await getSearch(query);
+      // @ts-ignore
       setSearch(data.quizs.hits);
     } catch (e) {
       setSearch([]);

@@ -1,6 +1,7 @@
 import { atom } from "recoil";
+import { Quiz } from "../models/quiz";
 
-export const searchState = atom<Object>({
+export const searchState = atom<Quiz[] | undefined>({
   key: "searchState",
-  default: [] as Object,
+  default: [] as Quiz[] | undefined,
 });

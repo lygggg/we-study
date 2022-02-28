@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const quizCartSchema = new mongoose.Schema({
-  quiz: { type: String, ref: "quizzes", required: true, unique: true },
+  quiz: { type: String, ref: "quizzes", required: true },
   user: { type: String, ref: "users", required: true },
 });
 

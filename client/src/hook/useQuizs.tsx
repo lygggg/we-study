@@ -27,11 +27,7 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
 
   useEffect(() => {
     fetchQuizs();
-  }, [categoryId]);
-
-  useEffect(() => {
-    fetchQuizs();
-  }, [value]);
+  }, [categoryId, value]);
 
   return quizList;
 };

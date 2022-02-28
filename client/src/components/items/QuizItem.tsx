@@ -1,5 +1,14 @@
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
+import { useRemoveCartQuiz } from "../../hook/useCartQuiz";
+
+interface QuizItemProps {
+  quiz: Quiz;
+  onClickModal: (quiz: Quiz) => void;
+}
+
+const QuizItem = ({ quiz, onClickModal }: QuizItemProps) => {
+  const onClickRemoveQuiz = useRemoveCartQuiz(quiz._id);
 
 const QuizItem = ({ quiz }: { quiz: Quiz }) => {
   return (
@@ -14,6 +23,7 @@ const QuizItem = ({ quiz }: { quiz: Quiz }) => {
         )}
       </Description>
     </>
+        <a onClick={() => onClickRemoveQuiz()}>X</a>
   );
 };
 

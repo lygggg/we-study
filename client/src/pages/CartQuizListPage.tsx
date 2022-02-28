@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
-import { useCartQuizList } from "../hook/useCartQuizList";
+import { useCartQuizList } from "../hook/useCartQuiz";
 
 const CartQuizListPage = () => {
   const [error, setError] = useState();

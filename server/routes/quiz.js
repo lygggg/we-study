@@ -1,4 +1,5 @@
 const express = require("express");
+const authChecker = require("../middlewares/authChecker.js");
 
 const router = express.Router();
 
@@ -7,7 +8,7 @@ const quizService = require("../services/quiz.service.js");
 
 router.get("/", errorCatcher(quizService.getQuizs));
 router.get("/count", errorCatcher(quizService.getQuizCount));
-router.get("/addlist", errorCatcher(quizService.getUserAddQuiz));
-router.post("/", errorCatcher(quizService.createQuiz));
+router.get("/addlist", authChecker, errorCatcher(quizService.getUserAddQuiz));
+router.post("/", authChecker, errorCatcher(quizService.createQuiz));
 
 module.exports = router;

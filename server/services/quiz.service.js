@@ -1,5 +1,4 @@
 const quizRepo = require("../repositorys/quiz.repository.js");
-const jwt = require("jsonwebtoken");
 
 module.exports = {
   async getQuizs(req, res) {
@@ -13,17 +12,13 @@ module.exports = {
   },
 
   async getUserAddQuiz(req, res) {
-    const token = req.header("Authorization").split(" ")[1];
-    const userId = jwt.decode(token).user_id;
+    const { userId } = req.body;
     const quizs = await quizRepo.getUserAddQuizAll(userId);
     res.status(200).json({ quizs });
   },
 
   async createQuiz(req, res) {
-    const token = req.header("Authorization").split(" ")[1];
-    const userId = jwt.decode(token).user_id;
-
-    const { quizText, answerText, category, img } = req.body;
+    const { userId, quizText, answerText, category, img } = req.body;
     const quizs = await quizRepo.createQuiz(
       quizText,
       answerText,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { lightTheme, darkTheme } from "../theme";
+import { lightTheme, darkTheme, ITheme } from "../theme";
 
-export const useDarkMode = () => {
+export const useDarkMode = (): [ITheme, () => void] => {
   const [theme, setTheme] = useState(lightTheme);
 
   const setMode = (mode) => {
@@ -29,6 +29,16 @@ export const useDarkMode = () => {
       setTheme(lightTheme);
     }
   }, []);
+
+  useEffect(() => {
+    if (theme !== lightTheme) {
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
+    }
+  }, [theme]);
 
   return [theme, setToggleTheme];
 };

@@ -22,3 +22,7 @@ code {
   font-family: woowa;
   src: url("../assets/fonts/BMHANNAAir_ttf.ttf");
 }
+
+.dark .ql-toolbar {
+  background: white;
+}

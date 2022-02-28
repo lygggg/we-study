@@ -80,6 +80,9 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
 const QuizContainer = styled.div`
   max-width: 1000px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 `;
 const Empty = styled.div`
   height: 400px;
@@ -110,7 +113,6 @@ const Container = styled.div`
 
 const Inner = styled.div`
   flex: 1;
-  margin-top: 20px;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
 `;

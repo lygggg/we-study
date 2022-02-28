@@ -11,9 +11,7 @@ const InfoSkeleton = () => {
           width: "314px",
         }}
       >
-        <Skeleton height={132} />
-        <Skeleton height={132} />
-        <Skeleton height={132} />
+        <Skeleton height={437} />
       </p>
     </>
   );

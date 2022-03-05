@@ -35,6 +35,8 @@ const MiddleText = styled.div`
 
 const Container = styled.div`
   margin-top: 60px;
+  min-width: 1000px;
+  max-width: 1350px;
 `;
 
 const InnerContainer = styled.div`

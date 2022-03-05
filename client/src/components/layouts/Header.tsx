@@ -5,7 +5,7 @@ import { userLogOut } from "../../firebase/Firebase";
 import { useIsLoggedIn, useMe } from "../../hook/useMe";
 import DarkModeToggle from "../items/DarkModeToggle.jsx";
 import Menu from "./Menu";
-import SearchForm from "./SearchForm";
+import SearchForm from "../items/SearchForm";
 
 const Header = () => {
   const user = useMe();
@@ -24,6 +24,7 @@ const Header = () => {
             <StyledLink to={`/`}>
               <NameText>We Study</NameText>
             </StyledLink>
+            <SearchForm />
             <LoginContainer>
               {isLoggedIn || user ? (
                 <div>
@@ -31,25 +32,25 @@ const Header = () => {
                 </div>
               ) : (
                 <StyledLink to={`/login`}>
-                  <LoginText>로그인</LoginText>
+                  <LoginText className="login">로그인</LoginText>
                 </StyledLink>
               )}
             </LoginContainer>
           </HeadContainer>
         </Head>
       </Container>
-      <Menu />
-      <SearchForm />
+      <MenuContainer>
+        <Menu />
+      </MenuContainer>
       <DarkModeToggle />
     </>
   );
 };
 
+const MenuContainer = styled.div``;
 const LoginContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
 `;
 
 const HeadContainer = styled.div`
@@ -71,7 +72,7 @@ const NameText = styled.div`
 `;
 const Container = styled.header`
   width: 100%;
-  height: 60px;
+  height: 90px;
   top: 0;
   left: 0;
   z-index: 1000;

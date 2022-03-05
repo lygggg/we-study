@@ -19,17 +19,21 @@ const Menu = () => {
 };
 
 const Text = styled.li`
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const Container = styled.ul`
   height: 50px;
-  margin-top: 60px;
+  margin-top: 110px;
   display: flex;
-  flex-wrap: wrap;
+  flex: 1;
   justify-content: center;
-  gap: 70px;
+  gap: 65px;
   align-items: center;
+  min-width: 1000px;
+  max-width: 1350px;
+  padding-left: 100px;
+  padding-right: 100px;
 `;
 
 export default Menu;

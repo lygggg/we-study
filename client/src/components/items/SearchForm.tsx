@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -39,10 +38,13 @@ const Img = styled.img`
 
 const FormContainer = styled.div`
   display: flex;
+  flex: 1;
 `;
 
 const Container = styled.div`
-  margin-top: 40px;
+  display: flex;
+  place-content: center;
+  flex: 1;
   text-align: -webkit-center;
 `;
 

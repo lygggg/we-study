@@ -51,6 +51,5 @@ export const checkLogin = () => {
 };
 
 export const userLogOut = () => {
-  localStorage.removeItem("isLoggedIn");
   return auth.signOut();
 };

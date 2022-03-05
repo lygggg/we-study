@@ -16,11 +16,9 @@ export const useLogin = ({ setLoading, setError }: useAddQuiz) => {
     try {
       await loginMethod(...args);
       setLoginState();
-      navigateTo("/");
       setError(null);
       setLoading(false);
-
-      localStorage.setItem("isLoggedIn", "true");
+      navigateTo("/");
     } catch (e) {
       setLoading(false);
       setError(e);

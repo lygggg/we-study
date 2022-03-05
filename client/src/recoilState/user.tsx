@@ -10,4 +10,12 @@ export const userState = atom<User>({
 export const isLoggedInState = atom<boolean>({
   key: "isLoggedIn",
   default: localStorage.getItem("isLoggedIn") === "true",
+
+  effects: [
+    ({ onSet }) => {
+      onSet((newLoggedIn) => {
+        localStorage.setItem("isLoggedIn", `${newLoggedIn}`);
+      });
+    },
+  ],
 });

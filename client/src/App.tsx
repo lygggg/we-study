@@ -17,6 +17,8 @@ import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyle } from "./global-styles";
 import { useDarkMode } from "../src/hook/useDarkMode";
 import { useRefreshMe } from "./hook/useMe";
+import { useSetRecoilState } from "recoil";
+import { isLoggedInState } from "./recoilState/user";
 
 export const ThemeContext = createContext({
   theme: darkTheme,
@@ -25,11 +27,13 @@ export const ThemeContext = createContext({
 
 const App = () => {
   const [theme, setToggleTheme] = useDarkMode();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const refreshMe = useRefreshMe();
 
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
       if (!user) {
+        setIsLoggedIn(false);
         return;
       }
 

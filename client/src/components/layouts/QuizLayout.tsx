@@ -87,7 +87,6 @@ const QuizContainer = styled.ul`
 `;
 const Empty = styled.div`
   height: 400px;
-  width: 800px;
   margin-top: 20px;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
@@ -113,7 +112,7 @@ const Inner = styled.li`
   flex: 0.3;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
-  height: 15px;
+  height: 134px;
 `;
 
 export default QuizLayout;

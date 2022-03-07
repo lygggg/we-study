@@ -52,6 +52,7 @@ const LoginPage = () => {
           <Form onSubmit={handleSubmit(onLoginClick)}>
             <label>
               <Input
+                className="user_id"
                 placeholder="아이디를 입력해주세요"
                 type="email"
                 {...register("email")}
@@ -63,6 +64,7 @@ const LoginPage = () => {
             </label>
             <label>
               <Input
+                className="user_password"
                 placeholder="패스워드를 입력해주세요"
                 type="password"
                 maxLength={25}

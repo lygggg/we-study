@@ -32,6 +32,9 @@ const App = () => {
 
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      }
       if (!user) {
         setIsLoggedIn(false);
         return;

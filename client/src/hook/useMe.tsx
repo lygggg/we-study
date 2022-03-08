@@ -20,13 +20,7 @@ export const useRefreshMe = () => {
   const setUser = useSetRecoilState(userState);
 
   return async () => {
-    try {
-      const data = await getUser();
-      if (data.user) {
-        setUser(data.user);
-      }
-    } catch {
-      alert("로그인에 실패하셨습니다.");
-    }
+    const data = await getUser();
+    setUser(data.user);
   };
 };

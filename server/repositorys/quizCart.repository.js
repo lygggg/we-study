@@ -2,6 +2,10 @@ const QuizCart = require("../models/quizCart.js");
 
 module.exports = {
   async putCart(quizId, userId) {
+    const checkCart = await QuizCart.find({ quiz: quizId, user: userId });
+    if (!checkCart) {
+      return null;
+    }
     const cart = await QuizCart.create({
       quiz: quizId,
       user: userId,

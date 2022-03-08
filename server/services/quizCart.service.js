@@ -4,7 +4,11 @@ module.exports = {
   async putQuizCart(req, res) {
     const { quizId, userId } = req.body;
     const quizCart = await quizCartRepo.putCart(quizId, userId);
-    res.status(200).json({ quizCart, message: "success put new quiz" });
+    if (quizCart) {
+      res.status(200).json({ quizCart, message: "success put new quiz" });
+      return;
+    }
+    res.status(403).json({ state: false, message: "already cart" });
   },
 
   async getQuizCart(req, res) {

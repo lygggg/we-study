@@ -26,6 +26,11 @@ module.exports = {
       userId,
       img,
     );
-    res.status(200).json({ quizs, message: " success add new quiz" });
+
+    if (quizs) {
+      res.status(200).json({ quizs, message: " success add new quiz" });
+      return;
+    }
+    res.status(403).json({ state: false, message: "Can't create quiz" });
   },
 };

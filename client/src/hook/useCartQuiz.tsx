@@ -28,7 +28,7 @@ export const useCartQuizList = ({ onError }: UseQuizsOptions = {}) => {
   useEffect(() => {
     if (!user) return;
     fetchQuizs();
-  }, [user, cartQuiz]);
+  }, [user?._id, cartQuiz]);
 
   return quizList;
 };

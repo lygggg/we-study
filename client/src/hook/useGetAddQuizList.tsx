@@ -24,7 +24,7 @@ export const useGetAddQuizList = ({ onError }: UseQuizsOptions = {}) => {
   useEffect(() => {
     if (!user) return;
     fetchQuizs();
-  }, [user]);
+  }, [user?._id]);
 
   return quizList;
 };

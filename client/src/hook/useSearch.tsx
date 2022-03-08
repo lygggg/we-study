@@ -8,6 +8,7 @@ export const useSearch = () => {
   const navigateTo = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const setSearch = useSetRecoilState(searchState);
+  const query = searchParams.get("query");
 
   const onSearch = async (query: string) => {
     try {
@@ -24,11 +25,10 @@ export const useSearch = () => {
   };
 
   useEffect(() => {
-    const query = searchParams.get("query");
     if (query) {
       onSearch(query);
     }
-  }, [searchParams.get("query")]);
+  }, [query]);
 
   return onSeachClick;
 };

@@ -38,7 +38,7 @@ export const useDarkMode = (): [ITheme, () => void] => {
       document.body.classList.remove("dark");
       document.body.classList.add("light");
     }
-  }, [theme]);
+  }, [theme?.mainColor]);
 
   return [theme, setToggleTheme];
 };

@@ -11,7 +11,7 @@ import { Quiz } from "../../models/quiz";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoilState/user";
 import ButtonSkeleton from "../skeleton/ButtonSkeleton";
-import QuizSkeleton from "../skeleton/QuizSkeleton";
+import Loading from "../modals/Loading";
 
 export interface QuizLayout {
   quizList: Quiz[] | undefined;
@@ -61,7 +61,7 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
               <Empty>아무런 값도 찾지 못했습니다.</Empty>
             )
           ) : (
-            <QuizSkeleton />
+            <Loading />
           )}
         </QuizContainer>
         <Info />
@@ -80,10 +80,10 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
 
 const QuizContainer = styled.ul`
   max-width: 1000px;
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  flex: 1;
 `;
 const Empty = styled.div`
   height: 400px;

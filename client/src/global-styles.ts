@@ -33,6 +33,8 @@ ${reset}
         }
     input{
         background: ${({ theme }) => theme.toggleBackground};
+        outline: none;
+        color: white;
     }
     ol, ul, li {
         list-style: none;

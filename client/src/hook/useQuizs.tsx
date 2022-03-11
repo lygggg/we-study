@@ -4,12 +4,16 @@ import { useRecoilValue } from "recoil";
 import { quizState } from "../recoilState/quiz";
 import { Quiz } from "../models/quiz";
 import { getQuiz } from "../services/Quiz";
+import { useMe } from "./useMe";
+import { likeQuizState } from "../recoilState/like";
 
 interface UseQuizsOptions {
   onError: (error: any) => void;
 }
 export const useQuizs = ({ onError }: UseQuizsOptions) => {
   const value = useRecoilValue(quizState);
+  const like = useRecoilValue(likeQuizState);
+  const user = useMe();
   const { categoryId } = useParams();
   const [quizList, setQuizList] = useState<Quiz[] | undefined>();
 
@@ -27,7 +31,7 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
 
   useEffect(() => {
     fetchQuizs();
-  }, [categoryId, value]);
+  }, [categoryId, value, user?._id, like]);
 
   return quizList;
 };

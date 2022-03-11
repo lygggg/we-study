@@ -58,6 +58,7 @@ const SignUpPage = () => {
               placeholder="비밀번호
                 (영문 숫자 최소 6자리 최대 15자리)"
               {...register("password")}
+              autoComplete="on"
             />
             <div>
               {errors.password && (
@@ -72,6 +73,7 @@ const SignUpPage = () => {
             <Input
               type="password"
               placeholder="비밀번호 확인"
+              autoComplete="on"
               {...register("checkPassword")}
             />
             <div>

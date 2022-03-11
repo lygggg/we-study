@@ -68,6 +68,7 @@ const LoginPage = () => {
                 placeholder="패스워드를 입력해주세요"
                 type="password"
                 maxLength={25}
+                autoComplete="on"
                 {...register("password")}
                 onInput={() => setError(null)}
               />
@@ -182,6 +183,7 @@ const A = styled.a`
 const Input = styled.input`
   width: 400px;
   height: 60px;
+  color: #000000;
   padding: 0 13px;
   border: 1px solid #ccc;
   background-color: #fff;

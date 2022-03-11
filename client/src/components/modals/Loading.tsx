@@ -6,7 +6,8 @@ const Container = styled.div`
   align-items: center;
   position: fixed;
   flex-direction: column;
-  min-width: 740px;
+  min-width: 1000px;
+  max-width: 1350px;
 }
 
 `;

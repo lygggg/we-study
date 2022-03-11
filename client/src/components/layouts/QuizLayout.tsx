@@ -12,6 +12,7 @@ import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoilState/user";
 import ButtonSkeleton from "../skeleton/ButtonSkeleton";
 import Loading from "../modals/Loading";
+import LikeModal from "../modals/LikeModal";
 
 export interface QuizLayout {
   quizList: Quiz[] | undefined;
@@ -23,12 +24,20 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigateTo = useNavigate();
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>();
+  const [likeQuiz, setLikeQuiz] = useState<Quiz | null>();
 
   const onClickModal = (quiz: Quiz) => {
     if (!user) {
       navigateTo("/login");
     }
     setActiveQuiz(quiz);
+  };
+
+  const onClickLike = (quiz: Quiz) => {
+    if (!user) {
+      navigateTo("/login");
+    }
+    setLikeQuiz(quiz);
   };
 
   return (
@@ -53,6 +62,7 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
                     <QuizItem
                       quiz={quiz}
                       onClickModal={onClickModal}
+                      onClickLike={onClickLike}
                     ></QuizItem>
                   </Inner>
                 ))}
@@ -66,7 +76,9 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
         </QuizContainer>
         <Info />
       </Container>
-
+      {likeQuiz && (
+        <LikeModal open quiz={likeQuiz} onClose={() => setLikeQuiz(null)} />
+      )}
       {activeQuiz && (
         <SolveModal
           open

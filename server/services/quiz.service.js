@@ -2,7 +2,8 @@ const quizRepo = require("../repositorys/quiz.repository.js");
 
 module.exports = {
   async getQuizs(req, res) {
-    const quizs = await quizRepo.getQuizAll(req.query.category);
+    const { userId } = req.body;
+    const quizs = await quizRepo.getQuizAll(req.query.category, userId);
     res.status(200).json({ quizs });
   },
 

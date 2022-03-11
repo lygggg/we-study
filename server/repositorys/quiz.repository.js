@@ -9,8 +9,18 @@ const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 const index = client.initIndex(ALGOLIA_INDEX_NAME);
 
 module.exports = {
-  async getQuizAll(category) {
-    const quizs = await Quiz.find({ category: category }).populate("user");
+  async getQuizAll(category, userId) {
+    const quizs = await Quiz.find({ category: category })
+      .populate("user")
+      .lean();
+
+    if (userId) {
+      quizs.forEach((quiz) => {
+        if (quiz.like_users.indexOf(userId) !== -1) {
+          quiz.like = true;
+        }
+      });
+    }
     return quizs;
   },
 
@@ -21,6 +31,13 @@ module.exports = {
 
   async getUserAddQuizAll(userId) {
     const quizs = await Quiz.find({ user: userId }).populate("user");
+    if (userId) {
+      quizs.forEach((quiz) => {
+        if (quiz.like_users.indexOf(userId) !== -1) {
+          quiz.like = true;
+        }
+      });
+    }
     return quizs;
   },
 
@@ -31,6 +48,8 @@ module.exports = {
       user: userId,
       answerText: answerText,
       img,
+      likeCount: 0,
+      like: false,
     };
 
     const quiz = await Quiz.create(data);

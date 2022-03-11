@@ -2,13 +2,7 @@ import axios from "axios";
 import { Quiz } from "../models/quiz";
 
 export const createQuizCart = async (params): Promise<any> => {
-  try {
-    await axios.post(`${import.meta.env.VITE_APP_API}/quizcart`, params);
-    return true;
-  } catch (e) {
-    alert(e);
-  }
-  return false;
+  await axios.post(`${import.meta.env.VITE_APP_API}/quizcart`, params);
 };
 
 export const getQuizCart = async () => {

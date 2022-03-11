@@ -1,15 +1,13 @@
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
-import { useRemoveCartQuiz } from "../../hook/useCartQuiz";
 
 interface QuizItemProps {
   quiz: Quiz;
   onClickModal: (quiz: Quiz) => void;
+  onClickLike: (quiz: Quiz) => void;
 }
 
-const QuizItem = ({ quiz, onClickModal }: QuizItemProps) => {
-  const onClickRemoveQuiz = useRemoveCartQuiz(quiz._id);
-
+const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
   return (
     <Container>
       <FlexContainer className="quiz-item">
@@ -26,12 +24,28 @@ const QuizItem = ({ quiz, onClickModal }: QuizItemProps) => {
           )}
         </Description>
       </FlexContainer>
-      <div>
-        <a onClick={() => onClickRemoveQuiz()}>X</a>
-      </div>
+      {!!quiz?.like ? (
+        <LikeContainer>
+          <a onClick={() => onClickLike(quiz)}>❤️</a>
+          <span>{quiz.like}</span>
+          {quiz.likeCount}
+        </LikeContainer>
+      ) : (
+        <LikeContainer>
+          <a onClick={() => onClickLike(quiz)}>🤍</a>
+          {quiz.likeCount}
+        </LikeContainer>
+      )}
     </Container>
   );
 };
+
+const LikeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align-last: center;
+  gap: 2px;
+`;
 
 const FlexContainer = styled.div`
   display: flex;

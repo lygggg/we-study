@@ -9,4 +9,6 @@ export interface Quiz {
   user: User[];
   __v: number;
   _id: string;
+  like?: boolean;
+  likeCount?: number;
 }

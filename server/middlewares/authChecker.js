@@ -2,17 +2,15 @@ const jwt = require("jsonwebtoken");
 
 const authChecker = (req, res, next) => {
   const token = req.header("Authorization");
+  let userId;
 
-  if (!token) {
-    res.status(403).json({ message: "not Authorization header" });
+  if (token) {
+    userId = jwt.decode(token.split(" ")[1]).user_id;
   }
 
-  const userId = jwt.decode(token.split(" ")[1]).user_id;
-
-  if (!userId) {
-    res.status(403).json({ message: "not token" });
+  if (userId) {
+    req.body.userId = userId;
   }
-  req.body.userId = userId;
   next();
 };
 

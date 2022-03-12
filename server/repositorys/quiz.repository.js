@@ -58,6 +58,7 @@ module.exports = {
       [
         {
           ...searchQuiz[0]._doc,
+          objectID: String(searchQuiz[0]._id),
           user: searchQuiz[0].user[0].name,
         },
       ],

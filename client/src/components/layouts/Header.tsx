@@ -51,6 +51,7 @@ const MenuContainer = styled.div``;
 const LoginContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 30px;
 `;
 
 const HeadContainer = styled.div`
@@ -59,6 +60,7 @@ const HeadContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1100px;
 `;
 
 const LoginText = styled.div`
@@ -75,11 +77,11 @@ const Container = styled.header`
   height: 90px;
   top: 0;
   left: 0;
-  z-index: 1000;
   display: flex;
   background-color: #0c151c;
   box-shadow: 0px 2px 6px 0px #00000017;
   position: fixed;
+  text-align: -webkit-center;
 `;
 
 const Head = styled.div`

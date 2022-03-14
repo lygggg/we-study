@@ -23,10 +23,13 @@ export const getUserAddQuiz = async (): Promise<any> => {
 
 export const createQuiz = async (params): Promise<any> => {
   try {
-    await axios.post(`${import.meta.env.VITE_APP_API}/quiz`, params);
-    return true;
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_APP_API}/quiz`,
+      params,
+    );
+    return data;
   } catch (e) {
     alert(e);
   }
-  return false;
+  return null;
 };

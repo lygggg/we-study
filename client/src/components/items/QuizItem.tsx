@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
+import QuizDropDown from "../modals/QuizDropDown";
 
 interface QuizItemProps {
   quiz: Quiz;
@@ -40,16 +41,11 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
             </a>
           </>
         )}
-        <OptionImg src="../../../assets/imgs/zum.png"></OptionImg>
+        <QuizDropDown quizId={quiz._id} />
       </LikeContainer>
     </Container>
   );
 };
-
-const OptionImg = styled.img`
-  height: 15px;
-  width: 15px;
-`;
 
 const LikeContainer = styled.div`
   display: flex;

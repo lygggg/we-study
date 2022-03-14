@@ -28,6 +28,8 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
       contentStyle={{
         width: "840px",
         height: "760px",
+        width: "600px",
+        height: "740px",
         backgroundColor: "#FFFFFF",
       }}
       trigger={<AddButton>질문 추가</AddButton>}
@@ -76,6 +78,23 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
   );
 };
 
+const Menu = styled.button`
+  color: black;
+  font-weight: 500;
+  flex: 1;
+  font-size: 13px;
+  height: 30px;
+  border-radius: 10px;
+`;
+
+const MenuContainer = styled.div`
+  display: flex;
+  gap: 13px;
+  padding: 14px;
+  text-align: center;
+  align-items: center;
+`;
+
 const Textarea = styled.textarea`
   width: 100%;
   margin-bottom: 100px;
@@ -100,7 +119,7 @@ const SendButton = styled.button`
 
 const ButtonContainer = styled.div`
   text-align: center;
-  margin-top: 13rem;
+  margin-top: 9rem;
 `;
 
 const PaddingContainer = styled.div`
@@ -118,11 +137,13 @@ const Container = styled.div`
 `;
 
 const AddButton = styled.button`
-  color: #007bff;
-  background: #ffffff;
-  height: 50px;
-  font-size: 19px;
-  width: 150px;
+  color: black;
+  background: rgb(255, 214, 51);
+  height: 44px;
+  font-size: 16px;
+  width: 100px;
+  border-radius: 4px;
+  font-weight: 500px;
 `;
 
 const CloseButton = styled.button`

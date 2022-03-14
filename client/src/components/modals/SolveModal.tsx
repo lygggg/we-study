@@ -19,7 +19,7 @@ const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
       modal={true}
       open={open}
       contentStyle={{
-        width: "840px",
+        width: "600px",
         height: "660px",
         backgroundColor: "#FFFFFF",
       }}

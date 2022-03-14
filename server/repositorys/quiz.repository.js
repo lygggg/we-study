@@ -52,12 +52,16 @@ module.exports = {
       like: false,
     };
 
-    const quiz = await Quiz.create(data);
-    const searchQuiz = await Quiz.find({ _id: quiz._id }).populate("user");
+    let quiz = await Quiz.create(data);
+    quiz = await quiz.populate("user");
+
+    const searchQuiz = await Quiz.find({ _id: quiz._id })
+      .populate("user")
+      .lean();
     await index.saveObjects(
       [
         {
-          ...searchQuiz[0]._doc,
+          ...searchQuiz[0],
           objectID: String(searchQuiz[0]._id),
           user: searchQuiz[0].user[0].name,
         },

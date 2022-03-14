@@ -12,29 +12,16 @@ const SearchForm = () => {
   const { register, handleSubmit } = useForm<SearchFormState>({
     resolver: yupResolver(searchValidation),
   });
-
   return (
     <Container>
       <Form onSubmit={handleSubmit(useSearch())}>
         <FormContainer>
-          <Img
-            alt="검색"
-            src={
-              "https://cdn.pixabay.com/photo/2017/01/13/01/22/magnifying-glass-1976105_960_720.png"
-            }
-          />
           <Input placeholder="검색 가능" type="text" {...register("text")} />
         </FormContainer>
       </Form>
     </Container>
   );
 };
-
-const Img = styled.img`
-  align-self: center;
-  height: 50px;
-  width: 50px;
-`;
 
 const FormContainer = styled.div`
   display: flex;
@@ -43,8 +30,6 @@ const FormContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
-  place-content: center;
-  flex: 1;
   text-align: -webkit-center;
 `;
 

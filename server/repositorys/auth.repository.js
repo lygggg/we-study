@@ -11,7 +11,7 @@ module.exports = {
   },
 
   async findUser(id) {
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: id }).lean();
     return user;
   },
 

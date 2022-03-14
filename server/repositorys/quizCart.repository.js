@@ -25,15 +25,16 @@ module.exports = {
   async getCart(userId) {
     const carts = await QuizCart.find({
       user: userId,
-    }).populate({
-      path: "quiz",
-      populate: {
-        path: "user",
-      },
-    });
-
+    })
+      .populate({
+        path: "quiz",
+        populate: {
+          path: "user",
+        },
+      })
+      .lean();
     return carts.map((x) => {
-      return { ...x.quiz?._doc, type: x.type, like: true };
+      return { ...x.quiz, type: x.type, like: true };
     });
   },
 

@@ -24,27 +24,38 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
           )}
         </Description>
       </FlexContainer>
-      {!!quiz?.like ? (
-        <LikeContainer>
-          <a onClick={() => onClickLike(quiz)}>❤️</a>
-          <span>{quiz.like}</span>
-          {quiz.likeCount}
-        </LikeContainer>
-      ) : (
-        <LikeContainer>
-          <a onClick={() => onClickLike(quiz)}>🤍</a>
-          {quiz.likeCount}
-        </LikeContainer>
-      )}
+      <LikeContainer>
+        {!!quiz?.like ? (
+          <>
+            <a onClick={() => onClickLike(quiz)}>
+              ❤️
+              {quiz.likeCount}
+            </a>
+          </>
+        ) : (
+          <>
+            <a onClick={() => onClickLike(quiz)}>
+              🤍
+              {quiz.likeCount}
+            </a>
+          </>
+        )}
+        <OptionImg src="../../../assets/imgs/zum.png"></OptionImg>
+      </LikeContainer>
     </Container>
   );
 };
 
+const OptionImg = styled.img`
+  height: 15px;
+  width: 15px;
+`;
+
 const LikeContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   text-align-last: center;
-  gap: 2px;
+  gap: 10px;
 `;
 
 const FlexContainer = styled.div`

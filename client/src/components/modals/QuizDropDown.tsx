@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { removeQuiz } from "../../services/Quiz";
+import ModifyModal from "./ModifyModal";
+import { useVisible } from "../../hook/useVisible";
 
 const Container = styled.div`
   position: relative;
@@ -34,39 +36,24 @@ const OptionImg = styled.img`
 `;
 
 const QuizDropDown = ({ quizId }) => {
-  const outSideRef = useRef();
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [ref, isVisible, setIsVisible] = useVisible(false);
 
-  const onClick = () => setIsActive(!isActive);
-
-  const onClickRemove = () => {
-    console.log(quizId);
+  const onClickRemove = async () => {
+    await removeQuiz(quizId);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (outSideRef.current && !outSideRef.current.contains(event.target)) {
-        setIsActive(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [outSideRef]);
-
   return (
-    <Container onClick={onClick} ref={outSideRef}>
+    <Container onClick={() => setIsVisible(!isVisible)}>
       <OptionImg
-        onClick={() => setIsActive(true)}
+        onClick={() => setIsVisible(!isVisible)}
         src="../../../assets/imgs/zum.png"
       ></OptionImg>
-      {isActive && (
-        <UlContainer>
+      {isVisible && (
+        <UlContainer ref={ref}>
           <ul>
             <li onClick={onClickRemove}>삭제</li>
-            <li>수정</li>
+            <li onClick={() => setIsVisible(!isVisible)}>수정</li>
+            {/* <ModifyModal /> */}
           </ul>
         </UlContainer>
       )}

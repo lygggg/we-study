@@ -50,7 +50,6 @@ export const useAddQuiz = ({
       if (categoryIndex === +categoryId) {
         setQuizList((prev) => [...prev, quizs]);
       }
-
       return true;
     } catch (e) {
       alert("퀴즈 생성에 실패하셨습니다.");

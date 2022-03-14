@@ -36,6 +36,7 @@ const DarkModeToggle = () => {
 
 const ToggleButton = styled("button")<ToggleProps>`
   position: fixed;
+  place-content: center;
   width: 140px;
   height: 45px;
   right: 1.5rem;
@@ -43,13 +44,11 @@ const ToggleButton = styled("button")<ToggleProps>`
   border-radius: 30px;
   cursor: pointer;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
   background: ${({ theme }) => theme.toggleBackground};
   color: ${({ theme }) => theme.text};
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  z-index: 10000;
+  z-index: 10;
 
   &:hover {
     filter: brightness(

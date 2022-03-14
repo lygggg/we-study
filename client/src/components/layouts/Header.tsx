@@ -64,6 +64,7 @@ const HeadContainer = styled.div`
 `;
 
 const LoginText = styled.div`
+  cursor: pointer;
   color: #fff;
   font-size: 20px;
 `;

@@ -2,22 +2,18 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { getSearch } from "../services/Search";
-import { searchState } from "../recoilState/search";
+import { quizListState } from "../recoilState/quizList";
 
 export const useSearch = () => {
   const navigateTo = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const setSearch = useSetRecoilState(searchState);
+  const setSearch = useSetRecoilState(quizListState);
   const query = searchParams.get("query");
 
   const onSearch = async (query: string) => {
-    try {
-      const data = await getSearch(query);
-      // @ts-ignore
-      setSearch(data.quizs.hits);
-    } catch (e) {
-      setSearch([]);
-    }
+    let data = await getSearch(query);
+    // @ts-ignore
+    setSearch(data.quizs);
   };
 
   const onSeachClick = async ({ text }) => {

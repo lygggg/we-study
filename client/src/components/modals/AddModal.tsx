@@ -5,17 +5,13 @@ import styled from "styled-components";
 import Editor from "./Editor";
 import { useAddQuiz } from "../../hook/useAddQuiz";
 
-interface AddModalProps {
-  category: string;
-  categoryId: string;
-}
-
-const AddModal = ({ category, categoryId }: AddModalProps) => {
+const AddModal = () => {
   const [quizText, setQuizText] = useState<string>("");
   const [answerText, setAnswerText] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
 
   const onClickAddQuiz = useAddQuiz({
-    categoryId,
+    category,
     quizText,
     answerText,
     setQuizText,
@@ -26,13 +22,11 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
     <Popup
       modal={true}
       contentStyle={{
-        width: "840px",
-        height: "760px",
         width: "600px",
         height: "740px",
         backgroundColor: "#FFFFFF",
       }}
-      trigger={<AddButton>질문 추가</AddButton>}
+      trigger={<AddButton className="add-quiz">질문 추가</AddButton>}
     >
       {(close: () => void) => (
         <>
@@ -40,6 +34,18 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
             <Title>
               <CloseButton onClick={close}>X</CloseButton>
               <Inner>{category} 질문 추가</Inner>
+              <MenuContainer>
+                <Menu onClick={() => setCategory("운영체제")}>운영체제</Menu>
+                <Menu onClick={() => setCategory("네트워크")}>네트워크</Menu>
+                <Menu onClick={() => setCategory("자바스크립트")}>
+                  자바스크립트
+                </Menu>
+                <Menu onClick={() => setCategory("React")}>React</Menu>
+                <Menu onClick={() => setCategory("자료구조")}>자료구조</Menu>
+                <Menu onClick={() => setCategory("프론트엔드")}>
+                  프론트엔드
+                </Menu>
+              </MenuContainer>
             </Title>
             <PaddingContainer>
               <TableContainer>
@@ -47,6 +53,8 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
                   <H4>문제</H4>
                   <div>
                     <Textarea
+                      className="quiz-body"
+                      placeholder="제목을 입력하세요."
                       maxLength={20}
                       value={quizText}
                       onChange={(v) => setQuizText(v.target.value)}
@@ -56,16 +64,22 @@ const AddModal = ({ category, categoryId }: AddModalProps) => {
                 <div>
                   <H4>정답</H4>
                   <div>
-                    <Editor value={answerText} onChange={setAnswerText} />
+                    <Editor
+                      className="quiz-answer"
+                      value={answerText}
+                      onChange={setAnswerText}
+                    />
                   </div>
                 </div>
               </TableContainer>
             </PaddingContainer>
             <ButtonContainer>
               <SendButton
-                onClick={() => {
-                  onClickAddQuiz();
-                  close();
+                className="quiz-submit"
+                onClick={async () => {
+                  if (await onClickAddQuiz()) {
+                    close();
+                  }
                 }}
               >
                 확인

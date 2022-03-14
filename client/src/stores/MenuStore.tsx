@@ -19,8 +19,11 @@ const MenuStore = {
     "../../../assets/imgs/web.png",
   ],
 
-  findCategories(id: number) {
-    return this.categories[id];
+  findCategories(category: string) {
+    const data = this.categories.indexOf(category);
+    if (data !== -1) {
+      return data;
+    }
   },
 
   findCategoriesUri(id: number) {

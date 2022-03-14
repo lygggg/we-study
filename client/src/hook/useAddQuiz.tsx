@@ -1,11 +1,12 @@
-import { useMe } from "./useMe";
 import { useSetRecoilState } from "recoil";
-import { quizState } from "../recoilState/quiz";
+import { useParams } from "react-router-dom";
+import { quizListState } from "../recoilState/quizList";
 import MenuStore from "../stores/MenuStore";
 import { createQuiz } from "../services/Quiz";
-
+import { Quiz } from "../models/quiz";
+import { useMe } from "./useMe";
 interface useAddQuiz {
-  categoryId: string | number;
+  category: string;
   quizText: string;
   answerText: string;
   setQuizText: (x: string) => void;
@@ -13,33 +14,53 @@ interface useAddQuiz {
 }
 
 export const useAddQuiz = ({
-  categoryId,
+  category,
   quizText,
   answerText,
   setQuizText,
   setAnswerText,
 }: useAddQuiz) => {
   const user = useMe();
-  const setQuiz = useSetRecoilState<string>(quizState);
+  const { categoryId } = useParams();
+  const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
 
+  console.log(categoryId);
   const AddQuiz = async () => {
     const id = user?._id;
-    const img = MenuStore.findCategoriesUri(Number(categoryId));
+    const categoryIndex = MenuStore.findCategories(category);
+    if (categoryIndex === undefined) {
+      alert("메뉴를 선택해주세요.");
+      return false;
+    }
+
+    if (quizText.length === 0 || answerText.length === 0) {
+      alert("텍스트를 입력해주세요");
+      return false;
+    }
+
+    const img = MenuStore.findCategoriesUri(Number(categoryIndex));
     try {
-      await createQuiz({
+      const { quizs } = await createQuiz({
         quizText,
         answerText,
-        category: categoryId,
+        category: categoryIndex,
         id,
         img,
       });
-      setQuiz(quizText);
+
+      if (categoryIndex === +categoryId) {
+        setQuizList((prev) => [...prev, quizs]);
+      }
+
+      return true;
     } catch (e) {
       alert("퀴즈 생성에 실패하셨습니다.");
     } finally {
       setQuizText("");
       setAnswerText("");
     }
+
+    return false;
   };
 
   return AddQuiz;

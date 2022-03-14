@@ -1,20 +1,23 @@
 import Skeleton from "react-loading-skeleton";
 
-const ButtonSkeleton = () => {
+const QuizSkeleton = () => {
   return (
     <>
       <p
         style={{
+          maxWidth: "1000px",
           display: "flex",
           flexDirection: "column",
           gap: "24px",
-          width: "100px",
+          flex: 1,
         }}
       >
-        <Skeleton height={44} />
+        <Skeleton height={134} />
+        <Skeleton height={134} />
+        <Skeleton height={134} />
       </p>
     </>
   );
 };
 
-export default ButtonSkeleton;
+export default QuizSkeleton;

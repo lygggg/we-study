@@ -1,18 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useMe } from "../../hook/useMe";
+import { useMe, useIsLoggedIn } from "../../hook/useMe";
 import QuizItem from "../items/QuizItem";
-import MenuStore from "../../stores/MenuStore";
-import Modal from "../modals/AddModal";
 import SolveModal from "../modals/SolveModal";
 import Info from "./Info";
 import { Quiz } from "../../models/quiz";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoilState/user";
-import ButtonSkeleton from "../skeleton/ButtonSkeleton";
-import Loading from "../modals/Loading";
 import LikeModal from "../modals/LikeModal";
+import QuizSkeleton from "../skeleton/QuizSkeleton";
+import Modal from "../modals/AddModal";
+import ButtonSkeleton from "../skeleton/ButtonSkeleton";
 
 export interface QuizLayout {
   quizList: Quiz[] | undefined;
@@ -20,8 +17,7 @@ export interface QuizLayout {
 
 const QuizLayout = ({ quizList }: QuizLayout) => {
   const user = useMe();
-  const isLoggedIn = useRecoilValue(isLoggedInState);
-  const { categoryId } = useParams<{ categoryId: string }>();
+  const isLoggedIn = useIsLoggedIn();
   const navigateTo = useNavigate();
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>();
   const [likeQuiz, setLikeQuiz] = useState<Quiz | null>();
@@ -42,18 +38,9 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
 
   return (
     <>
-      {user ? (
-        <Modal
-          category={MenuStore.findCategories(Number(categoryId) as number)}
-          categoryId={String(categoryId)}
-        />
-      ) : !isLoggedIn ? (
-        <></>
-      ) : (
-        <ButtonSkeleton />
-      )}
       <Container>
         <QuizContainer className="quiz-container">
+          {user ? <Modal /> : !isLoggedIn ? <></> : <ButtonSkeleton />}
           {quizList ? (
             quizList.length > 0 ? (
               <>
@@ -71,7 +58,7 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
               <Empty>아무런 값도 찾지 못했습니다.</Empty>
             )
           ) : (
-            <Loading />
+            <QuizSkeleton />
           )}
         </QuizContainer>
         <Info />
@@ -91,7 +78,8 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
 };
 
 const QuizContainer = styled.ul`
-  max-width: 1000px;
+  max-width: 736px;
+
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -99,7 +87,6 @@ const QuizContainer = styled.ul`
 `;
 const Empty = styled.div`
   height: 400px;
-  margin-top: 20px;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
   display: flex;
@@ -109,7 +96,7 @@ const Empty = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 60px;
+  margin-top: 140px;
   box-sizing: border-box;
   display: flex;
   place-content: center;
@@ -121,10 +108,8 @@ const Container = styled.div`
 `;
 
 const Inner = styled.li`
-  flex: 0.3;
   border: 0.0625rem solid #d7e2eb;
   padding: 1rem;
-  height: 134px;
 `;
 
-export default QuizLayout;
+export default React.memo(QuizLayout);

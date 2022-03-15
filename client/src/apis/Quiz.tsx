@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 
 export const getQuiz = async ({ category }): Promise<any> => {
@@ -32,4 +33,16 @@ export const createQuiz = async (params): Promise<any> => {
     alert(e);
   }
   return null;
+};
+
+export const removeQuiz = async (quizId) => {
+  try {
+    const { data } = await axios.delete(
+      `${import.meta.env.VITE_APP_API}/quiz/${quizId}`,
+    );
+    return data;
+  } catch (e) {
+    alert(e);
+  }
+  return false;
 };

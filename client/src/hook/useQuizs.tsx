@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Quiz } from "../models/quiz";
 import { getQuiz } from "../services/Quiz";
+import { removeQuiz } from "../services/Quiz";
 import { useMe } from "./useMe";
 import { likeQuizState } from "../recoilState/like";
 import { quizListState } from "../recoilState/quizList";
@@ -33,4 +34,18 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
   }, [categoryId, user?._id, like]);
 
   return quizList;
+};
+
+export const useRemoveQuiz = (quizId) => {
+  const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
+
+  const deleteQuiz = async () => {
+    try {
+      await removeQuiz(quizId);
+      setQuizList((prev) => [...prev].filter((e) => e._id !== quizId));
+    } catch (e) {
+      alert("퀴즈 삭제에 실패하셨습니다.");
+    }
+  };
+  return deleteQuiz;
 };

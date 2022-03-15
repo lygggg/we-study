@@ -34,4 +34,16 @@ module.exports = {
     }
     res.status(403).json({ state: false, message: "Can't create quiz" });
   },
+
+  async removeQuiz(req, res) {
+    const { userId } = req.body;
+    const { quizId } = req.params;
+    const quiz = await quizRepo.removeQuiz(quizId, userId);
+
+    if (quiz) {
+      res.status(200).json({ quiz, message: " success remove quiz" });
+      return;
+    }
+    res.status(403).json({ state: false, message: "Can't remove quiz" });
+  },
 };

@@ -22,6 +22,10 @@ ${reset}
         color: ${({ theme }) => theme.text};
         transition: all 0.5s ease-in-out;
     }
+    textarea {
+      background: ${({ theme }) => theme.body};
+        color: ${({ theme }) => theme.text};
+    }
     button { 
         cursor: pointer;
         border: none;

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
-
-import Editor from "./Editor";
 import { useAddQuiz } from "../../hook/useAddQuiz";
 
 const AddModal = () => {
@@ -23,17 +21,17 @@ const AddModal = () => {
       modal={true}
       contentStyle={{
         width: "600px",
-        height: "740px",
+        height: "600px",
         backgroundColor: "#FFFFFF",
       }}
-      trigger={<AddButton className="add-quiz">질문 추가</AddButton>}
+      trigger={<AddButton className="add-quiz">퀴즈 추가</AddButton>}
     >
       {(close: () => void) => (
         <>
           <Container>
             <Title>
               <CloseButton onClick={close}>X</CloseButton>
-              <Inner>{category} 질문 추가</Inner>
+              <Inner>{category} 퀴즈</Inner>
               <MenuContainer>
                 <Menu onClick={() => setCategory("운영체제")}>운영체제</Menu>
                 <Menu onClick={() => setCategory("네트워크")}>네트워크</Menu>
@@ -47,32 +45,21 @@ const AddModal = () => {
                 </Menu>
               </MenuContainer>
             </Title>
-            <PaddingContainer>
-              <TableContainer>
-                <div>
-                  <H4>문제</H4>
-                  <div>
-                    <Textarea
-                      className="quiz-body"
-                      placeholder="제목을 입력하세요."
-                      maxLength={20}
-                      value={quizText}
-                      onChange={(v) => setQuizText(v.target.value)}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <H4>정답</H4>
-                  <div>
-                    <Editor
-                      className="quiz-answer"
-                      value={answerText}
-                      onChange={setAnswerText}
-                    />
-                  </div>
-                </div>
-              </TableContainer>
-            </PaddingContainer>
+            <TableContainer>
+              <TitleTextarea
+                className="quiz-body"
+                placeholder="제목을 입력하세요."
+                maxLength={20}
+                value={quizText}
+                onChange={(v) => setQuizText(v.target.value)}
+              />
+              <AnwserTextarea
+                maxLength={100}
+                placeholder="정답을 입력하세요."
+                value={answerText}
+                onChange={(v) => setAnswerText(v.target.value)}
+              />
+            </TableContainer>
             <ButtonContainer>
               <SendButton
                 className="quiz-submit"
@@ -92,6 +79,21 @@ const AddModal = () => {
   );
 };
 
+const AnwserTextarea = styled.textarea`
+  height: 100%;
+  width: 100%;
+  font-size: 15px;
+  color: white;
+  background: #282c35;
+`;
+const TitleTextarea = styled.textarea`
+  width: 100%;
+  margin-bottom: 40px;
+  font-size: 15px;
+  color: white;
+  background: #282c35;
+`;
+
 const Menu = styled.button`
   color: black;
   font-weight: 500;
@@ -109,18 +111,6 @@ const MenuContainer = styled.div`
   align-items: center;
 `;
 
-const Textarea = styled.textarea`
-  width: 100%;
-  margin-bottom: 100px;
-  font-size: 15px;
-`;
-
-const H4 = styled.h4`
-  font-size: 25px;
-  margin-bottom: 10px;
-  color: #ffffff;
-`;
-
 const SendButton = styled.button`
   font-size: 17px;
   height: 50px;
@@ -136,18 +126,13 @@ const ButtonContainer = styled.div`
   margin-top: 9rem;
 `;
 
-const PaddingContainer = styled.div`
-  padding: 14px;
-`;
-
 const TableContainer = styled.div`
   height: 380px;
-  border-top: 2px solid;
-  padding: 8px;
+  padding: 20px;
 `;
 
 const Container = styled.div`
-  background: #353535;
+  background: #282c35;
 `;
 
 const AddButton = styled.button`

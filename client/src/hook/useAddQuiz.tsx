@@ -24,7 +24,7 @@ export const useAddQuiz = ({
   const { categoryId } = useParams();
   const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
 
-  const AddQuiz = async () => {
+  const addQuiz = async () => {
     const id = user?._id;
     const categoryIndex = MenuStore.findCategories(category);
     if (categoryIndex === undefined) {
@@ -61,5 +61,5 @@ export const useAddQuiz = ({
     return false;
   };
 
-  return AddQuiz;
+  return addQuiz;
 };

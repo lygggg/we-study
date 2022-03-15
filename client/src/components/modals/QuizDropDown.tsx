@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useVisible } from "../../hook/useVisible";
 import { useRemoveQuiz } from "../../hook/useQuizs";
+import ModifyModal from "./ModifyModal";
 
-const QuizDropDown = ({ quizId }) => {
+const QuizDropDown = ({ quiz, quizId }) => {
   const [ref, isVisible, setIsVisible] = useVisible(false);
   const onClickRemove = useRemoveQuiz(quizId);
 
@@ -16,7 +17,11 @@ const QuizDropDown = ({ quizId }) => {
         <UlContainer ref={ref}>
           <ul>
             <li onClick={() => onClickRemove()}>삭제</li>
-            <li onClick={() => setIsVisible(!isVisible)}>수정</li>
+            <ModifyModal
+              onClick={() => setIsVisible(!isVisible)}
+              modalRef={ref}
+              quiz={quiz}
+            />
           </ul>
         </UlContainer>
       )}

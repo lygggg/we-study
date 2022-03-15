@@ -29,18 +29,6 @@ module.exports = {
     return quizs.length;
   },
 
-  async getUserAddQuizAll(userId) {
-    const quizs = await Quiz.find({ user: userId }).populate("user");
-    if (userId) {
-      quizs.forEach((quiz) => {
-        if (quiz.like_users.indexOf(userId) !== -1) {
-          quiz.like = true;
-        }
-      });
-    }
-    return quizs;
-  },
-
   async createQuiz(quizText, answerText, category, userId, img) {
     const data = {
       category: category,
@@ -70,6 +58,26 @@ module.exports = {
         autoGenerateObjectIDIfNotExist: true,
       },
     );
+    return quiz;
+  },
+
+  async getUserAddQuizAll(userId) {
+    const quizs = await Quiz.find({ user: userId }).populate("user");
+    if (userId) {
+      quizs.forEach((quiz) => {
+        if (quiz.like_users.indexOf(userId) !== -1) {
+          quiz.like = true;
+        }
+      });
+    }
+    return quizs;
+  },
+
+  async removeQuiz(quizId, userId) {
+    const quiz = await Quiz.deleteOne({ _id: quizId, user: userId });
+    if (quiz) {
+      await index.deleteObject(quizId);
+    }
     return quiz;
   },
 };

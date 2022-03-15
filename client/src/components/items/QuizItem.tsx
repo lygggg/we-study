@@ -41,7 +41,7 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
             </a>
           </>
         )}
-        <QuizDropDown quizId={quiz._id} />
+        <QuizDropDown quiz={quiz} quizId={quiz._id} />
       </LikeContainer>
     </Container>
   );

@@ -79,7 +79,6 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
 
 const QuizContainer = styled.ul`
   max-width: 736px;
-
   display: flex;
   flex-direction: column;
   gap: 24px;

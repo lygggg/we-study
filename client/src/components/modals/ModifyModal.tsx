@@ -1,12 +1,17 @@
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
-import { useAddQuiz } from "../../hook/useAddQuiz";
+import { useUpdateQuiz } from "../../hook/useQuizs";
 
 const ModifyModal = ({ onClick, modalRef, quiz }) => {
   const [quizText, setQuizText] = useState<string>(quiz.quizText);
   const [answerText, setAnswerText] = useState<string>(quiz.answerText);
 
+  const onClickModifyQuiz = useUpdateQuiz({
+    quizId: quiz._id,
+    quizText: quizText,
+    answerText: answerText,
+  });
   return (
     <Popup
       modal={true}
@@ -25,19 +30,26 @@ const ModifyModal = ({ onClick, modalRef, quiz }) => {
               <TitleTextarea
                 className="quiz-body"
                 placeholder="제목을 입력하세요."
-                maxLength={20}
+                maxLength={45}
                 value={quizText}
                 onChange={(v) => setQuizText(v.target.value)}
               />
               <AnwserTextarea
-                maxLength={100}
+                maxLength={150}
                 placeholder="정답을 입력하세요."
                 value={answerText}
                 onChange={(v) => setAnswerText(v.target.value)}
               />
             </TableContainer>
             <ButtonContainer>
-              <SendButton className="quiz-submit">확인</SendButton>
+              <SendButton
+                onClick={() => {
+                  onClickModifyQuiz();
+                  close();
+                }}
+              >
+                확인
+              </SendButton>
             </ButtonContainer>
           </Container>
         </>

@@ -46,3 +46,16 @@ export const removeQuiz = async (quizId) => {
   }
   return false;
 };
+
+export const updateQuiz = async (params) => {
+  try {
+    const { data } = await axios.patch(
+      `${import.meta.env.VITE_APP_API}/quiz`,
+      params,
+    );
+    return data;
+  } catch (e) {
+    alert(e);
+  }
+  return false;
+};

@@ -1,8 +1,11 @@
-import { getQuiz as apiGetQuiz } from "../apis/Quiz";
-import { getQuizCount as apiGetQuizCount } from "../apis/Quiz";
-import { getUserAddQuiz as apiGetUserAddQuiz } from "../apis/Quiz";
-import { createQuiz as apiCreateQuiz } from "../apis/Quiz";
-import { removeQuiz as apiRemoveQuizCart } from "../apis/Quiz";
+import {
+  getQuiz as apiGetQuiz,
+  getQuizCount as apiGetQuizCount,
+  getUserAddQuiz as apiGetUserAddQuiz,
+  createQuiz as apiCreateQuiz,
+  removeQuiz as apiRemoveQuizCart,
+  updateQuiz as apiUpdateQuizCart,
+} from "../apis/Quiz";
 
 export const getQuiz = async ({ category }) => {
   return await apiGetQuiz({ category });

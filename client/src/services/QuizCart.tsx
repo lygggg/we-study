@@ -1,6 +1,8 @@
-import { createQuizCart as apiCreateQuizCart } from "../apis/QuizCart";
-import { getQuizCart as apiGetQuizCart } from "../apis/QuizCart";
-import { removeQuizCart as apiRemoveQuizCart } from "../apis/QuizCart";
+import {
+  createQuizCart as apiCreateQuizCart,
+  getQuizCart as apiGetQuizCart,
+  removeQuizCart as apiRemoveQuizCart,
+} from "../apis/QuizCart";
 
 export const createQuizCart = async (params) => {
   return await apiCreateQuizCart(params);

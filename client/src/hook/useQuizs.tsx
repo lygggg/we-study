@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Quiz } from "../models/quiz";
 import { getQuiz, removeQuiz, updateQuiz } from "../services/Quiz";
 import { useMe } from "./useMe";
@@ -14,7 +14,7 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
   const like = useRecoilValue(likeQuizState);
   const user = useMe();
   const { categoryId } = useParams();
-  const [quizList, setQuizList] = useState<Quiz[] | undefined>();
+  const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
 
   const fetchQuizs = async () => {
     try {
@@ -40,6 +40,7 @@ export const useRemoveQuiz = (quizId) => {
 
   const deleteQuiz = async () => {
     try {
+      console.log(quizId);
       await removeQuiz(quizId);
       setQuizList((prev) => [...prev].filter((e) => e._id !== quizId));
     } catch (e) {

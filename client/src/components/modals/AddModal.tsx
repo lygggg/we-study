@@ -49,12 +49,12 @@ const AddModal = () => {
               <TitleTextarea
                 className="quiz-body"
                 placeholder="제목을 입력하세요."
-                maxLength={20}
+                maxLength={45}
                 value={quizText}
                 onChange={(v) => setQuizText(v.target.value)}
               />
               <AnwserTextarea
-                maxLength={100}
+                maxLength={150}
                 placeholder="정답을 입력하세요."
                 value={answerText}
                 onChange={(v) => setAnswerText(v.target.value)}

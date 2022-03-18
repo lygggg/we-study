@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { getUser } from "../apis/Login";
+import { getUser } from "../apis/GetUser";
 import { isLoggedInState, userState } from "../recoilState/user";
 import { User } from "../models/user";
 

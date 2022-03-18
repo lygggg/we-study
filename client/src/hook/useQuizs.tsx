@@ -40,7 +40,6 @@ export const useRemoveQuiz = (quizId) => {
 
   const deleteQuiz = async () => {
     try {
-      console.log(quizId);
       await removeQuiz(quizId);
       setQuizList((prev) => [...prev].filter((e) => e._id !== quizId));
     } catch (e) {

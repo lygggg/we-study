@@ -6,10 +6,14 @@ const router = express.Router();
 const errorCatcher = require("../middlewares/errorCatcher.js");
 const quizCartService = require("../services/quizCart.service.js");
 
-router.post("/", authChecker, errorCatcher(quizCartService.putQuizCart));
-router.get("/", authChecker, errorCatcher(quizCartService.getQuizCart));
+router.post(
+  "/favorite",
+  authChecker,
+  errorCatcher(quizCartService.putQuizCart),
+);
+router.get("/favorite", authChecker, errorCatcher(quizCartService.getQuizCart));
 router.delete(
-  "/:quizId",
+  "/:quizId/favorite",
   authChecker,
   errorCatcher(quizCartService.removeQuizCart),
 );

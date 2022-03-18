@@ -10,14 +10,16 @@ module.exports = {
     return;
   },
 
-  async loginUser(req, res) {
+  async getUser(req, res) {
     const { userId } = req.body;
     const user = await authRepo.findUser(userId);
+    const quizCount = await quizRepo.getQuizAllCount();
     const myQuiz = await quizRepo.getUserAddQuizAll(userId);
     const quizCart = await quizCartRepo.getCart(userId);
     res.status(200).json({
       user: {
         ...user, // 몽구스로 가져온 객체는 보호된 필드라 _doc를 사용하면 오브젝트 안을 볼 수 있다.
+        quizCount: quizCount,
         myQuizCount: myQuiz.length,
         cartCount: quizCart.length,
       },

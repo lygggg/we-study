@@ -26,3 +26,7 @@ export const createQuiz = async (params) => {
 export const removeQuiz = async (quizId) => {
   return await apiRemoveQuizCart(quizId);
 };
+
+export const updateQuiz = async (params) => {
+  return await apiUpdateQuizCart(params);
+};

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
-import { useCartQuizList } from "../hook/useCartQuiz";
+import { useLikeQuizList } from "../hook/useLikeQuiz";
 
-const CartQuizListPage = () => {
+const LikeQuizListPage = () => {
   const [error, setError] = useState();
-  const quizList = useCartQuizList({
+  const quizList = useLikeQuizList({
     onError: setError,
   });
 
@@ -29,4 +29,4 @@ const Container = styled.div`
   margin-top: 60px;
 `;
 
-export default CartQuizListPage;
+export default LikeQuizListPage;

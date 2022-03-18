@@ -1,13 +1,13 @@
 const Quiz = require("../models/quiz.js");
-const QuizCart = require("../models/quizCart.js");
+const LikeQuiz = require("../models/likeQuiz.js");
 
 module.exports = {
-  async putCart(quizId, userId) {
-    const checkCart = await QuizCart.find({ quiz: quizId, user: userId });
-    if (checkCart.length > 0) {
+  async putLikeQuiz(quizId, userId) {
+    const checkLikeQuiz = await LikeQuiz.find({ quiz: quizId, user: userId });
+    if (checkLikeQuiz.length > 0) {
       return;
     }
-    const cart = await QuizCart.create({
+    const likeQuiz = await LikeQuiz.create({
       quiz: quizId,
       user: userId,
     });
@@ -19,11 +19,11 @@ module.exports = {
         $push: { like_users: userId },
       },
     );
-    return cart;
+    return likeQuiz;
   },
 
-  async getCart(userId) {
-    const carts = await QuizCart.find({
+  async getLikeQuiz(userId) {
+    const likeQuizs = await LikeQuiz.find({
       user: userId,
     })
       .populate({
@@ -33,13 +33,17 @@ module.exports = {
         },
       })
       .lean();
-    return carts.map((x) => {
+    return likeQuizs.map((x) => {
       return { ...x.quiz, type: x.type, like: true };
     });
   },
 
-  async removeCart(quizId, userId) {
-    await QuizCart.deleteOne({ quiz: quizId, user: userId });
+  async removeLikeQuiz(quizId, userId) {
+    const checkLikeQuiz = await LikeQuiz.find({ quiz: quizId, user: userId });
+    if (checkLikeQuiz.length < 1) {
+      return;
+    }
+    await LikeQuiz.deleteOne({ quiz: quizId, user: userId });
     await Quiz.updateOne(
       { _id: quizId },
       {

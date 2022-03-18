@@ -4,5 +4,5 @@ export interface User {
   email: string;
   quizCount: number;
   myQuizCount: number;
-  cartCount: number;
+  likeCount: number;
 }

@@ -2,8 +2,8 @@ import {
   getQuiz as apiGetQuiz,
   getUserAddQuiz as apiGetUserAddQuiz,
   createQuiz as apiCreateQuiz,
-  removeQuiz as apiRemoveQuizCart,
-  updateQuiz as apiUpdateQuizCart,
+  removeQuiz as apiRemoveLikeQuiz,
+  updateQuiz as apiUpdateLikeQuiz,
 } from "../apis/Quiz";
 
 export const getQuiz = async ({ category }) => {
@@ -19,9 +19,9 @@ export const createQuiz = async (params) => {
 };
 
 export const removeQuiz = async (quizId) => {
-  return await apiRemoveQuizCart(quizId);
+  return await apiRemoveLikeQuiz(quizId);
 };
 
 export const updateQuiz = async (params) => {
-  return await apiUpdateQuizCart(params);
+  return await apiUpdateLikeQuiz(params);
 };

@@ -1,18 +1,18 @@
 import axios from "axios";
 import { Quiz } from "../models/quiz";
 
-export const createQuizCart = async (params): Promise<any> => {
+export const createLikeQuiz = async (params): Promise<any> => {
   await axios.post(`${import.meta.env.VITE_APP_API}/quizs/favorite`, params);
 };
 
-export const getQuizCart = async () => {
+export const getLikeQuiz = async () => {
   const { data } = await axios.get(
     `${import.meta.env.VITE_APP_API}/quizs/favorite`,
   );
-  return data as { quizCart: Quiz[] };
+  return data as { likeQuiz: Quiz[] };
 };
 
-export const removeQuizCart = async (quizId) => {
+export const removeLikeQuiz = async (quizId) => {
   try {
     await axios.delete(
       `${import.meta.env.VITE_APP_API}/quizs/${quizId}/favorite`,

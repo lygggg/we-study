@@ -1,7 +1,7 @@
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
-import { useCreateQuizCart, useRemoveCartQuiz } from "../../hook/useCartQuiz";
+import { useCreateLikeQuiz, useRemoveLikeQuiz } from "../../hook/useLikeQuiz";
 import { useSetRecoilState } from "recoil";
 import { quizListState } from "../../recoilState/quizList";
 interface LikeModalProps {
@@ -11,16 +11,14 @@ interface LikeModalProps {
 }
 
 const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
-  const addLikeQuiz = useCreateQuizCart(quiz._id);
-  const removeLikeQuiz = useRemoveCartQuiz(quiz._id);
+  const addLikeQuiz = useCreateLikeQuiz(quiz._id);
+  const removeLikeQuiz = useRemoveLikeQuiz(quiz._id);
 
   const setSearch = useSetRecoilState(quizListState);
 
-  const onClickCartQuiz = async () => {
+  const onClickLikeQuiz = async () => {
     if (!!quiz.like) {
       removeLikeQuiz();
-      //quiz.likeCount -= 1;
-      //quiz.like = false;
 
       setSearch((prev) =>
         prev.map((x) => {
@@ -33,8 +31,6 @@ const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
       return;
     }
     addLikeQuiz();
-    //quiz.likeCount += 1;
-    //quiz.like = true;
 
     setSearch((prev) =>
       prev.map((x) => {
@@ -67,7 +63,7 @@ const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
               <Explanation>좋아요를 누르시겠습니까?</Explanation>
               <LikeButton
                 onClick={() => {
-                  onClickCartQuiz();
+                  onClickLikeQuiz();
                   close();
                 }}
                 style={

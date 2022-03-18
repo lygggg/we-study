@@ -80,4 +80,15 @@ module.exports = {
     }
     return quiz;
   },
+
+  async updateQuiz(quizId, userId, quizText, answerText) {
+    const quiz = await Quiz.updateOne(
+      {
+        _id: quizId,
+        userId: userId,
+      },
+      { $set: { quizText: quizText, answerText: answerText } },
+    );
+    return quiz;
+  },
 };

@@ -11,5 +11,6 @@ router.get("/count", errorCatcher(quizService.getQuizCount));
 router.get("/addlist", authChecker, errorCatcher(quizService.getUserAddQuiz));
 router.post("/", authChecker, errorCatcher(quizService.createQuiz));
 router.delete("/:quizId", authChecker, errorCatcher(quizService.removeQuiz));
+router.patch("/", authChecker, errorCatcher(quizService.updateQuiz));
 
 module.exports = router;

@@ -46,4 +46,19 @@ module.exports = {
     }
     res.status(403).json({ state: false, message: "Can't remove quiz" });
   },
+
+  async updateQuiz(req, res) {
+    const { quizId, userId, quizText, answerText } = req.body;
+    const quiz = await quizRepo.updateQuiz(
+      quizId,
+      userId,
+      quizText,
+      answerText,
+    );
+    if (quiz) {
+      res.status(200).json({ state: 200, message: " success update quiz" });
+      return;
+    }
+    res.status(403).json({ state: false, message: "Can't update quiz" });
+  },
 };

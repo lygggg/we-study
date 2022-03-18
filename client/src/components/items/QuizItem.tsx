@@ -19,7 +19,7 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
             dangerouslySetInnerHTML={{ __html: quiz.quizText }}
           ></Item>
           {quiz.user[0].name ? (
-            <ItemName>{quiz.user[0].name}</ItemName>
+            <ItemName>{quiz.user[0]?.name}</ItemName>
           ) : (
             <ItemName>{quiz.user}</ItemName>
           )}

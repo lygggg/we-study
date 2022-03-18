@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import { getUserAddQuiz } from "../apis/Quiz";
 import { Quiz } from "../models/quiz";
+import { quizListState } from "../recoilState/quizList";
 import { useMe } from "./useMe";
 
 interface UseQuizsOptions {
@@ -8,7 +10,7 @@ interface UseQuizsOptions {
 }
 
 export const useGetAddQuizList = ({ onError }: UseQuizsOptions = {}) => {
-  const [quizList, setQuizList] = useState<Quiz[] | undefined>();
+  const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
   const user = useMe();
 
   const fetchQuizs = async () => {

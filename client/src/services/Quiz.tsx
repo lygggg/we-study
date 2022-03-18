@@ -1,6 +1,5 @@
 import {
   getQuiz as apiGetQuiz,
-  getQuizCount as apiGetQuizCount,
   getUserAddQuiz as apiGetUserAddQuiz,
   createQuiz as apiCreateQuiz,
   removeQuiz as apiRemoveQuizCart,
@@ -9,10 +8,6 @@ import {
 
 export const getQuiz = async ({ category }) => {
   return await apiGetQuiz({ category });
-};
-
-export const getQuizCount = async () => {
-  return await apiGetQuizCount();
 };
 
 export const getUserAddQuiz = async () => {

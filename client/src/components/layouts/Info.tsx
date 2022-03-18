@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { useMe } from "../../hook/useMe";
-import { useQuizCount } from "../../hook/useQuizCount";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoilState/user";
 import InfoSkeleton from "../skeleton/InfoSkeleton";
@@ -10,7 +9,6 @@ import InfoSkeleton from "../skeleton/InfoSkeleton";
 const Info = () => {
   const user = useMe();
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  const quizCount = useQuizCount();
 
   return (
     <>
@@ -25,8 +23,7 @@ const Info = () => {
                 <H5>{user.name}</H5>
                 <Email>{user.email}</Email>
               </IdText>
-              <IdText>총 문제: {quizCount}</IdText>
-              <IdText>추가한 문제: {user.myQuizCount}</IdText>
+              <IdText>총 문제: {user.quizCount}</IdText>
               <IdText>소장한 문제: {user.cartCount} </IdText>
               <ButtonContainer>
                 <StyledLink to={`/addlist`}>

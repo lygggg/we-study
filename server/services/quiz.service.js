@@ -3,7 +3,8 @@ const quizRepo = require("../repositorys/quiz.repository.js");
 module.exports = {
   async getQuizs(req, res) {
     const { userId } = req.body;
-    const quizs = await quizRepo.getQuizAll(req.query.category, userId);
+    const { category, page } = req.query;
+    const quizs = await quizRepo.getQuizAll(category, userId, page);
     res.status(200).json({ quizs });
   },
 
@@ -24,7 +25,7 @@ module.exports = {
     );
 
     if (quizs) {
-      res.status(200).json({ quizs, message: " success add new quiz" });
+      res.status(201).json({ quizs, message: " success add new quiz" });
       return;
     }
     res.status(403).json({ state: false, message: "Can't create quiz" });

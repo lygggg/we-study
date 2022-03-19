@@ -12,8 +12,9 @@ module.exports = {
 
   async getLikeQuiz(req, res) {
     const { userId } = req.body;
-    const likeQuiz = await likeQuizRepo.getLikeQuiz(userId);
-    res.status(200).json({ likeQuiz });
+    const { page } = req.query;
+    const quizs = await likeQuizRepo.getLikeQuiz(userId, page);
+    res.status(200).json(quizs);
   },
 
   async removeLikeQuiz(req, res) {

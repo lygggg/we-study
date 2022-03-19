@@ -12,10 +12,9 @@ const MAX_PAGE = 8;
 
 module.exports = {
   async getQuizAll(category, userId, page) {
-    page = page - 1;
     const quizs = await Quiz.find({ category: category })
       .populate("user")
-      .skip(MAX_PAGE * page)
+      .skip(MAX_PAGE * (page - 1))
       .limit(MAX_PAGE)
       .lean();
 
@@ -35,8 +34,8 @@ module.exports = {
   },
 
   async getQuizAllCount() {
-    const quizs = await Quiz.find();
-    return quizs.length;
+    const quizs = await Quiz.find().count();
+    return quizs;
   },
 
   async createQuiz(quizText, answerText, category, userId, img) {
@@ -71,8 +70,15 @@ module.exports = {
     return quiz;
   },
 
-  async getUserAddQuizAll(userId) {
-    const quizs = await Quiz.find({ user: userId }).populate("user");
+  async getUserAddQuizAll(userId, page) {
+    const quizs = await Quiz.find({ user: userId })
+      .populate("user")
+      .skip(MAX_PAGE * (page - 1))
+      .limit(MAX_PAGE)
+      .lean();
+
+    const totalQuizs = await Quiz.find({ user: userId }).count();
+
     if (userId) {
       quizs.forEach((quiz) => {
         if (quiz.like_users.indexOf(userId) !== -1) {
@@ -80,7 +86,7 @@ module.exports = {
         }
       });
     }
-    return quizs;
+    return { quizs, length: totalQuizs };
   },
 
   async removeQuiz(quizId, userId) {

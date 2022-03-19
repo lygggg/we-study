@@ -10,7 +10,8 @@ module.exports = {
 
   async getUserAddQuiz(req, res) {
     const { userId } = req.body;
-    const quizs = await quizRepo.getUserAddQuizAll(userId);
+    const { page } = req.query;
+    const quizs = await quizRepo.getUserAddQuizAll(userId, page);
     res.status(200).json({ quizs });
   },
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getQuiz = async ({ category }): Promise<any> => {
+export const getQuizs = async ({ category }): Promise<any> => {
   const { data } = await axios.get(
     `${import.meta.env.VITE_APP_API}/quizs` + `?category=${category}`,
   );

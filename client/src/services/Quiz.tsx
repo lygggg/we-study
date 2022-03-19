@@ -1,12 +1,12 @@
 import {
-  getQuiz as apiGetQuiz,
+  getQuizs as apiGetQuiz,
   getUserAddQuiz as apiGetUserAddQuiz,
   createQuiz as apiCreateQuiz,
   removeQuiz as apiRemoveLikeQuiz,
   updateQuiz as apiUpdateLikeQuiz,
 } from "../apis/Quiz";
 
-export const getQuiz = async ({ category }) => {
+export const getQuizs = async ({ category }) => {
   return await apiGetQuiz({ category });
 };
 

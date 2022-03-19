@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Quiz } from "../models/quiz";
-import { getQuiz, removeQuiz, updateQuiz } from "../services/Quiz";
+import { getQuizs, removeQuiz, updateQuiz } from "../services/Quiz";
 import { useMe } from "./useMe";
 import { quizListState } from "../recoilState/quizList";
 
@@ -16,7 +16,7 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
 
   const fetchQuizs = async () => {
     try {
-      const data = await getQuiz({
+      const data = await getQuizs({
         category: categoryId,
       });
       setQuizList(data.quizs);

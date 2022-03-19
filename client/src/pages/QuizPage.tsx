@@ -6,7 +6,7 @@ import { useQuizs } from "../hook/useQuizs";
 
 const QuizPage = () => {
   const [error, setError] = useState();
-  const quizList = useQuizs({
+  const { quizList, quizsLength } = useQuizs({
     onError: setError,
   });
 
@@ -17,7 +17,7 @@ const QuizPage = () => {
           <GetError />
         ) : (
           <>
-            <QuizLayout quizList={quizList} />
+            <QuizLayout quizList={quizList} quizLength={quizsLength} />
           </>
         )}
       </Container>

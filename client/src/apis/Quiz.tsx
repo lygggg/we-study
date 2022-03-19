@@ -7,6 +7,14 @@ export const getQuizs = async ({ category }): Promise<any> => {
   return data;
 };
 
+export const sliceQuizs = async ({ category, pageNumber }): Promise<any> => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_API}/quizs` +
+      `?category=${category}&page=${pageNumber}`,
+  );
+  return data;
+};
+
 export const getUserAddQuiz = async (): Promise<any> => {
   const { data } = await axios.get(`${import.meta.env.VITE_APP_API}/quizs/me`);
   return data;

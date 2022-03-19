@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useMe, useIsLoggedIn } from "../../hook/useMe";
 import QuizItem from "../items/QuizItem";
@@ -10,15 +10,24 @@ import LikeModal from "../modals/LikeModal";
 import QuizSkeleton from "../skeleton/QuizSkeleton";
 import Modal from "../modals/AddModal";
 import ButtonSkeleton from "../skeleton/ButtonSkeleton";
+import Pagination from "../items/Pagination";
+import { getSliceQuizs } from "../../services/Quiz";
+import { useSetRecoilState } from "recoil";
+import { quizListState } from "../../recoilState/quizList";
 
 export interface QuizLayout {
   quizList: Quiz[] | undefined;
+  quizLength: number;
 }
 
-const QuizLayout = ({ quizList }: QuizLayout) => {
+const MAX_PAGE = 8;
+
+const QuizLayout = ({ quizList, quizLength }: QuizLayout) => {
   const user = useMe();
+  const { categoryId } = useParams();
   const isLoggedIn = useIsLoggedIn();
   const navigateTo = useNavigate();
+  const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>();
   const [likeQuiz, setLikeQuiz] = useState<Quiz | null>();
 
@@ -36,9 +45,19 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
     setLikeQuiz(quiz);
   };
 
+  const onPageChange = async (page) => {
+    console.log(111);
+    const quizs = await getSliceQuizs({
+      category: categoryId,
+      pageNumber: page,
+    });
+    setQuizList(quizs.quizs.quizs);
+  };
+
   return (
     <>
       <Container>
+        {console.log(quizList)}
         <QuizContainer className="quiz-container">
           {user ? <Modal /> : !isLoggedIn ? <></> : <ButtonSkeleton />}
           {quizList ? (
@@ -53,6 +72,11 @@ const QuizLayout = ({ quizList }: QuizLayout) => {
                     ></QuizItem>
                   </Inner>
                 ))}
+                <Pagination
+                  total={quizLength}
+                  pageSize={MAX_PAGE}
+                  onPageChange={onPageChange}
+                />
               </>
             ) : (
               <Empty>아무런 값도 찾지 못했습니다.</Empty>

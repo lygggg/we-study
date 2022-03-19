@@ -1,5 +1,6 @@
 import {
-  getQuizs as apiGetQuiz,
+  getQuizs as apiGetQuizs,
+  sliceQuizs as apiSliceQuizs,
   getUserAddQuiz as apiGetUserAddQuiz,
   createQuiz as apiCreateQuiz,
   removeQuiz as apiRemoveLikeQuiz,
@@ -7,7 +8,11 @@ import {
 } from "../apis/Quiz";
 
 export const getQuizs = async ({ category }) => {
-  return await apiGetQuiz({ category });
+  return await apiGetQuizs({ category });
+};
+
+export const getSliceQuizs = async ({ category, pageNumber }) => {
+  return await apiSliceQuizs({ category, pageNumber });
 };
 
 export const getUserAddQuiz = async () => {

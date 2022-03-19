@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Quiz } from "../models/quiz";
@@ -13,13 +13,16 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
   const user = useMe();
   const { categoryId } = useParams();
   const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
+  const [quizsLength, setQuizsLength] = useState(0);
 
   const fetchQuizs = async () => {
     try {
+      setQuizList(undefined);
       const data = await getQuizs({
         category: categoryId,
       });
-      setQuizList(data.quizs);
+      setQuizList(data.quizs.quizs);
+      setQuizsLength(data.quizs.length);
       onError(null);
     } catch (e) {
       onError(e);
@@ -30,7 +33,7 @@ export const useQuizs = ({ onError }: UseQuizsOptions) => {
     fetchQuizs();
   }, [categoryId, user?._id]);
 
-  return quizList;
+  return { quizList, quizsLength };
 };
 
 export const useRemoveQuiz = (quizId) => {

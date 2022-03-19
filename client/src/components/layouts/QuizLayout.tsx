@@ -11,18 +11,24 @@ import QuizSkeleton from "../skeleton/QuizSkeleton";
 import Modal from "../modals/AddModal";
 import ButtonSkeleton from "../skeleton/ButtonSkeleton";
 import Pagination from "../items/Pagination";
-import { getSliceQuizs } from "../../services/Quiz";
+import {
+  getSliceAddQuizs,
+  getSliceQuizs,
+  getUserAddQuizs,
+} from "../../services/Quiz";
 import { useSetRecoilState } from "recoil";
 import { quizListState } from "../../recoilState/quizList";
+import { getSliceLikeQuizs } from "../../services/LikeQuiz";
 
 export interface QuizLayout {
   quizList: Quiz[] | undefined;
   quizLength: number;
+  quizType: string;
 }
 
 const MAX_PAGE = 8;
 
-const QuizLayout = ({ quizList, quizLength }: QuizLayout) => {
+const QuizLayout = ({ quizList, quizLength, quizType }: QuizLayout) => {
   const user = useMe();
   const { categoryId } = useParams();
   const isLoggedIn = useIsLoggedIn();
@@ -46,18 +52,28 @@ const QuizLayout = ({ quizList, quizLength }: QuizLayout) => {
   };
 
   const onPageChange = async (page) => {
-    console.log(111);
-    const quizs = await getSliceQuizs({
-      category: categoryId,
-      pageNumber: page,
-    });
-    setQuizList(quizs.quizs.quizs);
+    if (quizType === "category") {
+      const quizs = await getSliceQuizs({
+        category: categoryId,
+        pageNumber: page,
+      });
+      setQuizList(quizs.quizs.quizs);
+    }
+
+    if (quizType === "me") {
+      const quizs = await getSliceAddQuizs(page);
+      setQuizList(quizs.quizs.quizs);
+    }
+
+    if (quizType === "favorite") {
+      const quizs = await getSliceLikeQuizs(page);
+      setQuizList(quizs.likeQuiz.quizs);
+    }
   };
 
   return (
     <>
       <Container>
-        {console.log(quizList)}
         <QuizContainer className="quiz-container">
           {user ? <Modal /> : !isLoggedIn ? <></> : <ButtonSkeleton />}
           {quizList ? (

@@ -1,7 +1,8 @@
 import {
   getQuizs as apiGetQuizs,
   sliceQuizs as apiSliceQuizs,
-  getUserAddQuiz as apiGetUserAddQuiz,
+  getUserAddQuizs as apiGetUserAddQuizs,
+  getSliceAddQuizs as apiSliceAddQuizs,
   createQuiz as apiCreateQuiz,
   removeQuiz as apiRemoveLikeQuiz,
   updateQuiz as apiUpdateLikeQuiz,
@@ -15,8 +16,12 @@ export const getSliceQuizs = async ({ category, pageNumber }) => {
   return await apiSliceQuizs({ category, pageNumber });
 };
 
-export const getUserAddQuiz = async () => {
-  return await apiGetUserAddQuiz();
+export const getUserAddQuizs = async () => {
+  return await apiGetUserAddQuizs();
+};
+
+export const getSliceAddQuizs = async (pageNumber) => {
+  return await apiSliceAddQuizs(pageNumber);
 };
 
 export const createQuiz = async (params) => {

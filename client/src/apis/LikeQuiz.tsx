@@ -9,7 +9,14 @@ export const getLikeQuiz = async () => {
   const { data } = await axios.get(
     `${import.meta.env.VITE_APP_API}/quizs/favorite`,
   );
-  return data as { likeQuiz: Quiz[] };
+  return data as { quizs: Quiz[]; length: number };
+};
+
+export const getSliceLikeQuizs = async (pageNumber) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_API}/quizs/favorite?page=${pageNumber}`,
+  );
+  return data as { quizs: Quiz[]; length: number };
 };
 
 export const removeLikeQuiz = async (quizId) => {

@@ -17,7 +17,11 @@ const QuizPage = () => {
           <GetError />
         ) : (
           <>
-            <QuizLayout quizList={quizList} quizLength={quizsLength} />
+            <QuizLayout
+              quizList={quizList}
+              quizLength={quizsLength}
+              quizType={"category"}
+            />
           </>
         )}
       </Container>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getLikeQuiz } from "../apis/LikeQuiz";
 import { Quiz } from "../models/quiz";
 import { useMe } from "./useMe";
@@ -13,12 +13,14 @@ interface UseQuizsOptions {
 
 export const useLikeQuizList = ({ onError }: UseQuizsOptions = {}) => {
   const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
+  const [quizsLength, setQuizsLength] = useState(0);
   const user = useMe();
 
   const fetchQuizs = async () => {
     try {
       const data = await getLikeQuiz();
-      setQuizList(data.likeQuiz);
+      setQuizList(data.quizs);
+      setQuizsLength(data.length);
       onError?.(null);
     } catch (e) {
       onError?.(e);
@@ -30,7 +32,7 @@ export const useLikeQuizList = ({ onError }: UseQuizsOptions = {}) => {
     fetchQuizs();
   }, [user?._id]);
 
-  return quizList;
+  return { quizList, quizsLength };
 };
 
 export const useRemoveLikeQuiz = (quizId: string) => {

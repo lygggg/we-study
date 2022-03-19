@@ -6,7 +6,7 @@ import { useLikeQuizList } from "../hook/useLikeQuiz";
 
 const LikeQuizListPage = () => {
   const [error, setError] = useState();
-  const quizList = useLikeQuizList({
+  const { quizList, quizsLength } = useLikeQuizList({
     onError: setError,
   });
 
@@ -17,7 +17,11 @@ const LikeQuizListPage = () => {
           <GetError />
         ) : (
           <>
-            <QuizLayout quizList={quizList} />
+            <QuizLayout
+              quizList={quizList}
+              quizLength={quizsLength}
+              quizType={"favorite"}
+            />
           </>
         )}
       </Container>

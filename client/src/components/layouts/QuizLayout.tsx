@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { useMe, useIsLoggedIn } from "../../hook/useMe";
 import QuizItem from "../items/QuizItem";
@@ -11,14 +11,11 @@ import QuizSkeleton from "../skeleton/QuizSkeleton";
 import Modal from "../modals/AddModal";
 import ButtonSkeleton from "../skeleton/ButtonSkeleton";
 import Pagination from "../items/Pagination";
-import {
-  getSliceAddQuizs,
-  getSliceQuizs,
-  getUserAddQuizs,
-} from "../../services/Quiz";
+import { getSliceAddQuizs, getSliceQuizs } from "../../services/Quiz";
 import { useSetRecoilState } from "recoil";
 import { quizListState } from "../../recoilState/quizList";
 import { getSliceLikeQuizs } from "../../services/LikeQuiz";
+import { getSliceSearch } from "../../services/Search";
 
 export interface QuizLayout {
   quizList: Quiz[] | undefined;
@@ -33,6 +30,8 @@ const QuizLayout = ({ quizList, quizLength, quizType }: QuizLayout) => {
   const { categoryId } = useParams();
   const isLoggedIn = useIsLoggedIn();
   const navigateTo = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query");
   const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
   const [activeQuiz, setActiveQuiz] = useState<Quiz | null>();
   const [likeQuiz, setLikeQuiz] = useState<Quiz | null>();
@@ -67,7 +66,12 @@ const QuizLayout = ({ quizList, quizLength, quizType }: QuizLayout) => {
 
     if (quizType === "favorite") {
       const quizs = await getSliceLikeQuizs(page);
-      setQuizList(quizs.likeQuiz.quizs);
+      setQuizList(quizs.quizs);
+    }
+
+    if (quizType === "search") {
+      const quizs = await getSliceSearch({ query, pageNumber: page });
+      setQuizList(quizs.quizs);
     }
   };
 

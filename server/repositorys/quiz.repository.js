@@ -90,7 +90,7 @@ module.exports = {
   },
 
   async removeQuiz(quizId, userId) {
-    const quiz = await Quiz.deleteOne({ _id: quizId, user: userId });
+    const quiz = await Quiz.deleteOne({ _id: quizId, user: { $in: userId } });
     if (quiz) {
       await index.deleteObject(quizId);
     }

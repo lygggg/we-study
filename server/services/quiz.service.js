@@ -36,8 +36,7 @@ module.exports = {
     const { userId } = req.body;
     const { quizId } = req.params;
     const quiz = await quizRepo.removeQuiz(quizId, userId);
-
-    if (quiz) {
+    if (quiz.deletedCount > 0) {
       res.status(200).json({ quiz, message: " success remove quiz" });
       return;
     }

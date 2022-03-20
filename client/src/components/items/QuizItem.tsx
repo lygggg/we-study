@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMe } from "../../hook/useMe";
 import { Quiz } from "../../models/quiz";
 import QuizDropDown from "../modals/QuizDropDown";
 
@@ -9,6 +10,7 @@ interface QuizItemProps {
 }
 
 const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
+  const user = useMe();
   return (
     <Container>
       <FlexContainer className="quiz-item">
@@ -41,7 +43,9 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
             </a>
           </>
         )}
-        <QuizDropDown quiz={quiz} quizId={quiz._id} />
+        {user?._id === quiz?.user[0]?._id && (
+          <QuizDropDown quiz={quiz} quizId={quiz._id} />
+        )}
       </LikeContainer>
     </Container>
   );

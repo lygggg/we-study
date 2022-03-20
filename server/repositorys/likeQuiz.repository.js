@@ -1,6 +1,8 @@
 const Quiz = require("../models/quiz.js");
 const LikeQuiz = require("../models/likeQuiz.js");
 
+const MAX_PAGE = 8;
+
 module.exports = {
   async putLikeQuiz(quizId, userId) {
     const checkLikeQuiz = await LikeQuiz.find({ quiz: quizId, user: userId });
@@ -22,7 +24,7 @@ module.exports = {
     return likeQuiz;
   },
 
-  async getLikeQuiz(userId) {
+  async getLikeQuiz(userId, page) {
     const likeQuizs = await LikeQuiz.find({
       user: userId,
     })
@@ -32,10 +34,15 @@ module.exports = {
           path: "user",
         },
       })
+      .skip(MAX_PAGE * (page - 1))
+      .limit(MAX_PAGE)
       .lean();
-    return likeQuizs.map((x) => {
+
+    const totalQuizs = await LikeQuiz.find({ user: userId }).count();
+    const quizs = likeQuizs.map((x) => {
       return { ...x.quiz, type: x.type, like: true };
     });
+    return { quizs, length: totalQuizs };
   },
 
   async removeLikeQuiz(quizId, userId) {

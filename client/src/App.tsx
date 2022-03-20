@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { getAuth } from "firebase/auth";
+import { browserLocalPersistence, getAuth } from "firebase/auth";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
 import HomePage from "./pages/HomePage";
@@ -27,6 +27,7 @@ export const ThemeContext = createContext({
 
 const App = () => {
   const [theme, setToggleTheme] = useDarkMode();
+  const [hasUser, setHasUser] = useState(false);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const refreshMe = useRefreshMe();
 
@@ -37,14 +38,21 @@ const App = () => {
       }
       if (!user) {
         setIsLoggedIn(false);
+        setHasUser(true);
         return;
       }
 
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + (await user.getIdToken()); // Bearer는 JWT 인증방식 표시
-      refreshMe();
+      await refreshMe();
+
+      setHasUser(true);
     });
   }, []);
+
+  if (hasUser === false) {
+    return null;
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, setToggleTheme }}>
@@ -58,10 +66,7 @@ const App = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/signup/success" element={<SignSuccessPage />} />
-              <Route
-                path="/categories/:categoryId/page/:pageNum"
-                element={<QuizPage />}
-              />
+              <Route path="/categories/:categoryId" element={<QuizPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/addlist" element={<AddQuizListPage />} />
               <Route path="/likeList" element={<LikeQuizListPage />} />

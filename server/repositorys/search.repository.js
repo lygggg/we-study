@@ -8,8 +8,10 @@ const ALGOLIA_INDEX_NAME = process.env.ALGOLIA_INDEX_NAME;
 const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 const index = client.initIndex(ALGOLIA_INDEX_NAME);
 
+const MAX_PAGE = 8;
+
 module.exports = {
-  async getSearchQuiz(query, userId) {
+  async getSearchQuiz(query, userId, page) {
     const { hits } = await index.search(query);
     const quizs = await quiz
       .find()
@@ -17,7 +19,11 @@ module.exports = {
         "_id",
         hits.map((x) => x._id),
       )
-      .populate("user");
+      .populate("user")
+      .skip(MAX_PAGE * (page - 1))
+      .limit(MAX_PAGE);
+
+    const totalQuizs = await index.search(query);
 
     if (userId) {
       quizs.forEach((quiz) => {
@@ -28,6 +34,6 @@ module.exports = {
       });
     }
 
-    return quizs;
+    return { quizs, length: totalQuizs.nbHits };
   },
 };

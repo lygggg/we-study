@@ -35,6 +35,7 @@ const Header = () => {
                   <LoginText className="login">로그인</LoginText>
                 </StyledLink>
               )}
+              <DarkModeToggle />
             </LoginContainer>
           </HeadContainer>
         </Head>
@@ -42,7 +43,6 @@ const Header = () => {
       <MenuContainer>
         <Menu />
       </MenuContainer>
-      <DarkModeToggle />
     </>
   );
 };

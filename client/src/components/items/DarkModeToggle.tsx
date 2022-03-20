@@ -18,7 +18,7 @@ const DarkModeToggle = () => {
               🕶️
             </span>
           </Emoji>
-          <ModeContent>다크 모드로 보기</ModeContent>
+          <ModeContent>다크 모드</ModeContent>
         </>
       ) : (
         <>
@@ -27,7 +27,7 @@ const DarkModeToggle = () => {
               💡
             </span>
           </Emoji>
-          <ModeContent>라이트 모드로 보기</ModeContent>
+          <ModeContent>라이트 모드</ModeContent>
         </>
       )}
     </ToggleButton>
@@ -35,12 +35,8 @@ const DarkModeToggle = () => {
 };
 
 const ToggleButton = styled("button")<ToggleProps>`
-  position: fixed;
-  place-content: center;
-  width: 140px;
+  width: 110px;
   height: 45px;
-  right: 1.5rem;
-  bottom: 1.5rem;
   border-radius: 30px;
   cursor: pointer;
   display: flex;
@@ -48,7 +44,6 @@ const ToggleButton = styled("button")<ToggleProps>`
   background: ${({ theme }) => theme.toggleBackground};
   color: ${({ theme }) => theme.text};
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  z-index: 10;
 
   &:hover {
     filter: brightness(

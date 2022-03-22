@@ -1,4 +1,5 @@
 const Quiz = require("../models/quiz");
+const LikeQuiz = require("../models/likeQuiz.js");
 const algoliasearch = require("algoliasearch");
 
 const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
@@ -91,6 +92,7 @@ module.exports = {
 
   async removeQuiz(quizId, userId) {
     const quiz = await Quiz.deleteOne({ _id: quizId, user: { $in: userId } });
+    await LikeQuiz.deleteOne({ quiz: quizId, user: userId });
     if (quiz) {
       await index.deleteObject(quizId);
     }

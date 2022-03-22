@@ -11,9 +11,7 @@ interface CategoryProps {
 const Category = ({ categoryName, categoryId }: CategoryProps) => {
   return (
     <>
-      <StyledLink to={`/categories/${categoryId}/page/1`}>
-        {categoryName}
-      </StyledLink>
+      <StyledLink to={`/categories/${categoryId}`}>{categoryName}</StyledLink>
     </>
   );
 };

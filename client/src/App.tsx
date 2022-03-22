@@ -16,9 +16,9 @@ import SignSuccessPage from "./pages/SignSuccessPage";
 import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyle } from "./global-styles";
 import { useDarkMode } from "../src/hook/useDarkMode";
-import { useRefreshMe } from "./hook/useMe";
+import { useRefreshMe, userMe } from "./hook/useMe";
 import { useSetRecoilState } from "recoil";
-import { isLoggedInState } from "./recoilState/user";
+import { isLoggedInState, userState } from "./recoilState/user";
 
 export const ThemeContext = createContext({
   theme: darkTheme,
@@ -30,6 +30,7 @@ const App = () => {
   const [hasUser, setHasUser] = useState(false);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const refreshMe = useRefreshMe();
+  const { data, isLoading } = userMe();
 
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
@@ -49,7 +50,6 @@ const App = () => {
       setHasUser(true);
     });
   }, []);
-
   if (hasUser === false) {
     return null;
   }

@@ -28,7 +28,9 @@ const Header = () => {
             <LoginContainer>
               {isLoggedIn || user ? (
                 <div>
-                  <LoginText onClick={onLogOutClick}>로그아웃</LoginText>
+                  <LoginText className="logout" onClick={onLogOutClick}>
+                    로그아웃
+                  </LoginText>
                 </div>
               ) : (
                 <StyledLink to={`/login`}>

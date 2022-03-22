@@ -37,6 +37,12 @@ describe("logintest", () => {
     });
   });
 
+  it("로그아웃을 성공하면 로그아웃 버튼이 로그인으로 바껴야 함. ", () => {
+    cy.get(".logout").click();
+
+    cy.get(".login").should("exist");
+  });
+
   it("로그인 실패 처리가 되어야 함", () => {
     cy.get(".login").click();
 

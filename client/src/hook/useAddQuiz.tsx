@@ -1,9 +1,11 @@
 import { useSetRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { quizListState } from "../recoilState/quizList";
+import { userState } from "../recoilState/user";
 import MenuStore from "../stores/MenuStore";
 import { createQuiz } from "../services/Quiz";
 import { Quiz } from "../models/quiz";
+import { User } from "../models/user";
 import { useMe } from "./useMe";
 interface useAddQuiz {
   category: string;
@@ -23,6 +25,7 @@ export const useAddQuiz = ({
   const user = useMe();
   const { categoryId } = useParams();
   const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
+  const setUser = useSetRecoilState<User>(userState);
 
   const addQuiz = async () => {
     const id = user?._id;
@@ -50,6 +53,11 @@ export const useAddQuiz = ({
       if (categoryIndex === +categoryId) {
         setQuizList((prev) => [...prev, quizs]);
       }
+      setUser({
+        ...user,
+        myQuizCount: user.myQuizCount + 1,
+        quizCount: user.quizCount + 1,
+      });
       return true;
     } catch (e) {
       alert("퀴즈 생성에 실패하셨습니다.");

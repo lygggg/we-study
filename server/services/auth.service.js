@@ -20,8 +20,8 @@ module.exports = {
       user: {
         ...user, // 몽구스로 가져온 객체는 보호된 필드라 _doc를 사용하면 오브젝트 안을 볼 수 있다.
         quizCount: quizCount,
-        myQuizCount: myQuiz.length,
-        likeQuizCount: likeQuiz.length,
+        myQuizCount: myQuiz.totalCount,
+        likeQuizCount: likeQuiz.totalCount,
       },
     });
   },

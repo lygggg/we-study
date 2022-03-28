@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
@@ -6,7 +6,9 @@ import { useLikeQuizList } from "../hook/useLikeQuiz";
 
 const LikeQuizListPage = () => {
   const [error, setError] = useState();
-  const { quizList, quizsLength } = useLikeQuizList({
+  const [page, setPage] = useState(0);
+  const { quizList, totalCount } = useLikeQuizList({
+    page,
     onError: setError,
   });
 
@@ -19,8 +21,8 @@ const LikeQuizListPage = () => {
           <>
             <QuizLayout
               quizList={quizList}
-              quizLength={quizsLength}
-              quizType={"favorite"}
+              totalCount={totalCount}
+              onChangePage={setPage}
             />
           </>
         )}

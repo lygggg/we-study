@@ -10,19 +10,20 @@ import { createLikeQuiz } from "../services/LikeQuiz";
 import { quizListState } from "../recoilState/quizList";
 import { userState } from "../recoilState/user";
 interface UseQuizsOptions {
+  page: number;
   onError?: (error: any) => void;
 }
 
-export const useLikeQuizList = ({ onError }: UseQuizsOptions = {}) => {
+export const useLikeQuizList = ({ page, onError }: UseQuizsOptions) => {
   const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
-  const [quizsLength, setQuizsLength] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const user = useMe();
 
   const fetchQuizs = async () => {
     try {
-      const data = await getLikeQuiz();
+      const data = await getLikeQuiz(page);
       setQuizList(data.quizs);
-      setQuizsLength(data.length);
+      setTotalCount(data.totalCount);
       onError?.(null);
     } catch (e) {
       onError?.(e);
@@ -34,7 +35,7 @@ export const useLikeQuizList = ({ onError }: UseQuizsOptions = {}) => {
     fetchQuizs();
   }, [user?._id]);
 
-  return { quizList, quizsLength };
+  return { quizList, totalCount };
 };
 
 export const useRemoveLikeQuiz = (quizId: string) => {

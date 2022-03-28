@@ -34,7 +34,7 @@ module.exports = {
           path: "user",
         },
       })
-      .skip(MAX_PAGE * (page - 1))
+      .skip(MAX_PAGE * page)
       .limit(MAX_PAGE)
       .lean();
 
@@ -42,7 +42,7 @@ module.exports = {
     const quizs = likeQuizs.map((x) => {
       return { ...x.quiz, type: x.type, like: true };
     });
-    return { quizs, length: totalQuizs };
+    return { quizs, totalCount: totalQuizs };
   },
 
   async removeLikeQuiz(quizId, userId) {

@@ -20,7 +20,7 @@ module.exports = {
         hits.map((x) => x._id),
       )
       .populate("user")
-      .skip(MAX_PAGE * (page - 1))
+      .skip(MAX_PAGE * page)
       .limit(MAX_PAGE);
 
     const totalQuizs = await index.search(query);

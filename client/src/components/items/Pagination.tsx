@@ -25,7 +25,7 @@ function Pagination({ total, pageSize, onPageChange }) {
   const pagesCount = Math.ceil(total / pageSize);
   const pages = [];
 
-  for (let i = 1; i <= pagesCount; i++) {
+  for (let i = 0; i < pagesCount; i++) {
     pages.push(i);
   }
 
@@ -35,7 +35,7 @@ function Pagination({ total, pageSize, onPageChange }) {
       {!pagesCount && <Button>{1}</Button>}
       {pages.map((e) => (
         <Button onClick={() => onPageChange(e)} key={e}>
-          {e}
+          {e + 1}
         </Button>
       ))}
       <Button>다음</Button>

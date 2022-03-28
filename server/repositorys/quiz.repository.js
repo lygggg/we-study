@@ -74,7 +74,7 @@ module.exports = {
   async getUserAddQuizAll(userId, page) {
     const quizs = await Quiz.find({ user: userId })
       .populate("user")
-      .skip(MAX_PAGE * (page - 1))
+      .skip(MAX_PAGE * page)
       .limit(MAX_PAGE)
       .lean();
 
@@ -87,7 +87,7 @@ module.exports = {
         }
       });
     }
-    return { quizs, length: totalQuizs };
+    return { quizs, totalCount: totalQuizs };
   },
 
   async removeQuiz(quizId, userId) {

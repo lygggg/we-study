@@ -22,6 +22,8 @@ export const getUserAddQuizs = async () => {
 
 export const getSliceAddQuizs = async (pageNumber) => {
   return await apiSliceAddQuizs(pageNumber);
+export const getQuizs = async ({ category, page }) => {
+  return await apiGetQuizs({ category, page });
 };
 
 export const createQuiz = async (params) => {

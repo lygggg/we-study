@@ -15,7 +15,7 @@ module.exports = {
   async getQuizAll(category, userId, page) {
     const quizs = await Quiz.find({ category: category })
       .populate("user")
-      .skip(MAX_PAGE * (page - 1))
+      .skip(MAX_PAGE * page)
       .limit(MAX_PAGE)
       .lean();
 
@@ -23,6 +23,7 @@ module.exports = {
 
     if (userId) {
       quizs.forEach((quiz) => {
+        console.log(quiz.like_users);
         if (quiz.like_users.indexOf(userId) !== -1) {
           quiz.like = true;
         }
@@ -30,7 +31,7 @@ module.exports = {
     }
     return {
       quizs,
-      length: totalQuizs,
+      totalCount: totalQuizs,
     };
   },
 

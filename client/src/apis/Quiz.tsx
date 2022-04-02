@@ -1,16 +1,17 @@
 import axios from "axios";
 
-export const getQuizs = async ({ category }): Promise<any> => {
+export const getQuizs = async ({ category, page }): Promise<any> => {
   const { data } = await axios.get(
-    `${import.meta.env.VITE_APP_API}/quizs` + `?category=${category}`,
+    `${import.meta.env.VITE_APP_API}/quizs` +
+      `?category=${category}&page=${page}`,
   );
   return data;
 };
 
-export const sliceQuizs = async ({ category, pageNumber }): Promise<any> => {
+export const sliceQuizs = async ({ category, page }): Promise<any> => {
   const { data } = await axios.get(
     `${import.meta.env.VITE_APP_API}/quizs` +
-      `?category=${category}&page=${pageNumber}`,
+      `?category=${category}&page=${page}`,
   );
   return data;
 };

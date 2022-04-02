@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import QuizLayout from "../components/layouts/QuizLayout";
 import GetError from "../errorComponent/GetError";
+import { withSuspense } from "../hocs";
 import { useQuizs } from "../hook/useQuizs";
 
 const QuizPage = () => {
   const [error, setError] = useState();
-  const { quizList, quizsLength } = useQuizs({
-    onError: setError,
-  });
+  const [page, setPage] = useState(0);
 
   return (
     <>
@@ -18,9 +17,13 @@ const QuizPage = () => {
         ) : (
           <>
             <QuizLayout
-              quizList={quizList}
-              quizLength={quizsLength}
-              quizType={"category"}
+              fetcher={() =>
+                useQuizs({
+                  page,
+                  onError: setError,
+                })
+              }
+              onChangePage={setPage}
             />
           </>
         )}
@@ -33,4 +36,4 @@ const Container = styled.div`
   margin-top: 60px;
 `;
 
-export default QuizPage;
+export default withSuspense(QuizPage, <div>?asd</div>);

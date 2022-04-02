@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const PageDiv = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const Button = styled.button`
   margin: 5px;
 `;
 
-function Pagination({ total, pageSize, onPageChange }) {
+function Pagination({ total, pageSize, onPageChange, categoryId }) {
   const pagesCount = Math.ceil(total / pageSize);
   const pages = [];
 
@@ -34,13 +35,18 @@ function Pagination({ total, pageSize, onPageChange }) {
       <Button>이전</Button>
       {!pagesCount && <Button>{1}</Button>}
       {pages.map((e) => (
-        <Button onClick={() => onPageChange(e)} key={e}>
-          {e + 1}
-        </Button>
+        <StyledLink to={`/categories/${categoryId}?page=${e + 1}`} key={e}>
+          <Button onClick={() => onPageChange(e)}>{e + 1}</Button>
+        </StyledLink>
       ))}
       <Button>다음</Button>
     </PageDiv>
   );
 }
+
+const StyledLink = styled(Link)`
+  text-decoration-line: none;
+  transition: all 0.5s ease;
+`;
 
 export default Pagination;

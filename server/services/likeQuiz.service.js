@@ -14,7 +14,7 @@ module.exports = {
     const { userId } = req.body;
     const { page } = req.query;
     const quizs = await likeQuizRepo.getLikeQuiz(userId, page);
-    res.status(200).json(quizs);
+    res.status(200).json({ quizs });
   },
 
   async removeLikeQuiz(req, res) {

@@ -1,5 +1,6 @@
-import { useSetRecoilState } from "recoil";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { useParams, useSearchParams } from "react-router-dom";
 import { quizListState } from "../recoilState/quizList";
 import { userState } from "../recoilState/user";
 import MenuStore from "../stores/MenuStore";
@@ -7,6 +8,10 @@ import { createQuiz } from "../services/Quiz";
 import { Quiz } from "../models/quiz";
 import { User } from "../models/user";
 import { useMe } from "./useMe";
+import { getUserAddQuizs } from "../apis/Quiz";
+import { queryClient } from "../queryClient";
+import { quizKey } from "./useQuizs";
+import { useMutation } from "react-query";
 interface useAddQuiz {
   category: string;
   quizText: string;
@@ -23,17 +28,11 @@ export const useAddQuiz = ({
   setAnswerText,
 }: useAddQuiz) => {
   const user = useMe();
-  const { categoryId } = useParams();
-  const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
-  const setUser = useSetRecoilState<User>(userState);
+  const key = quizKey();
 
-  const addQuiz = async () => {
+  return useMutation(async () => {
     const id = user?._id;
     const categoryIndex = MenuStore.findCategories(category);
-    if (categoryIndex === undefined) {
-      alert("메뉴를 선택해주세요.");
-      return false;
-    }
 
     if (quizText.length === 0 || answerText.length === 0) {
       alert("텍스트를 입력해주세요");
@@ -42,7 +41,7 @@ export const useAddQuiz = ({
 
     const img = MenuStore.findCategoriesUri(Number(categoryIndex));
     try {
-      const { quizs } = await createQuiz({
+      await createQuiz({
         quizText,
         answerText,
         category: categoryIndex,
@@ -50,14 +49,9 @@ export const useAddQuiz = ({
         img,
       });
 
-      if (categoryIndex === +categoryId) {
-        setQuizList((prev) => [...prev, quizs]);
-      }
-      setUser({
-        ...user,
-        myQuizCount: user.myQuizCount + 1,
-        quizCount: user.quizCount + 1,
-      });
+      queryClient.refetchQueries("users");
+      queryClient.refetchQueries(key);
+
       return true;
     } catch (e) {
       alert("퀴즈 생성에 실패하셨습니다.");
@@ -67,7 +61,34 @@ export const useAddQuiz = ({
     }
 
     return false;
+  }).mutateAsync;
+};
+
+interface UseQuizsOptions {
+  page: number;
+  onError?: (error: any) => void;
+}
+
+export const useGetAddQuizList = ({ page, onError }: UseQuizsOptions) => {
+  const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
+  const [totalCount, setTotalCount] = useState(0);
+  const user = useMe();
+
+  const fetchQuizs = async () => {
+    try {
+      const data = await getUserAddQuizs(page);
+      setQuizList(data.quizs.quizs);
+      setTotalCount(data.quizs.totalCount);
+      onError?.(null);
+    } catch (e) {
+      onError?.(e);
+    }
   };
 
-  return addQuiz;
+  useEffect(() => {
+    if (!user) return;
+    fetchQuizs();
+  }, [user?._id]);
+
+  return { quizList, totalCount };
 };

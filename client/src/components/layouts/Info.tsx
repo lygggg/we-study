@@ -5,6 +5,7 @@ import { useMe } from "../../hook/useMe";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoilState/user";
 import InfoSkeleton from "../skeleton/InfoSkeleton";
+import { withSuspense } from "../../hocs";
 
 const Info = () => {
   const user = useMe();
@@ -13,23 +14,31 @@ const Info = () => {
   return (
     <>
       <Container>
-        {user ? (
+        {user?._id ? (
           <Section>
             <Header>
               <H5>내 프로필</H5>
             </Header>
+
             <IdContainer>
               <IdText>
                 <H5>{user.name}</H5>
                 <Email>{user.email}</Email>
               </IdText>
               <IdText>총 문제: {user.quizCount}</IdText>
-              <IdText>소장한 문제: {user.cartCount} </IdText>
+              <IdText>
+                추가한 문제:
+                <span className="my-quiz-count">{user.myQuizCount}</span>
+              </IdText>
+              <IdText>
+                소장한 문제:
+                <span className="like-quiz-count"> {user.likeQuizCount} </span>
+              </IdText>
               <ButtonContainer>
                 <StyledLink to={`/addlist`}>
                   <AddButton>추가한 문제 가져오기</AddButton>
                 </StyledLink>
-                <StyledLink to={`/cartlist`}>
+                <StyledLink to={`/likelist`}>
                   <SendButton>소장한 문제 가져오기</SendButton>
                 </StyledLink>
               </ButtonContainer>
@@ -115,4 +124,4 @@ const Section = styled.section`
   border-radius: 0.25rem;
 `;
 
-export default Info;
+export default withSuspense(Info, <InfoSkeleton />);

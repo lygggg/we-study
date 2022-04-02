@@ -26,7 +26,7 @@ const Header = () => {
             </StyledLink>
             <SearchForm />
             <LoginContainer>
-              {isLoggedIn || user ? (
+              {isLoggedIn || user?._id ? (
                 <div>
                   <LoginText className="logout" onClick={onLogOutClick}>
                     로그아웃

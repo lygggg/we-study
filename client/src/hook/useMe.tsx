@@ -1,26 +1,20 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
+import { useQuery } from "react-query";
 import { getUser } from "../apis/GetUser";
-import { isLoggedInState, userState } from "../recoilState/user";
-import { User } from "../models/user";
+import { isLoggedInState } from "../recoilState/user";
 
 export const useMe = () => {
-  const user = useRecoilValue<User>(userState);
-  if (!!Object.keys(user).length) {
-    return user;
-  }
-  return null;
+  const { data, refetch } = useQuery("users", {
+    queryFn: getUser,
+    suspense: true,
+  });
+
+  data.user.refetch = refetch;
+
+  return data.user;
 };
 
 export const useIsLoggedIn = () => {
   const isLoggedIn = useRecoilValue<boolean>(isLoggedInState);
   return isLoggedIn;
-};
-
-export const useRefreshMe = () => {
-  const setUser = useSetRecoilState(userState);
-
-  return async () => {
-    const data = await getUser();
-    setUser(data.user);
-  };
 };

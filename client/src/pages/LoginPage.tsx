@@ -46,7 +46,7 @@ const LoginPage = () => {
 
   return (
     <MainDiv>
-      {!user ? (
+      {!user._id ? (
         <InnerDiv>
           <Title>로그인</Title>
           <Form onSubmit={handleSubmit(onLoginClick)}>

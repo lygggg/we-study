@@ -2,7 +2,6 @@ import { signupEmail } from "../firebase/Firebase";
 import { signUpUser } from "../services/SignUp";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useRefreshMe } from "./useMe";
 
 interface useSignUp {
   setLoading: any;
@@ -17,7 +16,6 @@ interface sigUp {
 
 export const useSignUp = () => {
   const navigateTo = useNavigate();
-  const refreshMe = useRefreshMe();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>();
@@ -29,7 +27,6 @@ export const useSignUp = () => {
       await signupEmail(email, password);
 
       await signUpUser({ name, email });
-      await refreshMe();
       navigateTo("/signup/success");
       setError(null);
     } catch (e) {

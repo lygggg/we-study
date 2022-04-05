@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PageDiv = styled.div`
   display: flex;
@@ -22,9 +22,18 @@ const Button = styled.button`
   margin: 5px;
 `;
 
-function Pagination({ total, pageSize, onPageChange, categoryId }) {
+function Pagination({ total, pageSize, onPageChange }) {
+  const navigateTo = useNavigate();
+
   const pagesCount = Math.ceil(total / pageSize);
   const pages = [];
+
+  const onClickPage = (e) => {
+    let currentUrlParams = new URLSearchParams(window.location.search);
+    currentUrlParams.set("page", e);
+    navigateTo(window.location.pathname + "?" + currentUrlParams.toString());
+    onPageChange(e);
+  };
 
   for (let i = 0; i < pagesCount; i++) {
     pages.push(i);
@@ -35,18 +44,18 @@ function Pagination({ total, pageSize, onPageChange, categoryId }) {
       <Button>이전</Button>
       {!pagesCount && <Button>{1}</Button>}
       {pages.map((e) => (
-        <StyledLink to={`/categories/${categoryId}?page=${e + 1}`} key={e}>
-          <Button onClick={() => onPageChange(e)}>{e + 1}</Button>
-        </StyledLink>
+        <Button key={e} onClick={() => onClickPage(e)}>
+          {e + 1}
+        </Button>
       ))}
       <Button>다음</Button>
     </PageDiv>
   );
 }
 
+export default Pagination;
+
 const StyledLink = styled(Link)`
   text-decoration-line: none;
   transition: all 0.5s ease;
 `;
-
-export default Pagination;

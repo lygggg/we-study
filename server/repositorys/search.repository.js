@@ -22,9 +22,7 @@ module.exports = {
       .populate("user")
       .skip(MAX_PAGE * page)
       .limit(MAX_PAGE);
-
     const totalQuizs = await index.search(query);
-
     if (userId) {
       quizs.forEach((quiz) => {
         if (quiz.like_users.indexOf(userId) !== -1) {
@@ -33,7 +31,6 @@ module.exports = {
         }
       });
     }
-
-    return { quizs, length: totalQuizs.nbHits };
+    return { quizs, totalCount: totalQuizs.nbHits };
   },
 };

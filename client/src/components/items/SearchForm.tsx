@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,14 +10,25 @@ export interface SearchFormState {
 }
 
 const SearchForm = () => {
+  const navigateTo = useNavigate();
   const { register, handleSubmit } = useForm<SearchFormState>({
     resolver: yupResolver(searchValidation),
   });
+
+  const onSeachClick = async ({ text }) => {
+    navigateTo("/search?query=" + text);
+  };
+
   return (
     <Container>
-      <Form onSubmit={handleSubmit(useSearch())}>
+      <Form onSubmit={handleSubmit(onSeachClick)}>
         <FormContainer>
-          <Input placeholder="검색 가능" type="text" {...register("text")} />
+          <Input
+            className="quiz-search"
+            placeholder="검색 가능"
+            type="text"
+            {...register("text")}
+          />
         </FormContainer>
       </Form>
     </Container>

@@ -6,6 +6,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
+  width: 100%;
+  height: 100%;
 `;
 const Spinner = () => {
   return (

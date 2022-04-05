@@ -14,31 +14,29 @@ const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
   const addLikeQuiz = useCreateLikeQuiz(quiz._id);
   const removeLikeQuiz = useRemoveLikeQuiz(quiz._id);
 
-  const setSearch = useSetRecoilState(quizListState);
-
   const onClickLikeQuiz = async () => {
     if (!!quiz.like) {
-      removeLikeQuiz();
+      removeLikeQuiz.mutate();
 
-      setSearch((prev) =>
-        prev.map((x) => {
-          if (x._id === quiz._id)
-            return { ...x, likeCount: x.likeCount - 1, like: false };
-          return x;
-        }),
-      );
+      // setSearch((prev) =>
+      //   prev.map((x) => {
+      //     if (x._id === quiz._id)
+      //       return { ...x, likeCount: x.likeCount - 1, like: false };
+      //     return x;
+      //   }),
+      // );
 
       return;
     }
-    addLikeQuiz();
+    addLikeQuiz.mutate();
 
-    setSearch((prev) =>
-      prev.map((x) => {
-        if (x._id === quiz._id)
-          return { ...x, likeCount: x.likeCount + 1, like: true };
-        return x;
-      }),
-    );
+    // setSearch((prev) =>
+    //   prev.map((x) => {
+    //     if (x._id === quiz._id)
+    //       return { ...x, likeCount: x.likeCount + 1, like: true };
+    //     return x;
+    //   }),
+    // );
   };
 
   return (
@@ -62,6 +60,7 @@ const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
             <LikeContainer>
               <Explanation>좋아요를 누르시겠습니까?</Explanation>
               <LikeButton
+                className="like-button"
                 onClick={() => {
                   onClickLikeQuiz();
                   close();

@@ -5,18 +5,11 @@ export const createLikeQuiz = async (params): Promise<any> => {
   await axios.post(`${import.meta.env.VITE_APP_API}/quizs/favorite`, params);
 };
 
-export const getLikeQuiz = async () => {
+export const getLikeQuiz = async (page) => {
   const { data } = await axios.get(
-    `${import.meta.env.VITE_APP_API}/quizs/favorite`,
+    `${import.meta.env.VITE_APP_API}/quizs/favorite?page=${page}`,
   );
-  return data as { quizs: Quiz[]; length: number };
-};
-
-export const getSliceLikeQuizs = async (pageNumber) => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_APP_API}/quizs/favorite?page=${pageNumber}`,
-  );
-  return data as { quizs: Quiz[]; length: number };
+  return data as { quizs: Quiz[]; totalCount: number };
 };
 
 export const removeLikeQuiz = async (quizId) => {

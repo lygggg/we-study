@@ -7,10 +7,6 @@ import { useLikeQuizList } from "../hook/useLikeQuiz";
 const LikeQuizListPage = () => {
   const [error, setError] = useState();
   const [page, setPage] = useState(0);
-  const { quizList, totalCount } = useLikeQuizList({
-    page,
-    onError: setError,
-  });
 
   return (
     <>
@@ -20,8 +16,12 @@ const LikeQuizListPage = () => {
         ) : (
           <>
             <QuizLayout
-              quizList={quizList}
-              totalCount={totalCount}
+              fetcher={() =>
+                useLikeQuizList({
+                  page,
+                  onError: setError,
+                })
+              }
               onChangePage={setPage}
             />
           </>

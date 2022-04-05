@@ -8,8 +8,8 @@ export const createLikeQuiz = async (params) => {
   return await apiCreateLikeQuiz(params);
 };
 
-export const getLikeQuiz = async (pageNumber) => {
-  return await apiGetLikeQuiz(pageNumber);
+export const getLikeQuiz = async (page) => {
+  return await apiGetLikeQuiz(page);
 };
 
 export const removeLikeQuiz = async (quizId) => {

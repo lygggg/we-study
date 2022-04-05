@@ -62,7 +62,6 @@ const QuizList = ({ fetcher, onChangePage }: QuizLayout) => {
                 total={totalCount}
                 pageSize={MAX_PAGE}
                 onPageChange={onChangePage}
-                categoryId={categoryId}
               />
             </>
           ) : (

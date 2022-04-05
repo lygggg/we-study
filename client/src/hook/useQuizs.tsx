@@ -1,75 +1,43 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { Quiz } from "../models/quiz";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
 import { getQuizs, removeQuiz, updateQuiz } from "../services/Quiz";
-import { useMe } from "./useMe";
-import { quizListState } from "../recoilState/quizList";
+import { queryClient } from "../queryClient";
+
+export const quizKey = () => {
+  const { categoryId } = useParams();
+  const [searchParams] = useSearchParams();
+  return ["quizs", searchParams.get("page"), categoryId];
+};
 
 interface UseQuizsOptions {
+  page: number;
   onError: (error: any) => void;
 }
-export const useQuizs = ({ onError }: UseQuizsOptions) => {
-  const user = useMe();
+export const useQuizs = ({ page }: UseQuizsOptions) => {
   const { categoryId } = useParams();
-  const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
-  const [quizsLength, setQuizsLength] = useState(0);
+  const { data } = useQuery(quizKey(), {
+    queryFn: () => getQuizs({ page: page, category: categoryId }),
+    suspense: true,
+  });
 
-  const fetchQuizs = async () => {
-    try {
-      setQuizList(undefined);
-      const data = await getQuizs({
-        category: categoryId,
-      });
-      setQuizList(data.quizs.quizs);
-      setQuizsLength(data.quizs.length);
-      onError(null);
-    } catch (e) {
-      onError(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchQuizs();
-  }, [categoryId, user?._id]);
-
-  return { quizList, quizsLength };
+  return data.quizs;
 };
 
 export const useRemoveQuiz = (quizId) => {
-  const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
+  const mutation = useMutation(async (newTodo) => {
+    await removeQuiz(quizId);
 
-  const deleteQuiz = async () => {
-    try {
-      await removeQuiz(quizId);
-      setQuizList((prev) => [...prev].filter((e) => e._id !== quizId));
-    } catch (e) {
-      alert("퀴즈 삭제에 실패하셨습니다.");
-    }
-  };
-  return deleteQuiz;
+    //user.refetch();
+    queryClient.refetchQueries("quizs");
+    queryClient.refetchQueries("users");
+  });
+  return mutation;
 };
 
 export const useUpdateQuiz = (params) => {
-  const setQuizList = useSetRecoilState<Quiz[]>(quizListState);
-  const { quizId, quizText, answerText } = params;
-  const modifyQuiz = async () => {
-    try {
-      const data = await updateQuiz(params);
-
-      if (data.state === 200) {
-        setQuizList((prev) =>
-          [...prev].map((e) => {
-            if (e._id === quizId) {
-              return { ...e, answerText: answerText, quizText: quizText };
-            }
-            return e;
-          }),
-        );
-      }
-    } catch (e) {
-      alert("퀴즈 수정에 실패하셨습니다.");
-    }
-  };
-  return modifyQuiz;
+  const mutation = useMutation(async () => {
+    await updateQuiz(params);
+    queryClient.refetchQueries("quizs");
+  });
+  return mutation;
 };

@@ -23,7 +23,6 @@ module.exports = {
 
     if (userId) {
       quizs.forEach((quiz) => {
-        console.log(quiz.like_users);
         if (quiz.like_users.indexOf(userId) !== -1) {
           quiz.like = true;
         }

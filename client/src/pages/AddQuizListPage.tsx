@@ -7,10 +7,6 @@ import { useGetAddQuizList } from "../hook/useAddQuiz";
 const AddQuizListPage = () => {
   const [error, setError] = useState();
   const [page, setPage] = useState(0);
-  const { quizList, totalCount } = useGetAddQuizList({
-    page,
-    onError: setError,
-  });
 
   return (
     <>
@@ -20,8 +16,12 @@ const AddQuizListPage = () => {
         ) : (
           <>
             <QuizLayout
-              quizList={quizList}
-              totalCount={totalCount}
+              fetcher={() =>
+                useGetAddQuizList({
+                  page,
+                  onError: setError,
+                })
+              }
               onChangePage={setPage}
             />
           </>

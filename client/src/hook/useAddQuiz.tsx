@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
-import { useSetRecoilState, useRecoilState } from "recoil";
-import { useParams, useSearchParams } from "react-router-dom";
-import { quizListState } from "../recoilState/quizList";
-import { userState } from "../recoilState/user";
+import { useSearchParams } from "react-router-dom";
 import MenuStore from "../stores/MenuStore";
 import { createQuiz } from "../services/Quiz";
-import { Quiz } from "../models/quiz";
-import { User } from "../models/user";
 import { useMe } from "./useMe";
 import { getUserAddQuizs } from "../apis/Quiz";
 import { queryClient } from "../queryClient";
 import { quizKey } from "./useQuizs";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
+
+export const addQuizKey = () => {
+  const [searchParams] = useSearchParams();
+  return ["quizs", "addQuiz", searchParams.get("page")];
+};
 interface useAddQuiz {
   category: string;
   quizText: string;
@@ -70,25 +69,29 @@ interface UseQuizsOptions {
 }
 
 export const useGetAddQuizList = ({ page, onError }: UseQuizsOptions) => {
-  const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
-  const [totalCount, setTotalCount] = useState(0);
-  const user = useMe();
+  const { data } = useQuery(addQuizKey(), {
+    queryFn: () => getUserAddQuizs(page),
+    suspense: true,
+  });
+  // const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
+  // const [totalCount, setTotalCount] = useState(0);
+  // const user = useMe();
 
-  const fetchQuizs = async () => {
-    try {
-      const data = await getUserAddQuizs(page);
-      setQuizList(data.quizs.quizs);
-      setTotalCount(data.quizs.totalCount);
-      onError?.(null);
-    } catch (e) {
-      onError?.(e);
-    }
-  };
+  // const fetchQuizs = async () => {
+  //   try {
+  //     const data = await getUserAddQuizs(page);
+  //     setQuizList(data.quizs.quizs);
+  //     setTotalCount(data.quizs.totalCount);
+  //     onError?.(null);
+  //   } catch (e) {
+  //     onError?.(e);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (!user) return;
-    fetchQuizs();
-  }, [user?._id]);
+  // useEffect(() => {
+  //   if (!user) return;
+  //   fetchQuizs();
+  // }, [user?._id]);
 
-  return { quizList, totalCount };
+  return data.quizs;
 };

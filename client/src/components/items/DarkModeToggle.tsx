@@ -35,6 +35,7 @@ const DarkModeToggle = () => {
 };
 
 const ToggleButton = styled("button")<ToggleProps>`
+  place-content: center;
   width: 110px;
   height: 45px;
   border-radius: 30px;

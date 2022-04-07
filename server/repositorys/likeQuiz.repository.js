@@ -34,6 +34,7 @@ module.exports = {
           path: "user",
         },
       })
+      .sort({ syncTime: -1 })
       .skip(MAX_PAGE * page)
       .limit(MAX_PAGE)
       .lean();

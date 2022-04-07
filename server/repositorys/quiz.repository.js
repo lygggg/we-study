@@ -15,6 +15,7 @@ module.exports = {
   async getQuizAll(category, userId, page) {
     const quizs = await Quiz.find({ category: category })
       .populate("user")
+      .sort({ syncTime: -1 })
       .skip(MAX_PAGE * page)
       .limit(MAX_PAGE)
       .lean();
@@ -74,6 +75,7 @@ module.exports = {
   async getUserAddQuizAll(userId, page) {
     const quizs = await Quiz.find({ user: userId })
       .populate("user")
+      .sort({ syncTime: -1 })
       .skip(MAX_PAGE * page)
       .limit(MAX_PAGE)
       .lean();

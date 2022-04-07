@@ -11,4 +11,5 @@ export interface Quiz {
   _id: string;
   like?: boolean;
   likeCount?: number;
+  syncTime?: Date;
 }

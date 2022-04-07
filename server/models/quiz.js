@@ -9,6 +9,7 @@ const quizSchema = new mongoose.Schema({
   like: { type: Boolean },
   likeCount: { type: Number, required: true },
   like_users: [{ type: String }],
+  syncTime: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("quizzes", quizSchema);

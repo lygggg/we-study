@@ -83,7 +83,11 @@ const LoginPage = () => {
           </Form>
           <div>
             <InnerButton>
-              <Button role="button" onClick={() => navigateTo("/signup")}>
+              <Button
+                className="signup"
+                role="button"
+                onClick={() => navigateTo("/signup")}
+              >
                 회원가입
               </Button>
             </InnerButton>

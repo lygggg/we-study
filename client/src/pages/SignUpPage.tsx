@@ -39,6 +39,7 @@ const SignUpPage = () => {
               <Label>아이디*</Label>
             </span>
             <Input
+              className="signup_id"
               placeholder="이메일 형식으로 입력해주세요."
               type="email"
               {...register("email")}
@@ -54,6 +55,7 @@ const SignUpPage = () => {
               <Label>비밀번호*</Label>
             </span>
             <Input
+              className="signup_password"
               type="password"
               placeholder="비밀번호
                 (영문 숫자 최소 6자리 최대 15자리)"
@@ -71,6 +73,7 @@ const SignUpPage = () => {
               <Label>비밀번호확인*</Label>
             </span>
             <Input
+              className="signup_check_password"
               type="password"
               placeholder="비밀번호 확인"
               autoComplete="on"
@@ -90,7 +93,12 @@ const SignUpPage = () => {
             <span>
               <Label>이름*</Label>
             </span>
-            <Input type="name" placeholder="이름" {...register("name")} />
+            <Input
+              className="signup_name"
+              type="name"
+              placeholder="이름"
+              {...register("name")}
+            />
             <div>
               {errors.name && (
                 <FormErrorMessage errorMessage={errors.name.message} />

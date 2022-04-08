@@ -161,6 +161,7 @@ const Container = styled.div`
 const Input = styled.input`
   width: 300px;
   height: 40px;
+  color: black;
 `;
 
 const Label = styled.span`

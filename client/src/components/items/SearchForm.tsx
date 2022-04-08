@@ -56,6 +56,7 @@ const Input = styled.input`
   border-radius: 24px;
   border: 0px solid #dfe1e5;
   padding-left: 20px;
+  color: black;
 `;
 
 export default SearchForm;

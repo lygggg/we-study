@@ -5,18 +5,22 @@ import ModifyModal from "./ModifyModal";
 
 const QuizDropDown = ({ quiz, quizId }) => {
   const [ref, isVisible, setIsVisible] = useVisible(false);
-  const onClickRemove = useRemoveQuiz(quizId);
+  const removeQuiz = useRemoveQuiz(quizId);
 
   return (
     <Container>
-      <OptionImg
-        onClick={() => setIsVisible(!isVisible)}
-        src="../../../assets/imgs/zum.png"
-      ></OptionImg>
+      <div className="quiz-option-modal">
+        <OptionImg
+          onClick={() => setIsVisible(!isVisible)}
+          src="../../../assets/imgs/zum.png"
+        ></OptionImg>
+      </div>
       {isVisible && (
         <UlContainer ref={ref}>
           <ul>
-            <li onClick={() => onClickRemove()}>삭제</li>
+            <li className="remove-quiz" onClick={() => removeQuiz.mutate()}>
+              삭제
+            </li>
             <ModifyModal
               onClick={() => setIsVisible(!isVisible)}
               modalRef={ref}

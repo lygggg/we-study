@@ -7,7 +7,7 @@ const ModifyModal = ({ onClick, modalRef, quiz }) => {
   const [quizText, setQuizText] = useState<string>(quiz.quizText);
   const [answerText, setAnswerText] = useState<string>(quiz.answerText);
 
-  const onClickModifyQuiz = useUpdateQuiz({
+  const modifyQuiz = useUpdateQuiz({
     quizId: quiz._id,
     quizText: quizText,
     answerText: answerText,
@@ -20,7 +20,7 @@ const ModifyModal = ({ onClick, modalRef, quiz }) => {
         height: "600px",
         backgroundColor: "#FFFFFF",
       }}
-      trigger={<li>수정</li>}
+      trigger={<li className="update-quiz">수정</li>}
       onClose={onClick}
     >
       {(close: () => void) => (
@@ -35,6 +35,7 @@ const ModifyModal = ({ onClick, modalRef, quiz }) => {
                 onChange={(v) => setQuizText(v.target.value)}
               />
               <AnwserTextarea
+                className="quiz-answer"
                 maxLength={150}
                 placeholder="정답을 입력하세요."
                 value={answerText}
@@ -43,8 +44,9 @@ const ModifyModal = ({ onClick, modalRef, quiz }) => {
             </TableContainer>
             <ButtonContainer>
               <SendButton
+                className="quiz-submit"
                 onClick={() => {
-                  onClickModifyQuiz();
+                  modifyQuiz.mutate();
                   close();
                 }}
               >

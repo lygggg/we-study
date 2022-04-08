@@ -25,7 +25,10 @@ const Info = () => {
                 <H5>{user.name}</H5>
                 <Email>{user.email}</Email>
               </IdText>
-              <IdText>총 문제: {user.quizCount}</IdText>
+              <IdText>
+                총 문제:
+                <span className="quiz-total-count">{user.quizCount}</span>
+              </IdText>
               <IdText>
                 추가한 문제:
                 <span className="my-quiz-count">{user.myQuizCount}</span>
@@ -39,7 +42,9 @@ const Info = () => {
                   <AddButton>추가한 문제 가져오기</AddButton>
                 </StyledLink>
                 <StyledLink to={`/likelist`}>
-                  <SendButton>소장한 문제 가져오기</SendButton>
+                  <SendButton className="get-like-quiz-button">
+                    소장한 문제 가져오기
+                  </SendButton>
                 </StyledLink>
               </ButtonContainer>
             </IdContainer>

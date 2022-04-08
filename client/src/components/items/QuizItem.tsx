@@ -17,6 +17,7 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
         <Img src={quiz.img} />
         <Description>
           <Item
+            className="open-quiz"
             onClick={() => onClickModal(quiz)}
             dangerouslySetInnerHTML={{ __html: quiz.quizText }}
           ></Item>
@@ -30,14 +31,14 @@ const QuizItem = ({ quiz, onClickModal, onClickLike }: QuizItemProps) => {
       <LikeContainer>
         {!!quiz?.like ? (
           <>
-            <a onClick={() => onClickLike(quiz)}>
+            <a className="unlike-quiz" onClick={() => onClickLike(quiz)}>
               ❤️
               {quiz.likeCount}
             </a>
           </>
         ) : (
           <>
-            <a onClick={() => onClickLike(quiz)}>
+            <a className="like-quiz" onClick={() => onClickLike(quiz)}>
               🤍
               {quiz.likeCount}
             </a>

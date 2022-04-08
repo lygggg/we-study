@@ -33,7 +33,12 @@ const AddModal = () => {
               <CloseButton onClick={close}>X</CloseButton>
               <Inner>{category} 퀴즈</Inner>
               <MenuContainer>
-                <Menu onClick={() => setCategory("운영체제")}>운영체제</Menu>
+                <Menu
+                  className="add-menu-os"
+                  onClick={() => setCategory("운영체제")}
+                >
+                  운영체제
+                </Menu>
                 <Menu onClick={() => setCategory("네트워크")}>네트워크</Menu>
                 <Menu onClick={() => setCategory("자바스크립트")}>
                   자바스크립트
@@ -54,6 +59,7 @@ const AddModal = () => {
                 onChange={(v) => setQuizText(v.target.value)}
               />
               <AnwserTextarea
+                className="quiz-answer"
                 maxLength={150}
                 placeholder="정답을 입력하세요."
                 value={answerText}

@@ -43,9 +43,15 @@ const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
                   </div>
                 </div>
                 <div>
-                  <H4 onClick={() => setHide(true)}>정답 확인 클릭</H4>
+                  <H4
+                    className="open-quiz-answer"
+                    onClick={() => setHide(true)}
+                  >
+                    정답 확인 클릭
+                  </H4>
                   {hide && (
                     <AnswerText
+                      className="quiz-answer"
                       dangerouslySetInnerHTML={{
                         __html: quiz.answerText,
                       }}

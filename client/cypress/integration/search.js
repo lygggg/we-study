@@ -1,5 +1,20 @@
 describe("search", () => {
   before(() => {
+    cy.visit(Cypress.env("url"));
+
+    const loginButton = cy.get(".login");
+    loginButton.click();
+
+    const idInput = cy.get(".user_id");
+    idInput.type("baayoo92@gmail.com");
+
+    const passwordInput = cy.get(".user_password");
+    passwordInput.type("dl1532{enter}");
+
+    cy.location("pathname").should((loc) => {
+      expect(loc).to.eq("/");
+    });
+
     cy.visit(Cypress.env("quiz_url"));
 
     const addQuizButton = cy.get(".add-quiz");

@@ -20,20 +20,23 @@ describe("quiz", () => {
     });
   });
 
-  // it("퀴즈가 보여야 함", async () => {
-
-  /*
-    cy.request("http://localhost:3000/quiz?category=0")
+  it("퀴즈가 보여야 함", () => {
+    cy.request("http://localhost:3000/quizs?category=0")
       .as("w")
-      .then(({ quizs }) => {
-        for (const quiz of quizs) {
-          cy.get(".quiz-item").contains(quiz.title);
-          cy.get(".quiz-item").contains(quiz.user.name);
-        }
-      });
-    cy.wait("@w");
-    */
-  // });
+      .then(
+        ({
+          body: {
+            quizs: { quizs },
+          },
+        }) => {
+          for (const quiz of quizs) {
+            cy.get(".quiz-item").contains(quiz.quizText).should("exist");
+            cy.get(".quiz-item").contains(quiz.user[0].name).should("exist");
+          }
+        },
+      );
+    // cy.wait("@w");
+  });
 
   it("로그인 상태에선 퀴즈 추가 버튼이 보여야 함", () => {
     const addQuizButton = cy.get(".add-quiz");

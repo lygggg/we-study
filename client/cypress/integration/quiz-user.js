@@ -20,21 +20,16 @@ describe("quiz", () => {
     });
   });
 
-  it("퀴즈가 보여야 함", () => {
+  it("가져온 퀴즈가 데이터베이스에 있는 데이터와 일치해야함", () => {
     cy.request("http://localhost:3000/quizs?category=0")
       .as("w")
-      .then(
-        ({
-          body: {
-            quizs: { quizs },
-          },
-        }) => {
-          for (const quiz of quizs) {
-            cy.get(".quiz-item").contains(quiz.quizText).should("exist");
-            cy.get(".quiz-item").contains(quiz.user[0].name).should("exist");
-          }
-        },
-      );
+      .then((res) => {
+        console.log(res);
+        for (const quiz of res.body.quizs) {
+          cy.get(".quiz-item").contains(quiz.quizText).should("exist");
+          cy.get(".quiz-item").contains(quiz.user[0].name).should("exist");
+        }
+      });
     // cy.wait("@w");
   });
 

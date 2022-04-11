@@ -5,14 +5,14 @@ module.exports = {
     const { userId } = req.body;
     const { category, page } = req.query;
     const quizs = await quizRepo.getQuizAll(category, userId, page);
-    res.status(200).json({ quizs });
+    res.status(200).json(quizs);
   },
 
   async getUserAddQuiz(req, res) {
     const { userId } = req.body;
     const { page } = req.query;
     const quizs = await quizRepo.getUserAddQuizAll(userId, page);
-    res.status(200).json({ quizs });
+    res.status(200).json(quizs);
   },
 
   async createQuiz(req, res) {

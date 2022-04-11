@@ -20,7 +20,7 @@ export const useQuizs = ({ page }: UseQuizsOptions) => {
     suspense: true,
   });
 
-  return data.quizs;
+  return data;
 };
 
 export const useRemoveQuiz = (quizId) => {

@@ -73,25 +73,6 @@ export const useGetAddQuizList = ({ page, onError }: UseQuizsOptions) => {
     queryFn: () => getUserAddQuizs(page),
     suspense: true,
   });
-  // const [quizList, setQuizList] = useRecoilState<Quiz[]>(quizListState);
-  // const [totalCount, setTotalCount] = useState(0);
-  // const user = useMe();
 
-  // const fetchQuizs = async () => {
-  //   try {
-  //     const data = await getUserAddQuizs(page);
-  //     setQuizList(data.quizs.quizs);
-  //     setTotalCount(data.quizs.totalCount);
-  //     onError?.(null);
-  //   } catch (e) {
-  //     onError?.(e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (!user) return;
-  //   fetchQuizs();
-  // }, [user?._id]);
-
-  return data.quizs;
+  return data;
 };

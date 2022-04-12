@@ -24,7 +24,6 @@ describe("quiz", () => {
     cy.request("http://localhost:3000/quizs?category=0")
       .as("w")
       .then((res) => {
-        console.log(res);
         for (const quiz of res.body.quizs) {
           cy.get(".quiz-item").contains(quiz.quizText).should("exist");
           cy.get(".quiz-item").contains(quiz.user[0].name).should("exist");

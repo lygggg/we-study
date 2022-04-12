@@ -1,13 +1,13 @@
 const express = require("express");
+require("./models");
+require("dotenv").config();
 
 const cors = require("cors");
 
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-require("./models");
-require("dotenv").config();
 app.use(express.json());
 app.use(cors({ origin: process.env.CORS_ORIGIN_DEV, credential: true }));
 app.use("/", require("./routes"));

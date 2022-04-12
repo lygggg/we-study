@@ -1,7 +1,5 @@
 import {
   getQuizs as apiGetQuizs,
-  sliceQuizs as apiSliceQuizs,
-  getUserAddQuizs as apiGetUserAddQuizs,
   createQuiz as apiCreateQuiz,
   removeQuiz as apiRemoveLikeQuiz,
   updateQuiz as apiUpdateLikeQuiz,

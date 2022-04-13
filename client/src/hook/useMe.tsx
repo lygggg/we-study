@@ -4,13 +4,12 @@ import { getUser } from "../apis/GetUser";
 import { isLoggedInState } from "../recoilState/user";
 
 export const useMe = () => {
-  const { data, refetch } = useQuery("users", {
+  const { data } = useQuery("users", {
     queryFn: getUser,
     suspense: true,
   });
 
-  data.user.refetch = refetch;
-
+  // data.user.refetch = refetch;
   return data.user;
 };
 

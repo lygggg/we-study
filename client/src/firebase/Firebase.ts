@@ -35,10 +35,10 @@ export const loginGoogle = () => {
   return signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
+      credential?.accessToken;
     })
     .catch((error) => {
-      const credential = GoogleAuthProvider.credentialFromError(error);
+      GoogleAuthProvider.credentialFromError(error);
     });
 };
 

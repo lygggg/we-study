@@ -19,6 +19,7 @@ import { useDarkMode } from "../src/hook/useDarkMode";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./recoilState/user";
 import Spinner from "./components/modals/Spinner";
+import { withErrorBoundary } from "./hocs";
 
 export const ThemeContext = createContext({
   theme: darkTheme,
@@ -87,4 +88,4 @@ const Container = styled.div`
     max-width: 1300px;
   }
 `;
-export default App;
+export default withErrorBoundary(App);

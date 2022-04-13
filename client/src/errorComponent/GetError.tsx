@@ -2,10 +2,8 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 
 const GetError = () => {
-  const location = useLocation();
-
   const handlRestart = () => {
-    window.location.replace(location.pathname);
+    window.location.replace(window.location.pathname);
   };
 
   return (
@@ -17,9 +15,9 @@ const GetError = () => {
           <RestartButton onClick={handlRestart}>
             재시도 하시겠습니까?
           </RestartButton>
-          <Link to="/">
+          <a href="/">
             <HomeButton>메인 페이지로 이동</HomeButton>
-          </Link>
+          </a>
         </ButtonContainer>
       </InnerContainer>
     </Container>

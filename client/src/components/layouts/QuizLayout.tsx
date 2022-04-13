@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Info from "./Info";
 import QuizList from "../containers/QuizList";
+import { withErrorBoundary } from "../../hocs";
 
 export interface QuizLayout {
   fetcher?: () => any;
@@ -29,4 +30,4 @@ const Container = styled.div`
   gap: 50px;
 `;
 
-export default React.memo(QuizLayout);
+export default React.memo(withErrorBoundary(QuizLayout));

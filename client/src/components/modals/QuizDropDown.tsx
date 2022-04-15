@@ -10,10 +10,7 @@ const QuizDropDown = ({ quiz, quizId }) => {
   return (
     <Container>
       <div className="quiz-option-modal">
-        <OptionImg
-          onClick={() => setIsVisible(!isVisible)}
-          src="../../../assets/imgs/zum.png"
-        ></OptionImg>
+        <OptionImg onClick={() => setIsVisible(!isVisible)}>☰</OptionImg>
       </div>
       {isVisible && (
         <UlContainer ref={ref}>
@@ -59,7 +56,7 @@ const UlContainer = styled.div`
   }
 `;
 
-const OptionImg = styled.img`
+const OptionImg = styled.div`
   height: 15px;
   width: 15px;
   position: relative;

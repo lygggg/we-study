@@ -52,7 +52,7 @@ const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
                     : { backgroundColor: "#FFFFFF" }
                 }
               >
-                <LikeImg src="../../../assets/imgs/like-icon.png"></LikeImg>
+                <LikeImg src="https://firebasestorage.googleapis.com/v0/b/we-study-6b4fd.appspot.com/o/like-icon.png?alt=media&token=69412a53-0fa6-49bb-ac88-b6e5e11e3440"></LikeImg>
               </LikeButton>
             </LikeContainer>
           </Container>

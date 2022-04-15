@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { quizListState } from "../recoilState/quizList";
 import QuizLayout from "../components/layouts/QuizLayout";
-import { searchLengthState, searchPage } from "../recoilState/search";
+import GetError from "../errorComponent/GetError";
 import { useSearch } from "../hook/useSearch";
 
 const SearchPage = () => {
   const [error, setError] = useState();
   const [page, setPage] = useState(0);
-  // const setPage = useSetRecoilState(searchPage);
+
   return (
     <div>
-      <QuizLayout
-        fetcher={() => useSearch({ page, onError: setError })}
-        onChangePage={setPage}
-      />
+      {!!error ? (
+        <GetError />
+      ) : (
+        <>
+          <QuizLayout
+            fetcher={() => useSearch({ page, onError: setError })}
+            onChangePage={setPage}
+          />
+        </>
+      )}
     </div>
   );
 };

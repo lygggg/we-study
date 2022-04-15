@@ -1,4 +1,3 @@
-import { string } from "yup/lib/locale";
 import { User } from "./user";
 
 export interface Quiz {

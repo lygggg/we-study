@@ -2,8 +2,6 @@ import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
 import { useCreateLikeQuiz, useRemoveLikeQuiz } from "../../hook/useLikeQuiz";
-import { useSetRecoilState } from "recoil";
-import { quizListState } from "../../recoilState/quizList";
 interface LikeModalProps {
   open: boolean;
   onClose: any;
@@ -17,26 +15,9 @@ const LikeModal = ({ open, quiz, onClose }: LikeModalProps) => {
   const onClickLikeQuiz = async () => {
     if (!!quiz.like) {
       removeLikeQuiz.mutate();
-
-      // setSearch((prev) =>
-      //   prev.map((x) => {
-      //     if (x._id === quiz._id)
-      //       return { ...x, likeCount: x.likeCount - 1, like: false };
-      //     return x;
-      //   }),
-      // );
-
       return;
     }
     addLikeQuiz.mutate();
-
-    // setSearch((prev) =>
-    //   prev.map((x) => {
-    //     if (x._id === quiz._id)
-    //       return { ...x, likeCount: x.likeCount + 1, like: true };
-    //     return x;
-    //   }),
-    // );
   };
 
   return (

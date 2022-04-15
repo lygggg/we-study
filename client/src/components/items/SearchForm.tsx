@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { searchValidation } from "../../validations/searchYup";
-import { useSearch } from "../../hook/useSearch";
 
 export interface SearchFormState {
   text: string;

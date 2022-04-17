@@ -15,20 +15,11 @@ interface useAddQuiz {
   category: string;
   quizText: string;
   answerText: string;
-  setQuizText: (x: string) => void;
-  setAnswerText: (x: string) => void;
 }
 
-export const useAddQuiz = ({
-  category,
-  quizText,
-  answerText,
-  setQuizText,
-  setAnswerText,
-}: useAddQuiz) => {
+export const useAddQuiz = ({ category, quizText, answerText }: useAddQuiz) => {
   const user = useMe();
   const key = quizKey();
-
   return useMutation(async () => {
     const id = user?._id;
     const categoryIndex = MenuStore.findCategories(category);
@@ -55,8 +46,6 @@ export const useAddQuiz = ({
     } catch (e) {
       alert("퀴즈 생성에 실패하셨습니다.");
     } finally {
-      setQuizText("");
-      setAnswerText("");
     }
 
     return false;
@@ -65,10 +54,9 @@ export const useAddQuiz = ({
 
 interface UseQuizsOptions {
   page: number;
-  onError?: (error: any) => void;
 }
 
-export const useGetAddQuizList = ({ page, onError }: UseQuizsOptions) => {
+export const useGetAddQuizList = ({ page }: UseQuizsOptions) => {
   const { data } = useQuery(addQuizKey(), {
     queryFn: () => getUserAddQuizs(page),
     suspense: true,

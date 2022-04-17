@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { useAddQuiz } from "../../hook/useAddQuiz";
@@ -7,13 +7,18 @@ const AddModal = () => {
   const [quizText, setQuizText] = useState<string>("");
   const [answerText, setAnswerText] = useState<string>("");
   const [category, setCategory] = useState<string>("");
+  const titleRef = useRef(null);
+  const answerRef = useRef(null);
+
+  const onChange = () => {
+    setQuizText(titleRef.current.value);
+    setAnswerText(answerRef.current.value);
+  };
 
   const onClickAddQuiz = useAddQuiz({
     category,
     quizText,
     answerText,
-    setQuizText,
-    setAnswerText,
   });
 
   return (
@@ -55,24 +60,22 @@ const AddModal = () => {
                 className="quiz-body"
                 placeholder="제목을 입력하세요."
                 maxLength={45}
-                value={quizText}
-                onChange={(v) => setQuizText(v.target.value)}
+                ref={titleRef}
               />
               <AnwserTextarea
                 className="quiz-answer"
                 maxLength={150}
                 placeholder="정답을 입력하세요."
-                value={answerText}
-                onChange={(v) => setAnswerText(v.target.value)}
+                ref={answerRef}
               />
             </TableContainer>
             <ButtonContainer>
               <SendButton
                 className="quiz-submit"
                 onClick={async () => {
-                  if (await onClickAddQuiz()) {
-                    close();
-                  }
+                  await onChange();
+                  await onClickAddQuiz();
+                  close();
                 }}
               >
                 확인
@@ -172,4 +175,4 @@ const Inner = styled.div`
   align-items: center;
 `;
 
-export default AddModal;
+export default React.memo(AddModal);

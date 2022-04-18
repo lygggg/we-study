@@ -59,12 +59,12 @@ const AddModal = () => {
               <TitleTextarea
                 className="quiz-body"
                 placeholder="제목을 입력하세요."
-                maxLength={45}
+                maxLength={55}
                 ref={titleRef}
               />
               <AnwserTextarea
                 className="quiz-answer"
-                maxLength={150}
+                maxLength={230}
                 placeholder="정답을 입력하세요."
                 ref={answerRef}
               />

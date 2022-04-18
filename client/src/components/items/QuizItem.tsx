@@ -56,7 +56,8 @@ const LikeContainer = styled.div`
   display: flex;
   flex-direction: row;
   text-align-last: center;
-  gap: 10px;
+  gap: 2px;
+  width: 20px;
 `;
 
 const FlexContainer = styled.div`

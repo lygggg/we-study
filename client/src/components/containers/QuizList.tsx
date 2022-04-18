@@ -104,7 +104,7 @@ const Empty = styled.div`
 `;
 const Inner = styled.li`
   border: 0.0625rem solid #d7e2eb;
-  padding: 1rem;
+  padding: 1.3rem;
 `;
 
 export default withSuspense(QuizList, <QuizSkeleton />);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
@@ -13,6 +13,7 @@ interface SolveModalProps {
 const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
   const [text, setText] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
+  const answerRef = useRef(null);
 
   return (
     <Popup
@@ -39,7 +40,12 @@ const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
                 <div>
                   <H4>정답 입력</H4>
                   <div>
-                    <Editor value={text} onChange={setText} />
+                    <AnwserTextarea
+                      className="quiz-answer"
+                      maxLength={230}
+                      placeholder="정답을 입력하세요."
+                      ref={answerRef}
+                    />
                   </div>
                 </div>
                 <div>
@@ -76,6 +82,14 @@ const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
   );
 };
 
+const AnwserTextarea = styled.textarea`
+  height: 280px;
+  width: 100%;
+  font-size: 15px;
+  color: white;
+  background: #282c35;
+`;
+
 const SendButton = styled.button`
   font-size: 17px;
   margin-top: 90px;
@@ -101,6 +115,9 @@ const TableContainer = styled.div`
   height: 380px;
   border-top: 2px solid;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const Container = styled.div`

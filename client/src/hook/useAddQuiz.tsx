@@ -29,26 +29,21 @@ export const useAddQuiz = ({ category, quizText, answerText }: useAddQuiz) => {
       return false;
     }
 
-    const img = MenuStore.findCategoriesUri(Number(categoryIndex));
-    try {
-      await createQuiz({
-        quizText,
-        answerText,
-        category: categoryIndex,
-        id,
-        img,
-      });
-
-      queryClient.refetchQueries("users");
-      queryClient.refetchQueries(key);
-
-      return true;
-    } catch (e) {
-      alert("퀴즈 생성에 실패하셨습니다.");
-    } finally {
+    if (!category) {
+      alert("카테고리를 선택해주세요");
+      return false;
     }
 
-    return false;
+    const img = MenuStore.findCategoriesUri(Number(categoryIndex));
+    await createQuiz({
+      quizText,
+      answerText,
+      category: categoryIndex,
+      id,
+      img,
+    });
+    queryClient.refetchQueries("users");
+    queryClient.refetchQueries(key);
   }).mutateAsync;
 };
 

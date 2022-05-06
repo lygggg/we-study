@@ -54,8 +54,3 @@ function Pagination({ total, pageSize, onPageChange }) {
 }
 
 export default Pagination;
-
-const StyledLink = styled(Link)`
-  text-decoration-line: none;
-  transition: all 0.5s ease;
-`;

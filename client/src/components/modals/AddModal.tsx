@@ -20,7 +20,6 @@ const AddModal = () => {
     quizText,
     answerText,
   });
-
   return (
     <Popup
       modal={true}
@@ -175,4 +174,4 @@ const Inner = styled.div`
   align-items: center;
 `;
 
-export default React.memo(AddModal);
+export default AddModal;

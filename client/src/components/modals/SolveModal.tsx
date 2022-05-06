@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { Quiz } from "../../models/quiz";
-import Editor from "./Editor";
 
 interface SolveModalProps {
   open: boolean;
@@ -11,7 +10,6 @@ interface SolveModalProps {
 }
 
 const SolveModal = ({ open, quiz, onClose }: SolveModalProps) => {
-  const [text, setText] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
   const answerRef = useRef(null);
 

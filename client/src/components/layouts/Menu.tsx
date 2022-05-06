@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import MenuStore from "../../stores/MenuStore";
 import Category from "../items/Category";

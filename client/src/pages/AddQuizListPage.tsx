@@ -19,7 +19,6 @@ const AddQuizListPage = () => {
               fetcher={() =>
                 useGetAddQuizList({
                   page,
-                  onError: setError,
                 })
               }
               onChangePage={setPage}

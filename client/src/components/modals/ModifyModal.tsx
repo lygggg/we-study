@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import Popup from "reactjs-popup";
 import styled from "styled-components";
 import { useUpdateQuiz } from "../../hook/useQuizs";
@@ -6,6 +6,13 @@ import { useUpdateQuiz } from "../../hook/useQuizs";
 const ModifyModal = ({ onClick, modalRef, quiz }) => {
   const [quizText, setQuizText] = useState<string>(quiz.quizText);
   const [answerText, setAnswerText] = useState<string>(quiz.answerText);
+  const titleRef = useRef(null);
+  const answerRef = useRef(null);
+
+  const onChange = () => {
+    setQuizText(titleRef.current.value);
+    setAnswerText(answerRef.current.value);
+  };
 
   const modifyQuiz = useUpdateQuiz({
     quizId: quiz._id,
@@ -31,21 +38,20 @@ const ModifyModal = ({ onClick, modalRef, quiz }) => {
                 className="quiz-body"
                 placeholder="제목을 입력하세요."
                 maxLength={45}
-                value={quizText}
-                onChange={(v) => setQuizText(v.target.value)}
+                ref={titleRef}
               />
               <AnwserTextarea
                 className="quiz-answer"
                 maxLength={150}
                 placeholder="정답을 입력하세요."
-                value={answerText}
-                onChange={(v) => setAnswerText(v.target.value)}
+                ref={answerRef}
               />
             </TableContainer>
             <ButtonContainer>
               <SendButton
                 className="quiz-submit"
-                onClick={() => {
+                onClick={async () => {
+                  await onChange();
                   modifyQuiz.mutate();
                   close();
                 }}
@@ -100,4 +106,4 @@ const Container = styled.div`
   background: #282c35;
 `;
 
-export default ModifyModal;
+export default React.memo(ModifyModal);

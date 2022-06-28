@@ -56,15 +56,3 @@ TypeScript, JavaScript, React, React-Query, Recoil, Cypress, Styled-Components, 
 | 퀴즈 좋아요 취소        | DELETE `/quizs/:${quizId}/favorite`                      |
 | 좋아요한 퀴즈 가져오기  | GET `/quizs/favorite`                                    |
 | 퀴즈 검색               | GET `/search?query=${query}`                             |
-
-로그인 성공 200
-회원가입 성공 201
-퀴즈 가져오기 성공 200
-내가 추가한 퀴즈 가져오기 성공 200
-퀴즈 추가 성공 201
-퀴즈 삭제 성공 200
-퀴즈 업데이트 성공 200
-퀴즈 좋아요 성공 201
-내가 좋아요한 퀴즈 가져오기 성공 200
-퀴즈 삭제 성공 200
-검색 성공 200
